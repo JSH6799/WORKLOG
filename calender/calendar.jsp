@@ -14,8 +14,8 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/locales/ja.global.min.js"></script>
 
-<link rel="stylesheet" href="../css/my.css">
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/calendar.css">
+<link rel="stylesheet" href="../css/calendarMy.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/calendarMy.css">
 
 </head>
 <body>
