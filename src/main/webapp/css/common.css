@@ -1,0 +1,197 @@
+@charset "UTF-8";
+
+/* =========================
+   기본 설정
+========================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: #333;
+}
+
+
+/* =========================
+   Header
+========================= */
+
+.site-header {
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.header-inline {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+}
+
+
+/* 로고 */
+
+.logo {
+    margin: 0;
+    font-size: 24px;
+}
+
+.logo a {
+    color: #222;
+    text-decoration: none;
+}
+
+
+/* 가운데 메뉴 */
+
+.gnb {
+    margin: 0 auto;
+}
+
+.gnb ul {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.gnb a {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.gnb a:hover {
+    color: #666;
+}
+
+
+/* 로그인 / 회원가입 */
+
+.member-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.member-menu a {
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.member-menu a:hover {
+    color: #666;
+}
+
+
+/* =========================
+   Footer
+========================= */
+
+.site-footer {
+    width: 100%;
+    margin-top: 80px;
+    padding: 40px 0;
+    border-top: 1px solid #ddd;
+    text-align: center;
+}
+
+.footer-inner {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-inner p {
+    margin: 0 0 10px;
+}
+
+.footer-sub {
+    font-size: 13px;
+    color: #888;
+}
+
+
+/* =========================
+   공통 버튼
+========================= */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* =========================
+   기본 버튼
+========================= */
+
+.btn-outline {
+    border: 1px solid #333;
+    background-color: #fff;
+    color: #333;
+}
+
+.btn-outline:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+
+/* =========================
+   등록 버튼
+========================= */
+
+.btn-primary {
+    border: 1px solid #333;
+    background-color: #333;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #555;
+}
+
+/* =========================
+   헤더 드롭다운
+========================= */
+
+.project-dropdown > .dropdown-menu {
+    margin-top: 0;
+}
+
+
+/* 프로젝트 메뉴의 기준 위치 */
+.gnb .project-dropdown {
+    position: relative;
+}
+
+/* 하위 메뉴는 처음에 숨김 */
+.gnb .project-dropdown > .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin: 0;
+    z-index: 1000;
+}
+
+/* 마우스를 올리거나 키보드로 접근하면 표시 */
+.gnb .project-dropdown:hover > .dropdown-menu,
+.gnb .project-dropdown:focus-within > .dropdown-menu {
+    display: block;
+}
