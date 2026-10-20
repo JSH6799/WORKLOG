@@ -1,0 +1,227 @@
+/* ==========================================
+   1. 웹폰트 및 시스템 초기화
+   ========================================== */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+
+:root {
+    --primary: #4f46e5;          /* 메인 컬러: 인디고 */
+    --primary-hover: #4338ca;    /* 버튼 호버 컬러 */
+    --bg-main: #f8fafc;          /* 전체 배경색 */
+    --surface: #ffffff;          /* 카드/컨테이너 배경 */
+    --text-primary: #0f172a;     /* 메인 텍스트 */
+    --text-secondary: #475569;   /* 보조 텍스트 */
+    --text-muted: #94a3b8;       /* 안내/플레이스홀더 텍스트 */
+    --border: #e2e8f0;           /* 테두리 컬러 */
+    --border-hover: #cbd5e1;     /* 테두리 호버 */
+    --danger: #ef4444;           /* 삭제/경고 */
+    --danger-bg: #fef2f2;        /* 삭제 배경 */
+    --radius-lg: 12px;
+    --radius-md: 8px;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    padding: 60px 24px;
+    line-height: 1.5;
+}
+
+/* ==========================================
+   2. 메인 컨테이너 & 헤더
+   ========================================== */
+.container {
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 22px;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ==========================================
+   3. 팀원 추가 폼 카드 (상용 UI 스타일)
+   ========================================== */
+.form-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 36px;
+}
+
+.form-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+}
+
+.member-form {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+/* 입력 필드 레이아웃 */
+.form-group input {
+    width: 100%;
+    height: 42px;
+    padding: 0 14px;
+    background-color: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    color: var(--text-primary);
+    outline: none;
+    transition: all 0.15s ease-in-out;
+}
+
+.form-group input::placeholder {
+    color: var(--text-muted);
+}
+
+.form-group input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+/* 추가 버튼 */
+.btn-add {
+    grid-column: 1 / -1;
+    height: 44px;
+    margin-top: 4px;
+    background-color: var(--primary);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.btn-add:hover {
+    background-color: var(--primary-hover);
+}
+
+/* ==========================================
+   4. 팀원 목록 영역 & 리스트
+   ========================================== */
+.member-list-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+}
+
+.member-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 16px;
+}
+
+/* 팀원 카드 */
+.member-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.member-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-md);
+}
+
+/* 카드 상단 헤더 (이름 + 담당업무) */
+.member-info .name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+.member-info .role {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--primary);
+    background-color: #eef2ff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin: 6px 0 16px 0;
+}
+
+/* 연락처 정보 */
+.member-info .contact-item {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    word-break: break-all;
+}
+
+/* 삭제 버튼 영역 */
+.card-actions {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-delete {
+    background-color: transparent;
+    color: var(--text-muted);
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-delete:hover {
+    background-color: var(--danger-bg);
+    color: var(--danger);
+}
+
+/* ==========================================
+   5. 반응형 (모바일 세로 배치 대응)
+   ========================================== */
+@media (max-width: 640px) {
+    body {
+        padding: 30px 16px;
+    }
+
+    .member-form {
+        grid-template-columns: 1fr;
+    }
+}
