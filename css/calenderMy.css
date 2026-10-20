@@ -28,6 +28,12 @@ body {
 }
 button { font-family: inherit; cursor: pointer; }
 
+/* 사이드바에 사용된 리스트의 기본 점(불릿) 제거 */
+li {
+    list-style: none; /* 또는 list-style-type: none; */
+    padding-left: 0;   /* 여백이 남을 경우 함께 초기화 */
+}
+
 .app { display: grid; grid-template-columns: 236px minmax(0, 1fr) 300px; height: 100vh; }
 
 /* ---------- 左サイドバー ---------- */
