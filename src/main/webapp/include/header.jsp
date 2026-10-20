@@ -16,6 +16,11 @@
      		  crossorigin="anonymous">
 		<link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/mystyle.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/list.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/write.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/detail.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/bookmark.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/calenderMy.css" rel="stylesheet">
 	</head>
 	<body>
 <header class="site-header">
@@ -23,7 +28,7 @@
 		<h1 class="logo"><a href="${pageContext.request.contextPath}">WORKLOG</a></h1>
 		<nav class="gnb">
 			<ul>
-				<li><a href="">カレンダー</a></li>
+				<li><a href="${pageContext.request.contextPath}/calendar/calendar.jsp">カレンダー</a></li>
 				<li class="dropdown project-dropdown">
 				    <a class="nav-link dropdown-toggle project-dropdown-toggle"
 				       href="#"
