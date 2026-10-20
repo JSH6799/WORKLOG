@@ -21,6 +21,7 @@
 		<link href="${pageContext.request.contextPath}/css/detail.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/bookmark.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/calenderMy.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/member.css" rel="stylesheet">
 	</head>
 	<body>
 <header class="site-header">

@@ -23,11 +23,15 @@
 
   <!-- ===== 左サイドバー ===== -->
   <aside class="sidebar">
-    <div class="brand"><span class="brand-mark">W</span>WORKLOG</div>
+    <div class="brand"><span class="brand-mark">W</span> WORKLOG</div>
 
     <div class="side-section">
       <div class="side-title">マイワークスペース</div>
-      <a class="side-item" href="#"><span class="ico">🏠</span>ダッシュボード</a>
+      <li>
+	    <a class="side-item" href="/WorkLog/board/list.jsp">
+	        <span class="ico">🏠</span>ダッシュボード
+	    </a>
+	</li>
       <a class="side-item active" href="#"><span class="ico">📅</span>カレンダー</a>
     </div>
 
@@ -82,7 +86,7 @@
 <!-- 会議作成ダイアログ -->
 <dialog id="createDialog">
   <form method="dialog" id="createForm">
-    <h3>会議を作成</h3>
+    <h3>日程を作成</h3>
     <label>タイトル<input type="text" id="newTitle" required placeholder="例：週次定例ミーティング"></label>
     <label>日付<input type="date" id="newDate" required></label>
     <div class="row">
@@ -282,7 +286,7 @@
       selectedSlot = null;
       mountCalendar();      // 斜線・投票バッジを消すため再描画
       renderDetail(ev.id);
-      toast('会議を確定しました');
+      toast('日程を確定しました');
     }
   });
 
@@ -399,12 +403,12 @@
     if (!title || !date) return;
     var end = new Date(date + 'T00:00:00'); end.setDate(end.getDate() + 1);
     var ev = { id: 'e' + (EVENTS.length + 1) + '_' + Date.now(), icon: '📅', title: title, start: date, end: ymd(end),
-               cls: 'ev-blue', memo: '新しく作成された会議です。', status: { m1: 'yes', m2: 'maybe', m3: 'maybe', m4: 'maybe', m5: 'maybe' } };
+               cls: 'ev-blue', memo: '新しく作成された日程です。', status: { m1: 'yes', m2: 'maybe', m3: 'maybe', m4: 'maybe', m5: 'maybe' } };
     EVENTS.push(ev);
     dlg.close();
     mountCalendar();
     renderDetail(ev.id);
-    toast('会議を作成しました');
+    toast('日程を作成しました');
   });
 
   /* ---- 初期表示 ---- */

@@ -32,7 +32,6 @@
 body {
     background-color: var(--bg-main);
     color: var(--text-primary);
-    padding: 60px 24px;
     line-height: 1.5;
 }
 

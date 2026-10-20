@@ -1,41 +1,38 @@
-@charset "UTF-8";
-
-/* =========================
-   기본 설정
-========================= */
-
-* {
-    box-sizing: border-box;
+html, body {
     margin: 0;
     padding: 0;
 }
 
 body {
-    color: #333;
+    background-color: #f8fafc;
 }
 
-
-/* =========================
-   Header
-========================= */
-
+/* ========================================
+   2. 헤더 전체
+======================================== */
 .site-header {
     width: 100%;
+    height: 76px;
+    margin: 0;
+    padding: 0;
+
     border-bottom: 1px solid #ddd;
     background-color: #fff;
 }
 
 .header-inline {
     width: 1200px;
+    height: 100%;
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 0;
+
     display: flex;
     align-items: center;
 }
 
-
-/* 로고 */
-
+/* ========================================
+   3. 로고
+======================================== */
 .logo {
     margin: 0;
     font-size: 24px;
@@ -47,16 +44,18 @@ body {
 }
 
 
-/* 가운데 메뉴 */
-
+/* ========================================
+   4. 상단 네비게이션
+======================================== */
 .gnb {
     margin: 0 auto;
 }
 
-.gnb ul {
+.gnb > ul {
     display: flex;
     align-items: center;
     gap: 40px;
+
     margin: 0;
     padding: 0;
     list-style: none;
@@ -73,8 +72,55 @@ body {
 }
 
 
-/* 로그인 / 회원가입 */
+/* ========================================
+   5. 프로젝트 드롭다운
+======================================== */
+.gnb .project-dropdown {
+    position: relative;
+}
 
+.project-dropdown > .dropdown-menu {
+    display: none;
+
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+
+    min-width: 190px;
+    margin: 0;
+    padding: 8px;
+
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.gnb .project-dropdown:hover > .dropdown-menu,
+.gnb .project-dropdown:focus-within > .dropdown-menu {
+    display: block;
+}
+
+.project-dropdown .dropdown-item {
+    display: block;
+    padding: 10px 12px;
+
+    color: #333;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+.project-dropdown .dropdown-item:hover,
+.project-dropdown .dropdown-item:focus {
+    color: #2563eb;
+    background-color: #eff6ff;
+}
+
+
+/* ========================================
+   6. 로그인 / 회원가입
+======================================== */
 .member-menu {
     display: flex;
     align-items: center;
@@ -92,14 +138,22 @@ body {
 }
 
 
-/* =========================
-   Footer
-========================= */
+/* ========================================
+   페이지 이동 시 가로 위치 변화 방지
+======================================== */
+html {
+    overflow-y: scroll;
+}
 
+
+/* ========================================
+   7. Footer
+======================================== */
 .site-footer {
     width: 100%;
     margin-top: 80px;
     padding: 40px 0;
+
     border-top: 1px solid #ddd;
     text-align: center;
 }
@@ -119,27 +173,24 @@ body {
 }
 
 
-/* =========================
-   공통 버튼
-========================= */
-
+/* ========================================
+   8. 공통 버튼
+======================================== */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
     height: 40px;
     padding: 0 20px;
+
     border-radius: 4px;
     font-size: 14px;
     text-decoration: none;
     cursor: pointer;
 }
 
-
-/* =========================
-   기본 버튼
-========================= */
-
+/* 기본 버튼 */
 .btn-outline {
     border: 1px solid #333;
     background-color: #fff;
@@ -151,11 +202,7 @@ body {
     color: #fff;
 }
 
-
-/* =========================
-   등록 버튼
-========================= */
-
+/* 등록 버튼 */
 .btn-primary {
     border: 1px solid #333;
     background-color: #333;
@@ -166,32 +213,115 @@ body {
     background-color: #555;
 }
 
-/* =========================
-   헤더 드롭다운
-========================= */
 
-.project-dropdown > .dropdown-menu {
-    margin-top: 0;
+/* ========================================
+   9. 태블릿 화면
+======================================== */
+@media (max-width: 1000px) {
+    .site-header {
+        padding: 0 24px;
+    }
+
+    .header-inline {
+        gap: 24px;
+    }
+
+    .gnb > ul {
+        gap: 20px;
+    }
+
+    .member-menu {
+        gap: 7px;
+    }
+
+    .member-menu a {
+        padding: 0 11px;
+    }
+
+    .footer-inner {
+        width: 100%;
+        padding: 0 24px;
+    }
 }
 
 
-/* 프로젝트 메뉴의 기준 위치 */
-.gnb .project-dropdown {
-    position: relative;
+/* ========================================
+   10. 모바일 화면
+======================================== */
+@media (max-width: 760px) {
+    .site-header {
+        height: auto;
+        min-height: 76px;
+        padding: 16px 20px;
+    }
+
+    .header-inline {
+        height: auto;
+        flex-wrap: wrap;
+        gap: 16px 24px;
+    }
+
+    .logo {
+        font-size: 23px;
+    }
+
+    .gnb {
+        order: 3;
+        width: 100%;
+        height: auto;
+        margin-right: 0;
+    }
+
+    .gnb > ul {
+        height: auto;
+        flex-wrap: wrap;
+        gap: 0 24px;
+    }
+
+    .gnb > ul > li {
+        height: 40px;
+    }
+
+    .gnb > ul > li > a {
+        height: 100%;
+    }
+
+    .member-menu {
+        margin-left: auto;
+    }
+
+    .project-dropdown > .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+    }
 }
 
-/* 하위 메뉴는 처음에 숨김 */
-.gnb .project-dropdown > .dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    margin: 0;
-    z-index: 1000;
-}
 
-/* 마우스를 올리거나 키보드로 접근하면 표시 */
-.gnb .project-dropdown:hover > .dropdown-menu,
-.gnb .project-dropdown:focus-within > .dropdown-menu {
-    display: block;
+/* ========================================
+   11. 좁은 모바일 화면
+======================================== */
+@media (max-width: 400px) {
+    .site-header {
+        padding: 14px 16px;
+    }
+
+    .header-inline {
+        gap: 14px;
+    }
+
+    .gnb > ul {
+        gap: 0 18px;
+    }
+
+    .gnb > ul > li > a {
+        font-size: 14px;
+    }
+
+    .member-menu a {
+        min-height: 34px;
+        padding: 0 10px;
+        font-size: 12px;
+    }
 }
+```
