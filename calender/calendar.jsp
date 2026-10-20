@@ -23,7 +23,7 @@
 
   <!-- ===== 左サイドバー ===== -->
   <aside class="sidebar">
-    <div class="brand"><span class="brand-mark">P</span> Project CO-OP</div>
+    <div class="brand"><span class="brand-mark">W</span>WORKLOG</div>
 
     <div class="side-section">
       <div class="side-title">マイワークスペース</div>
