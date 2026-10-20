@@ -27,7 +27,11 @@
 
     <div class="side-section">
       <div class="side-title">マイワークスペース</div>
-      <a class="side-item" href="#"><span class="ico">🏠</span>ダッシュボード</a>
+      <li>
+	    <a class="side-item" href="/WorkLog/board/list.jsp">
+	        <span class="ico">🏠</span>ダッシュボード
+	    </a>
+	</li>
       <a class="side-item active" href="#"><span class="ico">📅</span>カレンダー</a>
     </div>
 
