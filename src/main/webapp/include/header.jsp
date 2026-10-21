@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib uri="jakarta.tags.core" prefix="C"%>
+<%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
 
 <html>
 	<head>
@@ -65,8 +66,17 @@
 			</ul>
 		</nav>
 		<div class="member-menu">
-			<a href="${pageContext.request.contextPath}/member/login.jsp">ログイン</a>
-			<a href="${pageContext.request.contextPath}/member/join.jsp">会員登録</a>
+			<C:choose>
+				<C:when test="${empty sessionScope.loginMember}">
+					<a href="${pageContext.request.contextPath}/worklogMember/login">ログイン</a>
+					<a href="${pageContext.request.contextPath}/worklogMember/join">会員登録</a>
+				</C:when>
+				<C:otherwise>
+					<span>${sessionScope.loginMember.memberName}様</span>
+					<a href="${pageContext.request.contextPath}/worklogMember/logout">ログアウト</a>
+					<a href="${pageContext.request.contextPath}/worklogMember/mypage">マイページ</a>
+				</C:otherwise>
+			</C:choose>
 			<!-- 로그인 세션 생성 후 수정 -->
 		</div>
 	</div>

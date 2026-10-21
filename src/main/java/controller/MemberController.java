@@ -9,6 +9,8 @@ import service.BoardWriteCommand;
 import service.Command;
 import service.MemberIdCheckCommand;
 import service.MemberJoinCommand;
+import service.MemberLoginCommand;
+import service.MemberLogoutCommand;
 
 import java.io.IOException;
 
@@ -44,6 +46,14 @@ public class MemberController extends HttpServlet {
 		case "/join":
 			command = new MemberJoinCommand();
 			page = "/member/join.jsp";
+			break;
+		case "/login":
+			command = new MemberLoginCommand();
+			page = "/member/login.jsp";
+			break;
+		case "/logout":
+			command = new MemberLogoutCommand();
+			page = null;
 			break;
 		}
 		

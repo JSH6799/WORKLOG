@@ -7,9 +7,8 @@
 
 	<h2 class="login-page-title">ログイン</h2>
         
-	<c:if test="">
-		<!--  나중에 추가 -->
-    	<p class="login-error-msg"></p>
+	<c:if test="${not empty loginFail}">
+    	<p class="login-error-msg">${loginFail}</p>
 	</c:if>
 		
 	<form id="loginForm" class="login-form"
@@ -17,7 +16,7 @@
 
 		<div class="form-row">
 			<label for="id">ID</label>
-			<input type="text" id="id" name="id" placeholder="IDを入力してください" class="form-input">
+			<input type="text" id="id" name="memberId" placeholder="IDを入力してください" class="form-input">
 		</div>
 
 		<div class="form-row">

@@ -16,7 +16,7 @@
 
 /* 페이지 제목 */
 .login-page-title {
-    margin: 0 0 26px;
+    margin: 0 0 20px;
     color: #222;
     font-size: 26px;
     font-weight: 700;
@@ -75,7 +75,14 @@
 
 /* 메시지 내용이 없으면 숨김 */
 .login-error-msg:empty {
-    display: none;
+    visibility: hidden;
+}
+
+.login-error-msg {
+    text-align: center;
+    color: #FF0000;
+    margin: -10px 0 15px;
+    min-height: 1.2em;
 }
 
 /* 로그인 버튼 */
