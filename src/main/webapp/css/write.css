@@ -167,6 +167,33 @@
     border-color: #999;
 }
 
+/* =========================
+   프로젝트 선택 영역
+========================= */
+.project-select {
+    width: 30%;
+    padding: 12px 14px;
+    border: 1px solid #d5d9df;
+    border-radius: 6px;
+    background-color: #fff;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* 포커스 */
+.project-select:focus {
+    border-color: #6b8afd;
+    box-shadow: 0 0 0 3px rgba(107, 138, 253, 0.15);
+}
+
+/* 비활성화된 선택 항목 */
+.project-select option:disabled {
+    color: #999;
+}
+
 
 /* =========================
    글작성 버튼

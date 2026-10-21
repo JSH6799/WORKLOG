@@ -22,6 +22,8 @@
 		<link href="${pageContext.request.contextPath}/css/bookmark.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/calenderMy.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/member.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/join.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet">
 	</head>
 	<body>
 <header class="site-header">
@@ -63,8 +65,8 @@
 			</ul>
 		</nav>
 		<div class="member-menu">
-			<a href="">ログイン</a>
-			<a href="">会員登録</a>
+			<a href="${pageContext.request.contextPath}/member/login.jsp">ログイン</a>
+			<a href="${pageContext.request.contextPath}/member/join.jsp">会員登録</a>
 			<!-- 로그인 세션 생성 후 수정 -->
 		</div>
 	</div>

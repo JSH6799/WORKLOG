@@ -28,7 +28,7 @@
 		</div>
 
 		<div class="detail-actions-right">
-			<a href="" class="btn btn-outline">修正</a>
+			<a href="${pageContext.request.contextPath}/board/modify.jsp" class="btn btn-outline">修正</a>
 			<a href="" class="btn btn-outline" onclick="return confirm('삭제 하시겠습니까?')">削除</a>
 			<a href="list.jsp" class="btn btn-primary">一覧</a>
 		</div>

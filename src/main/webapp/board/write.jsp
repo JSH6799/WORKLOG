@@ -8,13 +8,23 @@
 	<form id="writeForm" class="write-form"
 		  method="post"
 		  enctype="multipart/form-data"
-		  action="">
+		  action="${pageContext.request.contextPath}/project_board/write">
 		  
 		  <div class="form-row">
 		  	<label for="writer">投稿者</label>
 		  	<p class="write-author">
 		  		<input type="text" id="writer" class="form-input" value="" readonly>
 		  	</p>
+		  </div>
+	
+		  <div class="form-row">
+		  	<label for="project-id">プロジェクト</label>
+		  	<select id="project-id" name="project-id" class="project-select">
+		  		<!-- c:foreach 활용 예정 -->
+		  		<option value="仮プロジェクトID">仮プロジェクト名</option>
+		  		<option value="仮プロジェクトID">仮プロジェクト名</option>
+		  		<option value="仮プロジェクトID">仮プロジェクト名</option>
+		  	</select>
 		  </div>
 	
 	

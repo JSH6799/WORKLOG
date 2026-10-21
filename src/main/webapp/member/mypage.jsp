@@ -20,7 +20,7 @@
                     <span class="project-count">未確認 3件</span>
                 </span>
 
-                <span class="toggle-label">▼ 開く</span>
+                <span class="toggle-label">▶ 開く</span>
             </button>
 
             <div class="collapse" id="unconfirmedProject1">
@@ -60,7 +60,7 @@
                     <span class="project-count">未確認 1件</span>
                 </span>
 
-                <span class="toggle-label">▼ 開く</span>
+                <span class="toggle-label">▶ 開く</span>
             </button>
 
             <div class="collapse" id="unconfirmedProject2">
@@ -80,3 +80,4 @@
 </main>
 
 <%@ include file="/include/footer.jsp"%>
+<script src="${pageContext.request.contextPath}/js/mypage.js"></script>
