@@ -4,7 +4,7 @@ $(function(){
 	$("#searchForm").on('submit',function(e){
 		const searchText = $("#searchText").val().trim();
 		if(searchText === ''){
-			alert("검색어를 입력해 주세요");
+			alert("検索ワードを入力してください");
 			e.preventDefault();
 			$("#searchText").focus();
 			return;

@@ -13,17 +13,14 @@
 		  <div class="form-row">
 		  	<label for="writer">投稿者</label>
 		  	<p class="write-author">
-		  		<input type="text" id="writer" class="form-input" value="" readonly>
+		  		<input type="text" id="writer" class="form-input" value="${sessionScope.loginMember.memberName}" readonly>
 		  	</p>
 		  </div>
 	
 		  <div class="form-row">
 		  	<label for="project-id">プロジェクト</label>
-		  	<select id="project-id" name="project-id" class="project-select">
-		  		<!-- c:foreach 활용 예정 -->
-		  		<option value="仮プロジェクトID">仮プロジェクト名</option>
-		  		<option value="仮プロジェクトID">仮プロジェクト名</option>
-		  		<option value="仮プロジェクトID">仮プロジェクト名</option>
+		  	<select id="project-id" name="project_id" class="project-select">
+		  		<option value="pno_4"${selectedProjectId == 'pno_1' ? 'selected' : ''}>仮プロジェクト名</option>
 		  	</select>
 		  </div>
 	
@@ -41,7 +38,7 @@
 		  <div class="form-row">
 		  	<label>画像添付<span class="form-option">(選択)</span></label>
 		  	<div class="image-upload-box">
-		  		<img id="imgPreview" src="${pageContext.request.contextPath}/images/defalut_img.jpg" alt="画像プレビュー" class="img-preview">
+		  		<img id="imgPreview" src="${pageContext.request.contextPath}/images/default_img.jpg" alt="画像プレビュー" class="img-preview">
 		  		<div class="image-upload-btns">
 		  			<label for="imgFile" class="btn btn-outline file-label">画像選択</label>
 		  			<input type="file" id="imgFile" name="imgFile" accept="image/*" class="file-input">

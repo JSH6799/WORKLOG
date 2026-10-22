@@ -1,7 +1,7 @@
 $(function(){
 	
 	// 이미지 선택 시 미리보기
-	const defaultImg = $("#imgPreview").attr('src');
+	const defaultImg = contextPath + "/images/default_img.jpg";
 	$("#imgFile").on("change",function(){
 		const file = this.files[0];
 		if(!file) return;
@@ -11,10 +11,21 @@ $(function(){
 	
 	
 	// 이미지 제거
-	$("#imgRemoveBtn").on("click",function(){
-		$("#imgFile").val('');
-		$("#imgPreview").attr("src",defaultImg);
-	})
+	$("#imgRemoveBtn").on("click", function(){
+	    $("#imgFile").val('');
+	    $("#imgPreview").attr("src", defaultImg);
+	    $("#removeImg").val("true");
+	});
+	
+	// 이미지 선택 시 미리보기
+	$("#imgFile").on("change", function(){
+	    const file = this.files[0];
+	    if(!file) return;
+
+	    const previewUrl = URL.createObjectURL(file);
+	    $("#imgPreview").attr("src", previewUrl);
+	    $("#removeImg").val("false");
+	});
 	
 	
 	// 확인 여부 버튼
@@ -47,5 +58,6 @@ $(function(){
 			return;
 		}
 	})
+	
 	
 })

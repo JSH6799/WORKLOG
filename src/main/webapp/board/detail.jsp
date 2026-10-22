@@ -7,20 +7,22 @@
 	<div class="detail-body">
 	<div class="detail-main-content">
 		<div class="detail-header">
-			<h2 class="detail-title">サンプルタイトル</h2>
-			<p class="detail-meta">作成者 名前入る所 | YYYY-MM-DD</p>
+			<h2 class="detail-title">${view.title}</h2>
+			<p class="detail-meta">作成者 ${view.writerName} | ${view.writeDate}</p>
 			
 			<div class="detail-actions">
 				<button type="button" id="bookmarkBtn" class="btn btn-outline bookmark-btn">📑ブックマーク</button>
 			</div>
 		</div>
 		
-		<div class="detail-image">
-			<img src="${pageContext.request.contextPath}/images/detail_sample_img.png" alt="" class="detail-thumb">
-		</div>
+		<C:if test="${not empty view.imgPath}">
+			<div class="view-image">
+				<img src="/imgs/${view.imgPath}" alt="" class="view-thumb">
+			</div>
+		</C:if>
 		
 		<div class="detail-content">
-			샘플 게시글 내용😉
+			${view.content}
 		</div>
 		
 		<div class="confirm-btn-wrap">
@@ -28,9 +30,10 @@
 		</div>
 
 		<div class="detail-actions-right">
-			<a href="${pageContext.request.contextPath}/board/modify.jsp" class="btn btn-outline">修正</a>
-			<a href="" class="btn btn-outline" onclick="return confirm('삭제 하시겠습니까?')">削除</a>
-			<a href="list.jsp" class="btn btn-primary">一覧</a>
+			<a href="${pageContext.request.contextPath}/project_board/update?bno=${view.bno}" class="btn btn-outline">修正</a>
+			<a href="${pageContext.request.contextPath}/project_board/delete?bno=${view.bno}&projectId=${view.projectId}"
+				 class="btn btn-outline" onclick="return confirm('削除しますか?')">削除</a>
+			<a href="${pageContext.request.contextPath}" class="btn btn-primary">一覧</a>
 		</div>
 	</div>
 		

@@ -6,8 +6,10 @@ import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.BoardDAO;
 import model.BoardDTO;
+import model.MemberDTO;
 
 public class BoardListCommand implements Command {
 	
@@ -19,6 +21,16 @@ public class BoardListCommand implements Command {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf-8");
+		
+		HttpSession session = request.getSession();
+		MemberDTO loginMember = (MemberDTO)session.getAttribute("loginMember");
+		
+		if (loginMember == null) {
+		    response.sendRedirect(
+		        request.getContextPath() + "/worklogMember/login"
+		    );
+		    return false;
+		}
 		
 		String searchType = request.getParameter("searchType");
 		String keyword = request.getParameter("keyword");

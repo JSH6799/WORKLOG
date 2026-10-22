@@ -27,8 +27,14 @@ public class BoardWriteCommand implements Command {
 		request.setCharacterEncoding("utf-8");
 		
 		HttpSession session = request.getSession();
-		MemberDTO memberDTO = (MemberDTO)session.getAttribute("loginMember");
+		MemberDTO loginMember = (MemberDTO)session.getAttribute("loginMember");
 		
+		if (loginMember == null) {
+		    response.sendRedirect(
+		        request.getContextPath() + "/worklogMember/login"
+		    );
+		    return false;
+		}
 		
 		if("get".equalsIgnoreCase(request.getMethod())) {
 			String projectId = request.getParameter("projectId");
@@ -40,9 +46,17 @@ public class BoardWriteCommand implements Command {
 		
 		dto.setTitle(request.getParameter("title"));
 		dto.setContent(request.getParameter("content"));
-		dto.setWriter(memberDTO.getMemberId());
+		dto.setWriter(loginMember.getMemberId());
 		dto.setProjectId(request.getParameter("project_id"));
 		dto.setCheckRequired(request.getParameter("check_required"));
+		
+		String checkRequired = request.getParameter("check_required");
+
+		if (checkRequired == null) {
+		    checkRequired = "N";
+		}
+
+		dto.setCheckRequired(checkRequired);
 		
 		
 		Part filePart = request.getPart("imgFile");

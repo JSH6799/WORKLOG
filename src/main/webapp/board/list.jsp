@@ -12,7 +12,8 @@
 		<button type="button" id="buttonFilter"class="button-filter">未確認投稿一覧</button>
 	</div>
 		<div class="list-top">
-			<form id="searchForm" class="search-form" action="${pageContext.request.contextPath}/project_board/list">
+			<form id="searchForm" class="search-form" action="${pageContext.request.contextPath}/project_board/list" method="get">
+				<input type="hidden" name="projectId" value="${projectId}">
 				<select name="searchType" class="search-select">
 					<option value="">選択</option>
 					<option value="title" ${searchType == 'title' ? 'selected' : ''}>タイトル</option>
@@ -32,7 +33,7 @@
 			<li class="board-list">
 				<div class="board-info">
 					<p class="board-number">No.${b.bno}</p>
-					<p class="board-title"><a href="${pageContext.request.contextPath}/project_board/detail">${b.title}</a></p>
+					<p class="board-title"><a href="${pageContext.request.contextPath}/project_board/view?bno=${b.bno}">${b.title}</a></p>
 					<span class="check-required">未確認</span>
 					<!-- 확인 여부 메서드 만든 후 수정 -->
 					<p class="board-writer">${b.writerName}</p>
@@ -45,20 +46,20 @@
 		<div class="pagination">
 			<C:choose>
 			<C:when test="${startPage > 1}">
-				<C:url var="preUrl" value="/blog/list">
+				<C:url var="preUrl" value="/project_board/list?projectId=${param.projectId}">
 					<C:param name="page" value="${startPage - 1}"/>
 					<C:param name="searchType" value="${searchType}"/>
 					<C:param name="keyword" value="${keyword}"/>
 				</C:url>
-				<a href="${preUrl}" class="page-nav">이전</a>
+				<a href="${preUrl}" class="page-nav">前へ</a>
 			</C:when>
 			<C:otherwise>
-				<span class="page-nav disabled">이전</span>
+				<span class="page-nav disabled">前へ</span>
 			</C:otherwise>
 		</C:choose>
 		<!-- 페이지 번호 -->
 		<C:forEach var="p" begin="${startPage}" end="${endPage}">
-			<C:url var="pageUrl" value="/blog/list">
+			<C:url var="pageUrl" value="/project_board/list?projectId=${param.projectId}">
 				<C:param name="page" value="${p}"/>
 				<C:param name="searchType" value="${searchType}"/>
 				<C:param name="keyword" value="${keyword}"/>
@@ -68,15 +69,15 @@
 		<!-- 다음 버튼 -->
 		<C:choose>
 			<C:when test="${endPage < totalPage}">
-				<C:url var="nextUrl" value="/blog/list">
+				<C:url var="nextUrl" value="/project_board/list?projectId=${param.projectId}">
 					<C:param name="page" value="${endPage + 1}"/>
 					<C:param name="searchType" value="${searchType}"/>
 					<C:param name="keyword" value="${keyword}"/>
 				</C:url>
-				<a href="${nextUrl}" class="page-nav">다음</a>
+				<a href="${nextUrl}" class="page-nav">次へ</a>
 			</C:when>
 			<C:otherwise>
-				<span class="page-nav disabled">다음</span>
+				<span class="page-nav disabled">次へ</span>
 			</C:otherwise>
 		</C:choose>
 		</div>

@@ -42,7 +42,6 @@ public class BoardDAO {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 	
 	
@@ -171,13 +170,129 @@ public class BoardDAO {
 	}
 
 
+	// 게시글
+	public BoardDTO selectView(int bno) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select b.bno, b.title, b.content, b.writer, m.member_name as writer_name,\r\n"
+				+ "       to_char(b.write_date, 'YYYY-MM-DD') as write_date, b.img_path,\r\n"
+				+ "       b.project_id, b.check_required\r\n"
+				+ "from board b\r\n"
+				+ "join member m\r\n"
+				+ "on b.writer = m.member_id\r\n"
+				+ "where b.bno = ?";
+		
+		BoardDTO dto = null;
+		
+		try {
+			conn = DBUtil.getInstance();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bno);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto = new BoardDTO();
+				
+				dto.setBno(rs.getInt("bno"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setWriterName(rs.getString("writer_name"));
+				dto.setWriteDate(rs.getString("write_date"));
+				dto.setImgPath(rs.getString("img_path"));
+				dto.setProjectId(rs.getString("project_id"));
+				dto.setCheckRequired(rs.getString("check_required"));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return dto;
+	}
 
 
+	// 수정
+	public void update(BoardDTO dto) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = "update board set title=?, content=?, img_path=?, check_required=?\r\n"
+				+ "where bno=? and writer=? and project_id=?";
+		
+		try {
+			conn = DBUtil.getInstance();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getTitle());
+			pstmt.setString(2, dto.getContent());
+			pstmt.setString(3, dto.getImgPath());
+			pstmt.setString(4, dto.getCheckRequired());
+			pstmt.setInt(5, dto.getBno());
+			pstmt.setString(6, dto.getWriter());
+			pstmt.setString(7, dto.getProjectId());
+			
+			pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 
-
-
-
+	// 삭제
+	public String delete(int bno, String writer, String projectId) {
+		
+		String sql = "delete from board where bno=? and writer=? and project_id=?";
+		String sql2 = "select img_path from board where bno=? and writer=? and project_id=?";
+		String imgPath = null;
+		
+		try(Connection conn = DBUtil.getInstance()) {
+			try(PreparedStatement pstmt = conn.prepareStatement(sql2)){
+				
+				pstmt.setInt(1, bno);
+				pstmt.setString(2, writer);
+				pstmt.setString(3, projectId);
+				
+				try(ResultSet rs = pstmt.executeQuery()){
+					if(rs.next()) {
+						imgPath = rs.getString("img_path");
+					}else {
+						return null;
+					}
+				}
+			}
+			try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+				
+				pstmt.setInt(1, bno);
+				pstmt.setString(2, writer);
+				pstmt.setString(3, projectId);
+				
+				pstmt.executeUpdate();
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return imgPath;
+	}
 
 
 
