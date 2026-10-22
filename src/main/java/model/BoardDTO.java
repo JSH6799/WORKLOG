@@ -11,6 +11,8 @@ public class BoardDTO {
     private String projectId;
     private String checkRequired;
     
+    private String writerName;
+    
     
 	public int getBno() {
 		return bno;
@@ -59,6 +61,12 @@ public class BoardDTO {
 	}
 	public void setCheckRequired(String checkRequired) {
 		this.checkRequired = checkRequired;
+	}
+	public String getWriterName() {
+		return writerName;
+	}
+	public void setWriterName(String writerName) {
+		this.writerName = writerName;
 	}
     
     

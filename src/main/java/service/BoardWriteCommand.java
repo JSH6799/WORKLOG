@@ -10,9 +10,11 @@ import java.util.UUID;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import model.BoardDAO;
 import model.BoardDTO;
+import model.MemberDTO;
 
 public class BoardWriteCommand implements Command {
 
@@ -24,10 +26,13 @@ public class BoardWriteCommand implements Command {
 
 		request.setCharacterEncoding("utf-8");
 		
-		// 로그인 세션 기능 추가 필요
+		HttpSession session = request.getSession();
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("loginMember");
 		
 		
 		if("get".equalsIgnoreCase(request.getMethod())) {
+			String projectId = request.getParameter("projectId");
+			request.setAttribute("selectedProjectId", projectId);
 			return true;
 		}
 		
@@ -35,7 +40,7 @@ public class BoardWriteCommand implements Command {
 		
 		dto.setTitle(request.getParameter("title"));
 		dto.setContent(request.getParameter("content"));
-		// setWriter는 로그인 객체 추가 후 getId
+		dto.setWriter(memberDTO.getMemberId());
 		dto.setProjectId(request.getParameter("project_id"));
 		dto.setCheckRequired(request.getParameter("check_required"));
 		
@@ -49,7 +54,11 @@ public class BoardWriteCommand implements Command {
 		BoardDAO dao = new BoardDAO();
 		dao.insert(dto);
 		
-		response.sendRedirect(request.getContextPath()+"/project_board/list");
+		String projectId = request.getParameter("project_id");
+
+		response.sendRedirect(
+		    request.getContextPath() + "/project_board/list?projectId=" + projectId
+		);
 		
 		return false;
 	}

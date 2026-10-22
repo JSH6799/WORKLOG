@@ -12,86 +12,73 @@
 		<button type="button" id="buttonFilter"class="button-filter">未確認投稿一覧</button>
 	</div>
 		<div class="list-top">
-			<form id="searchForm" class="search-form" action="">
+			<form id="searchForm" class="search-form" action="${pageContext.request.contextPath}/project_board/list">
 				<select name="searchType" class="search-select">
 					<option value="">選択</option>
-					<option value="title">タイトル</option>
-					<option value="content">内容</option>
-					<option value="writer">投稿者</option>
+					<option value="title" ${searchType == 'title' ? 'selected' : ''}>タイトル</option>
+					<option value="content" ${searchType == 'content' ? 'selected' : ''}>内容</option>
+					<option value="writer" ${searchType == 'writer' ? 'selected' : ''}>投稿者</option>
 				</select>
-				<input type="text" id="searchText" name="keyword" placeholder="検索ワードを入力してください" class="search-input">
+				<input type="text" id="searchText" name="keyword" value="${keyword}"placeholder="検索ワードを入力してください" class="search-input">
 				<button type="submit" class="btn btn-outline">検索</button>
 			</form>
-				<a href="${pageContext.request.contextPath}/board/write.jsp">投稿する</a>
+				<a href="${pageContext.request.contextPath}/project_board/write?projectId=${param.projectId}">投稿する</a>
 		</div>
 		
 		
 <!-- 게시글 목록 -->
 		<ul class="board-grid">
-			<!-- command 및 dao 작성 완료 후 c:forEach 추가 -->
+		<C:forEach var="b" items="${boardList}">
 			<li class="board-list">
 				<div class="board-info">
-					<p class="board-number">No.</p>
-						<!-- 시퀀스 활용해서 게시글 번호 넣기 -->
-					<p class="board-title"><a href="${pageContext.request.contextPath}/board/detail.jsp">タイトル</a></p>
+					<p class="board-number">No.${b.bno}</p>
+					<p class="board-title"><a href="${pageContext.request.contextPath}/project_board/detail">${b.title}</a></p>
 					<span class="check-required">未確認</span>
-					<p class="board-writer">投稿者</p>
-					<p class="board-date">YYYY/MM/DD</p>
+					<!-- 확인 여부 메서드 만든 후 수정 -->
+					<p class="board-writer">${b.writerName}</p>
+					<p class="board-date">${b.writeDate}</p>
 				</div>
 			</li>
-			<li class="board-list">
-				<div class="board-info">
-					<p class="board-number">No.</p>
-					<p class="board-title"><a href="">タイトル</a></p>
-					<span class="check-required">未確認</span>
-					<p class="board-writer">投稿者</p>
-					<p class="board-date">YYYY/MM/DD</p>
-				</div>
-			</li>
-			<li class="board-list">
-				<div class="board-info">
-					<p class="board-number">No.</p>
-					<p class="board-title"><a href="">タイトル</a></p>
-					<p class="board-writer">投稿者</p>
-					<p class="board-date">YYYY/MM/DD</p>
-				</div>
-			</li>
-			<li class="board-list">
-				<div class="board-info">
-					<p class="board-number">No.</p>
-					<p class="board-title"><a href="">タイトル</a></p>
-					<span class="check-complete">確認済み</span>
-					<p class="board-writer">投稿者</p>
-					<p class="board-date">YYYY/MM/DD</p>
-				</div>
-			</li>
-			<li class="board-list">
-				<div class="board-info">
-					<p class="board-number">No.</p>
-					<p class="board-title"><a href="">タイトル</a></p>
-					<p class="board-writer">投稿者</p>
-					<p class="board-date">YYYY/MM/DD</p>
-				</div>
-			</li>
-			<li class="board-list">
-				<div class="board-info">
-					<p class="board-number">No.</p>
-					<p class="board-title"><a href="">タイトル</a></p>
-					<span class="check-complete">確認済み</span>
-					<p class="board-writer">投稿者</p>
-					<p class="board-date">YYYY/MM/DD</p>
-				</div>
-			</li>
+		</C:forEach>
 		</ul>
 		
 		<div class="pagination">
-			<a href="" class="page-nav disabled">前</a>
-			<a href="" class="page-num active">1</a>
-			<a href="" class="page-num">2</a>
-			<a href="" class="page-num">3</a>
-			<a href="" class="page-num">4</a>
-			<a href="" class="page-num">5</a>
-			<a href="" class="page-nav">次</a>
+			<C:choose>
+			<C:when test="${startPage > 1}">
+				<C:url var="preUrl" value="/blog/list">
+					<C:param name="page" value="${startPage - 1}"/>
+					<C:param name="searchType" value="${searchType}"/>
+					<C:param name="keyword" value="${keyword}"/>
+				</C:url>
+				<a href="${preUrl}" class="page-nav">이전</a>
+			</C:when>
+			<C:otherwise>
+				<span class="page-nav disabled">이전</span>
+			</C:otherwise>
+		</C:choose>
+		<!-- 페이지 번호 -->
+		<C:forEach var="p" begin="${startPage}" end="${endPage}">
+			<C:url var="pageUrl" value="/blog/list">
+				<C:param name="page" value="${p}"/>
+				<C:param name="searchType" value="${searchType}"/>
+				<C:param name="keyword" value="${keyword}"/>
+			</C:url>
+			<a href="${pageUrl}" class="page-num ${p==currentPage?'active':''}">${p}</a>
+		</C:forEach>
+		<!-- 다음 버튼 -->
+		<C:choose>
+			<C:when test="${endPage < totalPage}">
+				<C:url var="nextUrl" value="/blog/list">
+					<C:param name="page" value="${endPage + 1}"/>
+					<C:param name="searchType" value="${searchType}"/>
+					<C:param name="keyword" value="${keyword}"/>
+				</C:url>
+				<a href="${nextUrl}" class="page-nav">다음</a>
+			</C:when>
+			<C:otherwise>
+				<span class="page-nav disabled">다음</span>
+			</C:otherwise>
+		</C:choose>
 		</div>
 	</main>
 
