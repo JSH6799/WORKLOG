@@ -28,7 +28,7 @@
     <div class="side-section">
       <div class="side-title">マイワークスペース</div>
       <li>
-	    <a class="side-item" href="/WorkLog/board/list.jsp">
+	    <a class="side-item" href="/WorkLog/">
 	        <span class="ico">🏠</span>ダッシュボード
 	    </a>
 	</li>
