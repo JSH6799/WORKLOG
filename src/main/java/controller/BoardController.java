@@ -8,7 +8,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import service.BoardDeleteCommand;
 import service.BoardListCommand;
+import service.BoardModifyCommand;
+import service.BoardViewCommand;
 import service.BoardWriteCommand;
 import service.Command;
 
@@ -48,6 +51,18 @@ public class BoardController extends HttpServlet {
 		case "/list":
 			command = new BoardListCommand();
 			page = "/board/list.jsp";
+			break;
+		case "/view":
+			command = new BoardViewCommand();
+			page = "/board/detail.jsp";
+			break;
+		case "/update":
+			command = new BoardModifyCommand();
+			page = "/board/modify.jsp";
+			break;
+		case "/delete":
+			command = new BoardDeleteCommand();
+			page = null;
 			break;
 		}
 		
