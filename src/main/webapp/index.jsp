@@ -37,7 +37,7 @@
             </div>
         </div>
         <div>
-            <button class="btn-primary" onclick="location.href='post_write.jsp'">投稿する</button>
+             <button class="btn-primary" onclick="location.href='/board/write.jsp'">投稿する</button>
         </div>
     </div>
 
