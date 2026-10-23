@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import service.BoardCheckCommand;
 import service.BoardDeleteCommand;
 import service.BoardListCommand;
 import service.BoardModifyCommand;
@@ -62,6 +63,10 @@ public class BoardController extends HttpServlet {
 			break;
 		case "/delete":
 			command = new BoardDeleteCommand();
+			page = null;
+			break;
+		case "/check":
+			command = new BoardCheckCommand();
 			page = null;
 			break;
 		}

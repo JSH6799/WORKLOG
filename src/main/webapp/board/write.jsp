@@ -32,7 +32,7 @@
 		  
 		  <div class=form-row>
 		  	<label>確認要否<span class="form-option">(選択)</span></label>
-		  	<input type="checkbox" id="confirm" name="confirm" value="Y">
+		  	<input type="checkbox" id="confirm" name="check_required" value="Y">
 		  </div>
 		  
 		  <div class="form-row">

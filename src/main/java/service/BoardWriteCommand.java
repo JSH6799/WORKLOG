@@ -48,7 +48,6 @@ public class BoardWriteCommand implements Command {
 		dto.setContent(request.getParameter("content"));
 		dto.setWriter(loginMember.getMemberId());
 		dto.setProjectId(request.getParameter("project_id"));
-		dto.setCheckRequired(request.getParameter("check_required"));
 		
 		String checkRequired = request.getParameter("check_required");
 

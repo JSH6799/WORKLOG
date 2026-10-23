@@ -28,7 +28,7 @@
 
 		<p class="login-footer-link">
 			まだアカウントをお持ちでないですか？
-			<a href="">会員登録</a>
+			<a href="${pageContext.request.contextPath}/worklogMember/join">会員登録</a>
 		</p>
 	</form>
 	

@@ -16,8 +16,8 @@
 		</div>
 		
 		<C:if test="${not empty view.imgPath}">
-			<div class="view-image">
-				<img src="/imgs/${view.imgPath}" alt="" class="view-thumb">
+			<div class="detail-image">
+				<img src="/imgs/${view.imgPath}" alt="" class="detail-thumb">
 			</div>
 		</C:if>
 		
@@ -25,9 +25,12 @@
 			${view.content}
 		</div>
 		
-		<div class="confirm-btn-wrap">
-			<button type="button" id="confirmBtn" class="btn btn-outline confirm-btn">確認</button>
-		</div>
+		    <div class="confirm-btn-wrap">
+			<C:if test="${view.checkRequired eq 'Y' and sessionScope.loginMember.memberId ne view.writer}">
+		        <button type="button" id="confirmBtn" class="btn btn-outline confirm-btn ${checked ? 'cfm' : ''}"
+				        ${checked ? 'disabled' : ''}>${checked ? '✅ 確認完了' : '確認'}</button>
+			</C:if>
+		    </div>
 
 		<div class="detail-actions-right">
 			<a href="${pageContext.request.contextPath}/project_board/update?bno=${view.bno}" class="btn btn-outline">修正</a>
@@ -38,17 +41,17 @@
 	</div>
 		
 		<!-- 確認状況(投稿者のみ確認可能) -->
+		<C:if test="${sessionScope.loginMember.memberId eq view.writer and view.checkRequired eq 'Y'}">
 		<div class="confirm-status">
 			<h3>確認状況</h3>
-			<p>2 / 4명 확인</p>
-			
+			<p>${checkCount} / ${totalCount}人確認</p>
 			<ul>
-			    <li><span>山田一郎</span><span class="confirmed">確認済み</span></li>
-			    <li><span>前田次郎</span><span class="confirmed">確認済み</span></li>
-			    <li><span>鈴木三郎</span><span class="unconfirmed">未確認</span></li>
-			    <li><span>小野四郎</span><span class="unconfirmed">未確認</span></li>
+			<C:forEach var="cl" items="${checkList}">
+			    <li><span>${cl.memberName}</span><span class="confirmed">${cl.checkStatus}</span></li>
+			</C:forEach>
 			</ul>
 		</div>
+		</C:if>
 		
 	</div>
 		

@@ -44,19 +44,19 @@
 						<!-- 아래는 DB 연동 후 c:foreach 태그 활용하여 변경 -->
 				        <li>
 				            <a class="dropdown-item"
-				               href="${pageContext.request.contextPath}/board/list.jsp?projectId=1">
+				               href="${pageContext.request.contextPath}/project_board/list?projectId=1">
 				                プロジェクト A
 				            </a>
 				        </li>
 				        <li>
 				            <a class="dropdown-item"
-				               href="${pageContext.request.contextPath}/board/list.jsp?projectId=2">
+				               href="${pageContext.request.contextPath}/project_board/list?projectId=2">
 				                プロジェクト B
 				            </a>
 				        </li>
 				        <li>
 				            <a class="dropdown-item"
-				               href="${pageContext.request.contextPath}/board/list.jsp?projectId=3">
+				               href="${pageContext.request.contextPath}/project_board/list?projectId=3">
 				                プロジェクト C
 				            </a>
 				        </li>
@@ -72,7 +72,7 @@
 					<a href="${pageContext.request.contextPath}/worklogMember/join">会員登録</a>
 				</C:when>
 				<C:otherwise>
-					<span>${sessionScope.loginMember.memberName}様</span>
+					<span>${sessionScope.loginMember.memberName} 様</span>
 					<a href="${pageContext.request.contextPath}/worklogMember/logout">ログアウト</a>
 					<a href="${pageContext.request.contextPath}/worklogMember/mypage">マイページ</a>
 				</C:otherwise>
