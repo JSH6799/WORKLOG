@@ -50,6 +50,13 @@ public class BoardViewCommand implements Command {
 			request.setAttribute("checkList", checkList);
 			int totalCount = checkList.size();
 			int checkCount = 0;
+			
+			for (BoardCheckDTO cl : checkList) {
+			    if ("確認完了".equals(cl.getCheckStatus())) {
+			        checkCount++;
+			    }
+			}
+			
 			request.setAttribute("totalCount", totalCount);
 			request.setAttribute("checkCount", checkCount);
 		}

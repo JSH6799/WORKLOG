@@ -47,7 +47,7 @@
 			<p>${checkCount} / ${totalCount}人確認</p>
 			<ul>
 			<C:forEach var="cl" items="${checkList}">
-			    <li><span>${cl.memberName}</span><span class="confirmed">${cl.checkStatus}</span></li>
+			    <li><span>${cl.memberName}</span><span class="${cl.checkStatus eq '未確認' ? 'unconfirmed' : 'confirmed'}">${cl.checkStatus}</span></li>
 			</C:forEach>
 			</ul>
 		</div>
