@@ -1,0 +1,122 @@
+/* =========================
+   북마크 페이지 전체
+========================= */
+
+.bookmark-wrap {
+    width: 1080px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+.bookmark-date{
+	font-size: 13px;
+    color: #888;
+}
+
+
+/* =========================
+   프로젝트 선택 버튼
+========================= */
+
+.bookmark-project-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 20px 24px;
+}
+
+.project-filter-btn {
+    padding: 9px 18px;
+    border: 1px solid #d8dce2;
+    border-radius: 6px;
+    background: #fff;
+    color: #444;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.project-filter-btn:hover {
+    background: #f3f5f7;
+}
+
+.project-filter-btn.active {
+    background: #25364a;
+    border-color: #25364a;
+    color: #fff;
+}
+
+
+/* =========================
+   북마크 검색 및 버튼 영역
+========================= */
+
+.bookmark-top {
+    margin: 20px;
+}
+
+.bmk-btn-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#bmkCancelBtn {
+    display: none;
+}
+
+
+/* =========================
+   북마크 카드 목록
+========================= */
+
+.bookmark-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top:16px;
+}
+
+.bookmark-card {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #d8dce2;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+
+.bookmark-project-name {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 13px;
+}
+
+.bookmark-card h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+.bookmark-card p {
+    margin: 0;
+    color: #666;
+    line-height: 1.6;
+}
+
+
+/* =========================
+   북마크 편집 모드
+========================= */
+
+.bmk-check {
+    display: none;
+    margin-right: 10px;
+}
+
+
+/* =========================
+   북마크 페이지네이션
+========================= */
+
+.bookmark-wrap .pagination {
+    margin-top: 30px;
+}
