@@ -16,8 +16,8 @@ public class BoardCheckDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
-		String sql = "insert into board_check (bno, member_id, check_yn, check_date)\r\n"
-				+ " values (?, ?, 'Y', SYSDATE)";
+		String sql = "update board_check set check_yn='Y', check_date=sysdate "
+				+ " where bno=? and member_id=?";
 		
 		try {
 			conn = DBUtil.getInstance();
@@ -87,23 +87,24 @@ public class BoardCheckDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String sql = "SELECT\r\n"
+		String sql = "select \r\n"
 				+ "    p.member_id,\r\n"
 				+ "    m.member_name,\r\n"
-				+ "    CASE\r\n"
-				+ "        WHEN c.check_yn = 'Y' THEN '確認完了'\r\n"
-				+ "        ELSE '未確認'\r\n"
-				+ "    END AS check_status\r\n"
-				+ "FROM board b\r\n"
-				+ "JOIN project_member p\r\n"
-				+ "    ON b.project_id = p.project_id\r\n"
-				+ "JOIN member m\r\n"
-				+ "    ON p.member_id = m.member_id\r\n"
-				+ "LEFT OUTER JOIN board_check c\r\n"
-				+ "    ON p.member_id = c.member_id\r\n"
-				+ "    AND b.bno = c.bno\r\n"
-				+ "WHERE b.bno = ?\r\n"
-				+ "ORDER BY m.member_name";
+				+ "    case\r\n"
+				+ "        when c.check_yn = 'Y' then '確認完了'\r\n"
+				+ "        else '未確認'\r\n"
+				+ "    end as check_status\r\n"
+				+ "from board b\r\n"
+				+ "join project_member p\r\n"
+				+ "    on b.project_id = p.project_id\r\n"
+				+ "join member m\r\n"
+				+ "    on p.member_id = m.member_id\r\n"
+				+ "left outer join board_check c\r\n"
+				+ "    on p.member_id = c.member_id\r\n"
+				+ "    and b.bno = c.bno\r\n"
+				+ "where b.bno = ?\r\n"
+				+ "    AND p.member_id <> b.writer\r\n"
+				+ "order by m.member_name";
 		
 		List<BoardCheckDTO> list = new ArrayList<BoardCheckDTO>();
 		
@@ -139,7 +140,39 @@ public class BoardCheckDAO {
 	}
 	
 	
-	
+	// 회원별 게시물 확인 기록
+	public int insertUnreadChecks(int bno) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = "insert into board_check (bno, member_id, check_yn)\r\n"
+				+ "select b.bno, pm.member_id, 'N'\r\n"
+				+ "from board b\r\n"
+				+ "join project_member pm\r\n"
+				+ "on b.project_id = pm.project_id\r\n"
+				+ "where b.bno =? and b.check_required='Y' and pm.member_id <> b.writer";
+		
+		int result = 0;
+		try {
+			conn = DBUtil.getInstance();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bno);
+			
+			result = pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 	
 	
 	

@@ -9,72 +9,46 @@
         <p class="unconfirmed-desc">確認が必要な投稿をプロジェクト別に確認できます。</p>
 
         <!-- 프로젝트 1 -->
+		<C:forEach var="pl" items="${projectList}">
         <div class="unconfirmed-project">
+        <C:choose>
+	        <C:when test="${pl.unreadCount gt 0}">
+	            <button type="button" class="project-toggle"
+	                    data-bs-toggle="collapse" data-bs-target="#${pl.projectId}"
+	                    aria-expanded="false" aria-controls="${pl.projectId}">
+	
+	                <span class="project-info">
+	                    <span class="project-name">${pl.projectName}</span>
+	                    <span class="project-count">未確認 ${pl.unreadCount}件</span>
+	                </span>
+	
+	                <span class="toggle-label">▶ 開く</span>
+	            </button>
+	        </C:when>
+	        <C:otherwise>
+	        	<button type="button" class="project-toggle" disabled>
+	        		<span class="project-info">
+	                    <span class="project-name">${pl.projectName}</span>
+	                    <span class="project-count">未確認 ${pl.unreadCount}件</span>
+	                </span>
+	        	</button>
+	        </C:otherwise>
+        </C:choose>
 
-            <button type="button" class="project-toggle"
-                    data-bs-toggle="collapse" data-bs-target="#unconfirmedProject1"
-                    aria-expanded="false" aria-controls="unconfirmedProject1">
-
-                <span class="project-info">
-                    <span class="project-name">プロジェクトA</span>
-                    <span class="project-count">未確認 3件</span>
-                </span>
-
-                <span class="toggle-label">▶ 開く</span>
-            </button>
-
-            <div class="collapse" id="unconfirmedProject1">
+            <div class="collapse" id="${pl.projectId}">
                 <ul class="unconfirmed-list">
+                <C:forEach var="ubl" items="${pl.unreadBoardList}">
                     <li>
-                        <a href="detail.jsp" class="unconfirmed-post">
-                            <div class="post-title">タイトル</div>
-                            <div class="post-info">投稿者 · YYYY-MM-DD</div>
+                        <a href="${pageContext.request.contextPath}/project_board/view?bno=${ubl.bno}" class="unconfirmed-post">
+                            <div class="post-title">${ubl.title}</div>
+                            <div class="post-info">${ubl.writer} · ${ubl.writeDate}</div>
                         </a>
                     </li>
-                    <li>
-                        <a href="detail.jsp" class="unconfirmed-post">
-                            <div class="post-title">タイトル</div>
-                            <div class="post-info">投稿者 · YYYY-MM-DD</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="detail.jsp" class="unconfirmed-post">
-                            <div class="post-title">タイトル</div>
-                            <div class="post-info">投稿者 · YYYY-MM-DD</div>
-                        </a>
-                    </li>
+                </C:forEach>
                 </ul>
             </div>
-
-        </div>
-
-        <!-- 프로젝트 2 -->
-        <div class="unconfirmed-project">
-
-            <button type="button" class="project-toggle"
-                    data-bs-toggle="collapse" data-bs-target="#unconfirmedProject2"
-                    aria-expanded="false" aria-controls="unconfirmedProject2">
-
-                <span class="project-info">
-                    <span class="project-name">プロジェクトB</span>
-                    <span class="project-count">未確認 1件</span>
-                </span>
-
-                <span class="toggle-label">▶ 開く</span>
-            </button>
-
-            <div class="collapse" id="unconfirmedProject2">
-                <ul class="unconfirmed-list">
-                    <li>
-                        <a href="detail.jsp" class="unconfirmed-post">
-                            <div class="post-title">タイトル</div>
-                            <div class="post-info">投稿者 · YYYY-MM-DD</div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
+		</div>
+		</C:forEach>
 
     </section>
 </main>

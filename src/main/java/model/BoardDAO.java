@@ -11,37 +11,57 @@ import util.DBUtil;
 public class BoardDAO {
 
 	// 게시글 등록
-	public void insert(BoardDTO dto) {
+	public int insert(BoardDTO dto) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		ResultSet rs = null;
 		
 		String sql = "insert into board (bno, title, content, writer, img_path, project_id, check_required) "
-				+ " values (seq_board.nextval,?,?,?,?,?,?)";
+				+ " values (?,?,?,?,?,?,?)";
+		String sql2 = "select seq_board.nextval from dual";
+		
+		int bno = 0;
+		int result = 0;
 		
 		try {
 			conn = DBUtil.getInstance();
+			pstmt2 = conn.prepareStatement(sql2);
+			rs = pstmt2.executeQuery();
+			
+			if(rs.next()) {
+				bno = rs.getInt(1);
+			}
+			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, dto.getTitle());
-			pstmt.setString(2, dto.getContent());
-			pstmt.setString(3, dto.getWriter());
-			pstmt.setString(4, dto.getImgPath());
-			pstmt.setString(5, dto.getProjectId());
-			pstmt.setString(6, dto.getCheckRequired());
-			
-			pstmt.executeUpdate();
+			pstmt.setInt(1, bno);
+			pstmt.setString(2, dto.getTitle());
+			pstmt.setString(3, dto.getContent());
+			pstmt.setString(4, dto.getWriter());
+			pstmt.setString(5, dto.getImgPath());
+			pstmt.setString(6, dto.getProjectId());
+			pstmt.setString(7, dto.getCheckRequired());
+
+			result = pstmt.executeUpdate();
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			try {
+				if(rs != null) rs.close();
+				if(pstmt2 != null) pstmt2.close();
 				if(pstmt != null) pstmt.close();
 				if(conn != null) conn.close();
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		if(result == 1) {
+			return bno;
+		}
+		return 0;
 	}
 	
 	
@@ -295,10 +315,98 @@ public class BoardDAO {
 	}
 
 
-
+	// 프로젝트별 미확인 게시물 건수 조회
+	public int selectUnreadCountByProject(String memberId, String projectId) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select count(*)\r\n"
+				+ "from board b\r\n"
+				+ "join board_check c\r\n"
+				+ "on b.bno = c.bno\r\n"
+				+ "where b.project_id = ? and c.member_id = ? and b.check_required = 'Y'\r\n"
+				+ "      and c.check_yn = 'N' and b.writer <> ?";
+		
+		try {
+			conn = DBUtil.getInstance();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, projectId);
+			pstmt.setString(2, memberId);
+			pstmt.setString(3, memberId);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
 
 	
-	
+	// 프로젝트별 미확인 게시물 목록 조회
+	public List<BoardDTO> selectUnreadListByProject(String memberId, String projectId, int startRow, int endRow){
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select b.bno, b.title, b.writer, b.project_id, b.write_date\r\n"
+				+ "from board b\r\n"
+				+ "join board_check c\r\n"
+				+ "on b.bno = c.bno\r\n"
+				+ "where b.project_id = ? and c.member_id = ? and b.check_required = 'Y'\r\n"
+				+ "      and c.check_yn = 'N' and b.writer <> ?\r\n"
+				+ "order by b.write_date desc";
+		
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		try {
+			conn = DBUtil.getInstance();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, projectId);
+			pstmt.setString(2, memberId);
+			pstmt.setString(3, memberId);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				
+				dto.setBno(rs.getInt("bno"));
+				dto.setTitle(rs.getString("title"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setProjectId(rs.getString("project_id"));
+				dto.setWriteDate(rs.getString("write_date"));
+				
+				list.add(dto);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
 	
 	
 	

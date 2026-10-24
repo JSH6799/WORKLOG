@@ -32,8 +32,24 @@ public class BoardListCommand implements Command {
 		    return false;
 		}
 		
+		BoardDAO dao = new BoardDAO();
+		
 		String searchType = request.getParameter("searchType");
 		String keyword = request.getParameter("keyword");
+		String projectId = request.getParameter("projectId");
+		String unreadOnly = request.getParameter("unreadOnly");
+
+		// 未確認投稿
+		String memberId = loginMember.getMemberId();
+		int unreadCount = dao.selectUnreadCountByProject(memberId, projectId);
+
+		int totalCount;
+		
+		if("Y".equals(unreadOnly)) {
+			totalCount = unreadCount;
+		}else {
+			totalCount = dao.selectCount(projectId, searchType, keyword);
+		}
 		
 		// 現在ページno
 		int currentPage = 1;
@@ -46,11 +62,7 @@ public class BoardListCommand implements Command {
 			}
 		}
 		
-		BoardDAO dao = new BoardDAO();
-		
 		// 全体ページ数計算
-		String projectId = request.getParameter("projectId");
-		int totalCount = dao.selectCount(projectId, searchType, keyword);
 		int totalPage = (int)Math.ceil((double)totalCount / PAGE_SIZE);
 		if(totalPage == 0) totalPage = 1;
 		if(currentPage < 1) currentPage = 1;
@@ -59,11 +71,23 @@ public class BoardListCommand implements Command {
 		int startRow = (currentPage - 1) * PAGE_SIZE + 1;
 		int endRow = currentPage * PAGE_SIZE;
 		
-		List<BoardDTO> list = dao.selectList(searchType, keyword, projectId, startRow, endRow);
-		
 		// ページno計算
 		int startPage = ((currentPage - 1) / PAGE_BLOCK) * PAGE_BLOCK + 1;
 		int endPage = Math.min(startPage+PAGE_BLOCK - 1, totalPage);
+		
+		// 一覧
+		List<BoardDTO> list;
+		
+		if ("Y".equals(unreadOnly)) {
+			list = dao.selectUnreadListByProject(
+					loginMember.getMemberId(), projectId, startRow, endRow
+					);
+		} else {
+			list = dao.selectList(
+					searchType, keyword, projectId, startRow, endRow
+					);
+		}
+		
 		
 		request.setAttribute("boardList", list);
 		request.setAttribute("searchType", searchType);
@@ -73,6 +97,8 @@ public class BoardListCommand implements Command {
 		request.setAttribute("totalPage", totalPage);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
+		request.setAttribute("unreadCount", unreadCount);
+		request.setAttribute("unreadOnly", unreadOnly);
 		
 		return true;
 	}

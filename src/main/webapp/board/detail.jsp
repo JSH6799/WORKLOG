@@ -33,9 +33,11 @@
 		    </div>
 
 		<div class="detail-actions-right">
-			<a href="${pageContext.request.contextPath}/project_board/update?bno=${view.bno}" class="btn btn-outline">修正</a>
-			<a href="${pageContext.request.contextPath}/project_board/delete?bno=${view.bno}&projectId=${view.projectId}"
-				 class="btn btn-outline" onclick="return confirm('削除しますか?')">削除</a>
+			<C:if test="${sessionScope.loginMember.memberId eq view.writer}">
+				<a href="${pageContext.request.contextPath}/project_board/update?bno=${view.bno}" class="btn btn-outline">修正</a>
+				<a href="${pageContext.request.contextPath}/project_board/delete?bno=${view.bno}&projectId=${view.projectId}"
+					 class="btn btn-outline" onclick="return confirm('削除しますか?')">削除</a>
+			</C:if>
 			<a href="${pageContext.request.contextPath}" class="btn btn-primary">一覧</a>
 		</div>
 	</div>
@@ -56,8 +58,6 @@
 	</div>
 		
 	</main>
-
-
 
 <%@ include file="/include/footer.jsp"%>
 <script src="${pageContext.request.contextPath}/js/detail.js"></script>

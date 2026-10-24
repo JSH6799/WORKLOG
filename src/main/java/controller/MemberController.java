@@ -11,6 +11,7 @@ import service.MemberIdCheckCommand;
 import service.MemberJoinCommand;
 import service.MemberLoginCommand;
 import service.MemberLogoutCommand;
+import service.MypageCommand;
 
 import java.io.IOException;
 
@@ -54,6 +55,10 @@ public class MemberController extends HttpServlet {
 		case "/logout":
 			command = new MemberLogoutCommand();
 			page = null;
+			break;
+		case "/mypage":
+			command = new MypageCommand();
+			page = "/member/mypage.jsp";
 			break;
 		}
 		

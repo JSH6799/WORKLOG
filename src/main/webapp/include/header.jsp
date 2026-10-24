@@ -16,12 +16,12 @@
     		  integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
      		  crossorigin="anonymous">
 		<link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet">
-		<link href="${pageContext.request.contextPath}/css/mystyle.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/mypage.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/list.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/write.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/detail.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/bookmark.css" rel="stylesheet">
-		<link href="${pageContext.request.contextPath}/css/calenderMy.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/calendarMy.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/member.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/join.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet">
