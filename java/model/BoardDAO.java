@@ -409,6 +409,58 @@ public class BoardDAO {
 	}
 	
 	
+	// 마이페이지용 미확인 게시물 목록
+	public List<BoardDTO> unreadListForMyPage(String projectId, String memberId){
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select b.bno, b.title, b.writer, b.project_id,\r\n"
+				+ "       to_char(b.write_date, 'YYYY-MM-DD') as write_date\r\n"
+				+ "from board b\r\n"
+				+ "join board_check c\r\n"
+				+ "on b.bno = c.bno\r\n"
+				+ "where b.project_id = ? and c.member_id = ? and b.check_required = 'Y'\r\n"
+				+ "      and c.check_yn = 'N' and b.writer <> ?\r\n"
+				+ "order by b.write_date desc";
+		
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		try {
+			conn = DBUtil.getInstance();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, projectId);
+			pstmt.setString(2, memberId);
+			pstmt.setString(3, memberId);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				
+				dto.setBno(rs.getInt("bno"));
+				dto.setTitle(rs.getString("title"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setProjectId(rs.getString("project_id"));
+				dto.setWriteDate(rs.getString("write_date"));
+				
+				list.add(dto);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
 	
 	
 }
