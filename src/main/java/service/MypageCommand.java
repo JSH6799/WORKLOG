@@ -39,7 +39,7 @@ public class MypageCommand implements Command {
 		for(ProjectDTO dto : projectList) {
 			String projectId = dto.getProjectId();
 			int unreadCnt = bdao.selectUnreadCountByProject(memberId, projectId);
-			List<BoardDTO> boardList = bdao.selectUnreadListByProject(memberId, projectId, startRow, endRow);
+			List<BoardDTO> boardList = bdao.unreadListForMyPage(projectId, memberId);
 			
 			dto.setUnreadCount(unreadCnt);
 			dto.setUnreadBoardList(boardList);
