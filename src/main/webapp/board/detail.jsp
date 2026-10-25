@@ -11,7 +11,17 @@
 			<p class="detail-meta">作成者 ${view.writerName} | ${view.writeDate}</p>
 			
 			<div class="detail-actions">
-				<button type="button" id="bookmarkBtn" class="btn btn-outline bookmark-btn">📑ブックマーク</button>
+				<button type="button" id="bookmarkBtn" class="btn btn-outline bookmark-btn"
+						data-bookmark-url="${pageContext.request.contextPath}/bookmark" data-bookmarked="${bookmarked}">
+				<C:choose>
+					<C:when test="${bookmarked}">
+						✅ブックマーク解除
+					</C:when>
+					<C:otherwise>
+						📑ブックマーク
+					</C:otherwise>
+				</C:choose>
+				</button>
 			</div>
 		</div>
 		
@@ -38,7 +48,7 @@
 				<a href="${pageContext.request.contextPath}/project_board/delete?bno=${view.bno}&projectId=${view.projectId}"
 					 class="btn btn-outline" onclick="return confirm('削除しますか?')">削除</a>
 			</C:if>
-			<a href="${pageContext.request.contextPath}" class="btn btn-primary">一覧</a>
+			<a href="${pageContext.request.contextPath}/project_board/list?projectId=${view.projectId}" class="btn btn-primary">一覧</a>
 		</div>
 	</div>
 		

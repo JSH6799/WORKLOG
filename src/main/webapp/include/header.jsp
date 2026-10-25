@@ -62,7 +62,7 @@
 				        </li>
 				    </ul>
 				</li>
-				<li><a href="${pageContext.request.contextPath}/board/bookmark.jsp">ブックマーク</a></li>
+				<li><a href="${pageContext.request.contextPath}/bookmark/list">ブックマーク</a></li>
 			</ul>
 		</nav>
 		<div class="member-menu">

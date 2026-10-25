@@ -13,6 +13,9 @@ public class BoardDTO {
     
     private String writerName;
     
+    private String projectName;
+    private String bookmarkDate;
+    
     
 	public int getBno() {
 		return bno;
@@ -67,6 +70,18 @@ public class BoardDTO {
 	}
 	public void setWriterName(String writerName) {
 		this.writerName = writerName;
+	}
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+	public String getBookmarkDate() {
+		return bookmarkDate;
+	}
+	public void setBookmarkDate(String bookmarkDate) {
+		this.bookmarkDate = bookmarkDate;
 	}
     
     
