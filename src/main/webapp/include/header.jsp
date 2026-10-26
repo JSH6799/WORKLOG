@@ -55,7 +55,7 @@
 				    	</li>
 				    </C:when>
 				    <C:otherwise>
-					<C:forEach var="p" items="${projectList}">
+					<C:forEach var="p" items="${proList}">
 				        <li>
 				            <a class="dropdown-item"
 				               href="${pageContext.request.contextPath}/project_board/list?projectId=${p.projectId}">
