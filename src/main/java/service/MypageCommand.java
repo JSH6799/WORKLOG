@@ -31,10 +31,9 @@ public class MypageCommand implements Command {
 		
 		String memberId = loginMember.getMemberId();
 		
-		ProjectDAO dao = new ProjectDAO();
 		BoardDAO bdao = new BoardDAO();
 		
-		List<ProjectDTO> projectList = dao.selectMyProjects(memberId);
+		List<ProjectDTO> projectList = bdao.selectMyProjects(memberId);
 		
 		for(ProjectDTO dto : projectList) {
 			String projectId = dto.getProjectId();
