@@ -41,25 +41,37 @@
 				        プロジェクト
 				    </a>
 				    <ul class="dropdown-menu">
-						<!-- 아래는 DB 연동 후 c:foreach 태그 활용하여 변경 -->
+				    <C:choose>
+				    <C:when test="${empty sessionScope.loginMember}">
+				    	<li>
+				    		<span class="dropdown-item-text">
+				    			ログインが必要です
+				    		</span>
+				    	</li>
+				    	<li>
+				    		<a class="dropdown-item" href="${pageContext.request.contextPath}/worklogMember/login">
+				    			ログイン
+				    		</a>
+				    	</li>
+				    </C:when>
+				    <C:otherwise>
+					<C:forEach var="p" items="${proList}">
 				        <li>
 				            <a class="dropdown-item"
-				               href="${pageContext.request.contextPath}/project_board/list?projectId=1">
-				                プロジェクト A
+				               href="${pageContext.request.contextPath}/project_board/list?projectId=${p.projectId}">
+				                ${p.projectName}
 				            </a>
 				        </li>
-				        <li>
-				            <a class="dropdown-item"
-				               href="${pageContext.request.contextPath}/project_board/list?projectId=2">
-				                プロジェクト B
-				            </a>
-				        </li>
-				        <li>
-				            <a class="dropdown-item"
-				               href="${pageContext.request.contextPath}/project_board/list?projectId=3">
-				                プロジェクト C
-				            </a>
-				        </li>
+					</C:forEach>
+					<C:if test="${empty projectList}">
+						<li>
+							<span class="dropdown-item-text">
+								参加中のプロジェクトがありません
+							</span>
+						</li>
+					</C:if>
+				    </C:otherwise>
+				    </C:choose>
 				    </ul>
 				</li>
 				<li><a href="${pageContext.request.contextPath}/bookmark/list">ブックマーク</a></li>
