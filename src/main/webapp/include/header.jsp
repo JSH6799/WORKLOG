@@ -55,6 +55,13 @@
 				    	</li>
 				    </C:when>
 				    <C:otherwise>
+					<C:if test="${empty proList}">
+						<li>
+							<span class="dropdown-item-text">
+								参加中のプロジェクトがありません
+							</span>
+						</li>
+					</C:if>
 					<C:forEach var="p" items="${proList}">
 				        <li>
 				            <a class="dropdown-item"
@@ -63,13 +70,6 @@
 				            </a>
 				        </li>
 					</C:forEach>
-					<C:if test="${empty projectList}">
-						<li>
-							<span class="dropdown-item-text">
-								参加中のプロジェクトがありません
-							</span>
-						</li>
-					</C:if>
 				    </C:otherwise>
 				    </C:choose>
 				    </ul>
