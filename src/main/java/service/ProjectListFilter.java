@@ -10,7 +10,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
+import model.BoardDAO;
 import model.MemberDTO;
 import model.ProjectDAO;
 import model.ProjectDTO;
@@ -43,12 +43,12 @@ public class ProjectListFilter implements Filter {
         }
 
         if (loginMember != null) {
-            ProjectDAO dao = new ProjectDAO();
+            BoardDAO dao = new BoardDAO();
 
             List<ProjectDTO> projectList =
                     dao.selectMyProjects(loginMember.getMemberId());
 
-            req.setAttribute("projectList", projectList);
+            req.setAttribute("proList", projectList);
         }
 
         // 다음 필터 또는 컨트롤러로 요청 전달
