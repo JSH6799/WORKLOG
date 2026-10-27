@@ -11,14 +11,14 @@ $(function(){
 		$(this).toggleClass("bmk-edit");
 		if($(this).hasClass("bmk-edit")){
 			// 편집 모드
-			$(this).text('삭제');
+			$(this).text('削除');
 			$(".bmk-check").show();
 			$("#bmkCancelBtn").show();
 		}else{
 			// 삭제 버튼을 눌렀을 때
 			const checked = $(".bmk-check:checked");
 			if(checked.length === 0){
-				alert("목록에서 삭제할 게시글을 선택해 주세요");
+				alert("リストから削除する投稿を選択してください");
 				//다시 편집 모드로 유지
 				$(this).addClass("bmk-edit");
 				$(this).text('삭제');
@@ -26,7 +26,7 @@ $(function(){
 				$("#bmkCancelBtn").show();
 				return;
 			}
-			if(confirm("목록에서 삭제하시겠습니까?")){
+			if(confirm("リストから削除しますか?")){
 			    const bnoList = [];
 
 			    checked.each(function(){
@@ -48,7 +48,7 @@ $(function(){
 			            });
 
 			            $("#bmkEditBtn").removeClass("bmk-edit");
-			            $("#bmkEditBtn").text("편집");
+			            $("#bmkEditBtn").text("編集");
 			            $(".bmk-check").hide().prop("checked", false);
 			            $("#bmkCancelBtn").hide();
 
@@ -76,7 +76,7 @@ $(function(){
 	    const searchText = $("#searchText").val().trim();
 
 	    if (searchText === '') {
-	        alert("검색어를 입력해 주세요");
+	        alert("検索ワードを入力してください");
 	        e.preventDefault();
 	        $("#searchText").focus();
 	        return;
@@ -152,7 +152,7 @@ $(function(){
 			page++;
 	    })
 	    .fail(function () {
-	        console.error("북마크 목록을 불러오지 못했습니다.");
+	        console.error("ブックマークリストの読み込みに失敗しました");
 	    })
 	    .always(function () {
 	        loading = false;

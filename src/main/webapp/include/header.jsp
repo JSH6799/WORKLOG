@@ -25,6 +25,14 @@
 		<link href="${pageContext.request.contextPath}/css/member.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/join.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/addproject.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/index.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/manageproject.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/proandmem.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/project.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/projectmember.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/css/TeamProjec.css" rel="stylesheet">
 	</head>
 	<body>
 <header class="site-header">
@@ -34,10 +42,8 @@
 			<ul>
 				<li><a href="${pageContext.request.contextPath}/calendar/calendar.jsp">カレンダー</a></li>
 				<li class="dropdown project-dropdown">
-				    <a class="nav-link dropdown-toggle project-dropdown-toggle"
-				       href="#"
-				       role="button"
-				       aria-expanded="false">
+				    <a class="nav-link dropdown-toggle project-dropdown-toggle" 
+				       href="${pageContext.request.contextPath}/project/list" role="button" aria-expanded="false">
 				        プロジェクト
 				    </a>
 				    <ul class="dropdown-menu">
@@ -55,6 +61,13 @@
 				    	</li>
 				    </C:when>
 				    <C:otherwise>
+					<C:if test="${empty proList}">
+						<li>
+							<span class="dropdown-item-text">
+								参加中のプロジェクトがありません
+							</span>
+						</li>
+					</C:if>
 					<C:forEach var="p" items="${proList}">
 				        <li>
 				            <a class="dropdown-item"
@@ -63,13 +76,6 @@
 				            </a>
 				        </li>
 					</C:forEach>
-					<C:if test="${empty projectList}">
-						<li>
-							<span class="dropdown-item-text">
-								参加中のプロジェクトがありません
-							</span>
-						</li>
-					</C:if>
 				    </C:otherwise>
 				    </C:choose>
 				    </ul>
@@ -89,7 +95,6 @@
 					<a href="${pageContext.request.contextPath}/worklogMember/mypage">マイページ</a>
 				</C:otherwise>
 			</C:choose>
-			<!-- 로그인 세션 생성 후 수정 -->
 		</div>
 	</div>
 	

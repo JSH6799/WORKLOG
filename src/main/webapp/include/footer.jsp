@@ -3,7 +3,7 @@
 
 <footer class="site-footer">
 	<div class="footer-inner">
-		<p>&copy; 2026 GroupProject. All rights reserved.</p>
+		<p>&copy; 2026 WORKLOG. All rights reserved.</p>
 		<p class="footer-sub">Servlet, JSP, Oracle 活用チームプロジェクト</p>
 	</div>
 </footer>

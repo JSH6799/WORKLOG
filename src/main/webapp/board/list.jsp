@@ -6,7 +6,6 @@
 	<main class="list-wrap">
 <!-- 검색창 및 글쓰기 버튼 -->
 	<h2 class="list-title">プロジェクト投稿</h2>
-	<!-- 수정 -->
 	<div class="unread-notice">
 		<p class="unread-title">未確認投稿</p>
 		<p class="unread-count">${unreadCount}件</p>
@@ -36,8 +35,16 @@
 				<div class="board-info">
 					<p class="board-number">No.${b.bno}</p>
 					<p class="board-title"><a href="${pageContext.request.contextPath}/project_board/view?bno=${b.bno}">${b.title}</a></p>
-					<span class="check-required">未確認</span>
-					<!-- 확인 여부 메서드 만든 후 수정 -->
+					<C:if test="${b.checkRequired eq 'Y' and b.writer ne sessionScope.loginMember.memberId}">
+						<C:choose>
+							<C:when test="${b.checkYn eq 'Y'}">
+								<span class="check-complete">確認</span>
+							</C:when>
+							<C:otherwise>
+								<span class="check-required">未確認</span>
+							</C:otherwise>
+						</C:choose>
+					</C:if>
 					<p class="board-writer">${b.writerName}</p>
 					<p class="board-date">${b.writeDate}</p>
 				</div>

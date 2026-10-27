@@ -14,24 +14,18 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/locales/ja.global.min.js"></script>
 
-<link rel="stylesheet" href="../css/calenderMy.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/calendarMy.css">
 
 </head>
 <body>
 <div class="app">
-
   <!-- ===== 左サイドバー ===== -->
   <aside class="sidebar">
     <div class="brand"><span class="brand-mark">W</span> WORKLOG</div>
 
     <div class="side-section">
       <div class="side-title">マイワークスペース</div>
-      <li>
-	    <a class="side-item" href="/WorkLog/board/list.jsp">
-	        <span class="ico">🏠</span>ダッシュボード
-	    </a>
-	</li>
+      <a class="side-item" href="<%= request.getContextPath() %>/index.jsp"><span class="ico">🏠</span>ダッシュボード</a>
       <a class="side-item active" href="#"><span class="ico">📅</span>カレンダー</a>
     </div>
 
@@ -86,7 +80,7 @@
 <!-- 会議作成ダイアログ -->
 <dialog id="createDialog">
   <form method="dialog" id="createForm">
-    <h3>日程を作成</h3>
+    <h3>会議を作成</h3>
     <label>タイトル<input type="text" id="newTitle" required placeholder="例：週次定例ミーティング"></label>
     <label>日付<input type="date" id="newDate" required></label>
     <div class="row">
@@ -110,10 +104,10 @@
   var CURRENT_USER = { id: 'm1', role: 'admin' };   // 'admin' のみ「確定する」が有効
 
   var MEMBERS = [
-    { id: 'm1', name: '山田一郎', color: '#3a82c8', presence: 'online' },
-    { id: 'm2', name: '山田二郎',     color: '#d9628b', presence: 'online' },
-    { id: 'm3', name: '山田三郎',   color: '#7b8aa3', presence: 'away'   },
-    { id: 'm4', name: '山田四郎',   color: '#e08a3c', presence: 'offline'},
+    { id: 'm1', name: '山田一郎', color: '#3a82c8', presence: 'online'},
+    { id: 'm2', name: '山田二郎', color: '#d9628b', presence: 'online'},
+    { id: 'm3', name: '山田三郎', color: '#7b8aa3', presence: 'away'},
+    { id: 'm4', name: '山田四郎', color: '#e08a3c', presence: 'offline'},
     { id: 'm5', name: '山田五郎', color: '#4aa37a', presence: 'offline'}
   ];
 
@@ -286,7 +280,7 @@
       selectedSlot = null;
       mountCalendar();      // 斜線・投票バッジを消すため再描画
       renderDetail(ev.id);
-      toast('日程を確定しました');
+      toast('会議を確定しました');
     }
   });
 
@@ -403,12 +397,12 @@
     if (!title || !date) return;
     var end = new Date(date + 'T00:00:00'); end.setDate(end.getDate() + 1);
     var ev = { id: 'e' + (EVENTS.length + 1) + '_' + Date.now(), icon: '📅', title: title, start: date, end: ymd(end),
-               cls: 'ev-blue', memo: '新しく作成された日程です。', status: { m1: 'yes', m2: 'maybe', m3: 'maybe', m4: 'maybe', m5: 'maybe' } };
+               cls: 'ev-blue', memo: '新しく作成された会議です。', status: { m1: 'yes', m2: 'maybe', m3: 'maybe', m4: 'maybe', m5: 'maybe' } };
     EVENTS.push(ev);
     dlg.close();
     mountCalendar();
     renderDetail(ev.id);
-    toast('日程を作成しました');
+    toast('会議を作成しました');
   });
 
   /* ---- 初期表示 ---- */

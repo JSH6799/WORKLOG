@@ -16,6 +16,7 @@ public class BoardDTO {
     private String projectName;
     private String bookmarkDate;
     
+    private String checkYn;
     
 	public int getBno() {
 		return bno;
@@ -83,8 +84,12 @@ public class BoardDTO {
 	public void setBookmarkDate(String bookmarkDate) {
 		this.bookmarkDate = bookmarkDate;
 	}
-    
-    
+	public String getCheckYn() {
+		return checkYn;
+	}
+	public void setCheckYn(String checkYn) {
+		this.checkYn = checkYn;
+	}
 	
 	
 }

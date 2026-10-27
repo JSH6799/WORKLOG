@@ -32,7 +32,7 @@ public class MemberLoginCommand implements Command {
 		if(dto != null && BCrypt.checkpw(pwd, dto.getPwd())) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", dto);
-			response.sendRedirect(request.getContextPath()+"/");
+			response.sendRedirect(request.getContextPath()+"/main.jsp");
 			return false;
 		}else {
 			request.setAttribute("loginFail", "IDまたはパスワードをご確認ください。");

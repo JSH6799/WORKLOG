@@ -10,6 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.BoardDAO;
 import model.BoardDTO;
 import model.BookmarkDAO;
 import model.MemberDTO;
@@ -96,11 +97,14 @@ public class BookmarkListCommand implements Command {
 			return false;
 		}
 		
-		ProjectDAO pdao = new ProjectDAO();
-		List<ProjectDTO> projectList = pdao.selectMyProjects(memberId);
+		BoardDAO bdao = new BoardDAO();
+		List<ProjectDTO> projectList = bdao.selectMyProjects(memberId);
 		
 		request.setAttribute("bmkList", bmkList);
 		request.setAttribute("bmkProList", projectList);
+		
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("searchType", searchType);
 		
 		return true;
 	}

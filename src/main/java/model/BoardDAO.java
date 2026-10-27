@@ -126,7 +126,7 @@ public class BoardDAO {
 		
 		
 	// 게시글 목록 조회
-	public List<BoardDTO> selectList(String searchType, String keyword, String projectId, int startRow, int endRow){
+	public List<BoardDTO> selectList(String searchType, String keyword, String projectId, String memberId, int startRow, int endRow){
 		
 		String where = buildWhere(searchType, keyword);
 		
@@ -137,10 +137,13 @@ public class BoardDAO {
 		String sql = "select * from (\r\n"
 				+ "    select rownum as rn, t.* from(\r\n"
 				+ "        select b.bno, b.title, b.writer, m.member_name as writer_name,\r\n"
-				+ "               to_char(b.write_date, 'YYYY-MM-DD') as write_date\r\n"
+				+ "               to_char(b.write_date, 'YYYY-MM-DD') as write_date,"
+				+ "				  b.check_required, c.check_yn\r\n"
 				+ "        from board b\r\n"
 				+ "        join member m\r\n"
 				+ "        on b.writer = m.member_id\r\n"
+				+ "		   left join board_check c"
+				+ "		   on b.bno = c.bno and c.member_id = ?"
 				+ "		   where b.project_id = ? \r\n"
 				+		   (where.isEmpty() ? "" : " AND " + where.trim().substring(5) + "\r\n")
 				+ "        order by b.bno desc\r\n"
@@ -155,6 +158,7 @@ public class BoardDAO {
 			
 			int idx = 1;
 			
+			pstmt.setString(idx++, memberId);
 			pstmt.setString(idx++, projectId);
 
 			if(!where.isEmpty()) {
@@ -172,6 +176,8 @@ public class BoardDAO {
 				dto.setWriter(rs.getString("writer"));
 				dto.setWriterName(rs.getString("writer_name"));
 				dto.setWriteDate(rs.getString("write_date"));
+				dto.setCheckRequired(rs.getString("check_required"));
+				dto.setCheckYn(rs.getString("check_yn"));
 				
 				list.add(dto);
 			}
@@ -364,7 +370,8 @@ public class BoardDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String sql = "select b.bno, b.title, b.writer, b.project_id, b.write_date\r\n"
+		String sql = "select b.bno, b.title, b.writer, b.project_id, b.write_date,\r\n"
+				+ "			 b.check_required, c.check_yn\r\n"
 				+ "from board b\r\n"
 				+ "join board_check c\r\n"
 				+ "on b.bno = c.bno\r\n"
@@ -391,6 +398,8 @@ public class BoardDAO {
 				dto.setWriter(rs.getString("writer"));
 				dto.setProjectId(rs.getString("project_id"));
 				dto.setWriteDate(rs.getString("write_date"));
+				dto.setCheckRequired(rs.getString("check_required"));
+				dto.setCheckYn(rs.getString("check_yn"));
 				
 				list.add(dto);
 			}
@@ -508,4 +517,73 @@ public class BoardDAO {
 			return list;
 		}
 	
+		
+
+		// 마이페이지용 내가 쓴 게시글 전체 목록
+		public List<BoardDTO> selectMyBoardList(String memberId) {
+			return selectMyBoardList(memberId, null);
+		}
+
+		// 마이페이지용 내가 쓴 게시글 프로젝트별 목록
+		public List<BoardDTO> selectMyBoardList(String memberId, String projectId) {
+
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			String sql = "select b.bno, b.title, b.writer, b.project_id, p.project_name, "
+					+ "to_char(b.write_date, 'YYYY-MM-DD') as write_date "
+					+ "from board b "
+					+ "join project p on b.project_id = p.project_id "
+					+ "where b.writer = ? ";
+
+			if(projectId != null && !projectId.isEmpty()) {
+				sql += "and b.project_id = ? ";
+			}
+
+			sql += "order by b.write_date desc, b.bno desc";
+
+			List<BoardDTO> list = new ArrayList<BoardDTO>();
+
+			try {
+				conn = DBUtil.getInstance();
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, memberId);
+
+				if(projectId != null && !projectId.isEmpty()) {
+					pstmt.setString(2, projectId);
+				}
+
+				rs = pstmt.executeQuery();
+
+				while(rs.next()) {
+					BoardDTO dto = new BoardDTO();
+
+					dto.setBno(rs.getInt("bno"));
+					dto.setTitle(rs.getString("title"));
+					dto.setWriter(rs.getString("writer"));
+					dto.setProjectId(rs.getString("project_id"));
+					dto.setWriteDate(rs.getString("write_date"));
+
+					list.add(dto);
+				}
+
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					if(rs != null) rs.close();
+					if(pstmt != null) pstmt.close();
+					if(conn != null) conn.close();
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			return list;
+		}
+
+		
+		
 }

@@ -84,7 +84,7 @@ public class BoardListCommand implements Command {
 					);
 		} else {
 			list = dao.selectList(
-					searchType, keyword, projectId, startRow, endRow
+					searchType, keyword, projectId, memberId, startRow, endRow
 					);
 		}
 		

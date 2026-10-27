@@ -24,7 +24,7 @@
 				<option value="content">内容</option>
 				<option value="writer">投稿者</option>
 			</select>
-			<input type="text" id="searchText" name="keyword" placeholder="検索ワードを入力してください" class="search-input">
+			<input type="text" id="searchText" name="keyword" value="${keyword}" placeholder="検索ワードを入力してください" class="search-input">
 			<button type="submit" class="btn btn-outline">検索</button>
 		</form>
 		<div class="bmk-btn-group">

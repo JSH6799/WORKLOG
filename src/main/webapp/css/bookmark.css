@@ -1,17 +1,20 @@
+
 /* =========================
    북마크 페이지 전체
 ========================= */
 
 .bookmark-wrap {
     width: 1080px;
+    max-width: 100%;
     margin: 40px auto;
     padding: 0 20px;
-}
-.bookmark-date{
-	font-size: 13px;
-    color: #888;
+    box-sizing: border-box;
 }
 
+.bookmark-date {
+    font-size: 13px;
+    color: #737B89;
+}
 
 /* =========================
    프로젝트 선택 버튼
@@ -26,24 +29,25 @@
 
 .project-filter-btn {
     padding: 9px 18px;
-    border: 1px solid #d8dce2;
+    border: 1px solid #D1D5DB;
     border-radius: 6px;
     background: #fff;
-    color: #444;
+    color: #4B5563;
     cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 
 .project-filter-btn:hover {
-    background: #f3f5f7;
+    background: #F2F5FB;
+    border-color: #6482C4;
+    color: #405B91;
 }
 
 .project-filter-btn.active {
-    background: #25364a;
-    border-color: #25364a;
+    background: #6482C4;
+    border-color: #6482C4;
     color: #fff;
 }
-
 
 /* =========================
    북마크 검색 및 버튼 영역
@@ -63,7 +67,6 @@
     display: none;
 }
 
-
 /* =========================
    북마크 카드 목록
 ========================= */
@@ -72,36 +75,41 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding-top:16px;
+    padding-top: 16px;
 }
 
 .bookmark-card {
     width: 100%;
     padding: 20px;
-    border: 1px solid #d8dce2;
+    border: 1px solid #E5E7EB;
     border-radius: 8px;
     background-color: #fff;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
 }
 
+.bookmark-card:hover {
+    border-color: #C3D0EB;
+}
 
 .bookmark-project-name {
     display: inline-block;
     margin-bottom: 10px;
-    color: #666;
+    color: #6482C4;
     font-size: 13px;
 }
 
 .bookmark-card h3 {
     margin: 0 0 10px;
     font-size: 18px;
+    color: #374151;
 }
 
 .bookmark-card p {
     margin: 0;
-    color: #666;
+    color: #4B5563;
     line-height: 1.6;
 }
-
 
 /* =========================
    북마크 편집 모드
@@ -110,8 +118,8 @@
 .bmk-check {
     display: none;
     margin-right: 10px;
+    accent-color: #6482C4;
 }
-
 
 /* =========================
    북마크 페이지네이션

@@ -46,13 +46,13 @@ $(function(){
 		const title = $("#title").val().trim();
 		const content = $("#content").val().trim();
 		if(title === ''){
-			alert("제목을 입력해 주세요");
+			alert("タイトルを入力してください");
 			e.preventDefault();
 			$("#title").focus();
 			return;
 		}
 		if(content == ''){
-			alert("내용을 입력해 주세요");
+			alert("内容を入力してください");
 			e.preventDefault();
 			$("#content").focus();
 			return;

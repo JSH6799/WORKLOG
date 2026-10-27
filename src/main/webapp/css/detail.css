@@ -1,3 +1,4 @@
+
 /* =========================
    게시글 상세 전체
 ========================= */
@@ -10,7 +11,6 @@
     box-sizing: border-box;
 }
 
-
 /* =========================
    게시글 헤더
 ========================= */
@@ -18,22 +18,21 @@
 .detail-header {
     position: relative;
     padding-bottom: 20px;
-    border-bottom: 2px solid #333;
+    border-bottom: 2px solid #6482C4;
 }
 
 .detail-title {
     margin: 0 0 12px;
     font-size: 24px;
     font-weight: 600;
-    color: #333;
+    color: #374151;
 }
 
 .detail-meta {
     margin: 0;
     font-size: 14px;
-    color: #888;
+    color: #737B89;
 }
-
 
 /* =========================
    게시글 이미지
@@ -53,7 +52,6 @@
     object-fit: contain;
 }
 
-
 /* =========================
    게시글 내용
 ========================= */
@@ -63,7 +61,7 @@
     padding: 30px 20px;
     font-size: 15px;
     line-height: 1.8;
-    color: #333;
+    color: #4B5563;
     white-space: pre-line;
     word-break: break-word;
 }
@@ -76,7 +74,7 @@
     display: flex;
     justify-content: center;
     padding: 30px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #E5E7EB;
     min-height: 100.8px;
 }
 
@@ -85,74 +83,70 @@
     cursor: default;
 }
 
+.confirm-btn.cfm {
+    background-color: #405B91;
+    color: #fff;
+    border-color: #405B91;
+}
+
 /* =========================
-게시글 확인 현황
+   게시글 확인 현황
 ========================= */
 
 .confirm-status {
-width: 250px;
-margin: 25px 0;
-padding: 20px;
-border: 1px solid #ddd;
-border-radius: 8px;
-background-color: #fff;
+    width: 250px;
+    margin: 25px 0;
+    padding: 20px;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    background-color: #fff;
 }
 
-/* 확인 현황 제목 */
 .confirm-status h3 {
-margin: 0 0 12px;
-font-size: 18px;
-font-weight: 600;
-color: #333;
+    margin: 0 0 12px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #374151;
 }
 
-/* 확인 인원 */
 .confirm-status p {
-margin: 0 0 15px;
-padding-bottom: 12px;
-border-bottom: 1px solid #eee;
-font-size: 14px;
-font-weight: 600;
-color: #4a6cf7;
+    margin: 0 0 15px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6482C4;
 }
 
-/* 팀원 목록 */
 .confirm-status ul {
-list-style: none;
-margin: 0;
-padding: 0;
-}
-
-/* 팀원별 확인 상태 */
-.confirm-status li {
-display: flex;
-justify-content: space-between;
-align-items: center;
-gap: 10px;
-padding: 10px 0;
-border-bottom: 1px solid #f0f0f0;
-font-size: 13px;
-color: #444;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .confirm-status li {
-border-bottom: none;
-padding-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: none;
+    font-size: 13px;
+    color: #4B5563;
 }
 
-/* 확인 완료 */
-.confirm-status li(確認済み) {
-color: #4a6cf7;
+.confirm-status li:has(.confirmed) {
+    color: #405B91;
 }
 
 .confirm-status .confirmed {
-    color: #4a6cf7;
+    color: #6482C4;
     font-weight: 600;
     white-space: nowrap;
 }
 
 .confirm-status .unconfirmed {
-    color: #999;
+    color: #737B89;
     white-space: nowrap;
 }
 
@@ -178,6 +172,7 @@ color: #4a6cf7;
     box-sizing: border-box;
     margin: 0;
 }
+
 /* =========================
    게시글 상세 버튼
 ========================= */
@@ -197,7 +192,6 @@ color: #4a6cf7;
     margin-top: 20px;
 }
 
-
 /* =========================
    북마크 버튼
 ========================= */
@@ -207,7 +201,33 @@ color: #4a6cf7;
 }
 
 .bookmark-btn.bmk {
-    background-color: #333;
+    background-color: #405B91;
     color: #fff;
-    border-color: #333;
+    border-color: #405B91;
+}
+/* 상세 페이지 목록 버튼 */
+.detail-actions-right .btn-outline {
+    color: #6482C4;
+    border-color: #6482C4;
+    background-color: #fff;
+}
+
+.detail-actions-right .btn-outline:hover {
+    color: #fff;
+    border-color: #405B91;
+    background-color: #405B91;
+}
+/* 상세 페이지 목록 버튼 색상 강제 적용 */
+.detail-actions-right a,
+.detail-actions-right button {
+    background-color: #6482C4 !important;
+    border: 1px solid #6482C4 !important;
+    color: #fff !important;
+}
+
+.detail-actions-right a:hover,
+.detail-actions-right button:hover {
+    background-color: #405B91 !important;
+    border-color: #405B91 !important;
+    color: #fff !important;
 }
