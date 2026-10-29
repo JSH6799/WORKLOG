@@ -485,7 +485,8 @@ public class BoardDAO {
 					+ "from project p\r\n"
 					+ "join project_member pm\r\n"
 					+ "on p.project_id = pm.project_id\r\n"
-					+ "where pm.member_id = ?";
+					+ "where pm.member_id = ?\r\n"
+					+ "order by p.created_date asc";
 			
 			List<ProjectDTO> list = new ArrayList<ProjectDTO>();
 			
