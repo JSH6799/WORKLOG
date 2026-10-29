@@ -84,11 +84,6 @@
 				                            <span>プロジェクト詳細</span>
 				                        </a>
 				
-				                        <a class="project-feature-link" href="${pageContext.request.contextPath}/main.jsp">
-				                            <span class="project-feature-icon">▦</span>
-				                            <span>ダッシュボード</span>
-				                        </a>
-				
 				                        <a class="project-feature-link" href="${pageContext.request.contextPath}/project_board/list?projectId=${p.projectId}">
 				                            <span class="project-feature-icon">▤</span>
 				                            <span>掲示板</span>
