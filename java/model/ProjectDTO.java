@@ -15,6 +15,8 @@ public class ProjectDTO {
     private int unreadCount;
     private List<BoardDTO> unreadBoardList;
     
+    private String createDate;
+    
 	public String getProjectId() {
 		return projectId;
 	}
@@ -68,6 +70,12 @@ public class ProjectDTO {
 	}
 	public void setUnreadBoardList(List<BoardDTO> unreadBoardList) {
 		this.unreadBoardList = unreadBoardList;
+	}
+	public String getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
     
     
