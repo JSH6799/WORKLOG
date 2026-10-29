@@ -57,7 +57,12 @@ public class ProjectInvitationAcceptCommand implements Command {
             if (result) {
                 response.sendRedirect(
                     request.getContextPath()
-                    + "projectmember/invitation/pending"
+                    + "/projectmember/members?projectId="
+                    + java.net.URLEncoder.encode(
+                        request.getParameter("projectId") == null
+                            ? "" : request.getParameter("projectId"),
+                        "UTF-8"
+                    )
                 );
                 return false;
             } else {

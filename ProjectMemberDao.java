@@ -198,5 +198,45 @@ public class ProjectMemberDao {
 	        return false;
 	    }
 	}
+	// 프로젝트에 아직 등록되지 않은 회원 검색
+	public List<ProjectMemberDTO> searchAvailableMembers(
+	        String projectId, String keyword) {
+
+	    List<ProjectMemberDTO> list = new ArrayList<>();
+
+	    String sql = "SELECT m.member_id, m.member_name, m.email, " +
+	    	    	    "CASE WHEN pm.member_id IS NOT NULL THEN 'Y' ELSE 'N' END AS participating " +
+	    	    	    "FROM member m " +
+	    	    	    "LEFT JOIN project_member pm " +
+	    	    	    "ON pm.member_id = m.member_id AND pm.project_id = ? " +
+	    	    	    "WHERE m.member_id LIKE ? OR m.member_name LIKE ?";
+	        
+
+	    try (Connection conn = util.DBUtil.getInstance();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	    	pstmt.setString(1, projectId);
+	    	pstmt.setString(2, "%" + keyword + "%");
+	    	pstmt.setString(3, "%" + keyword + "%");
+
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            while (rs.next()) {
+	                ProjectMemberDTO dto = new ProjectMemberDTO();
+
+	                dto.setMemberId(rs.getString("member_id"));
+	                dto.setMemberName(rs.getString("member_name"));
+	                dto.setEmail(rs.getString("email"));
+	                dto.setParticipating(rs.getString("participating"));
+
+	                list.add(dto);
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return list;
+	}
 	
 }

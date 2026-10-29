@@ -14,7 +14,7 @@ public class ProjectInvitationDAO {
     public boolean insert(ProjectInvitationDTO dto) {
 
         String sql =
-            "INSERT INTO project_invitation "
+            "INSERT INTO WORKLOG.project_invitation "
           + "(invitation_id, project_id, inviter_id, "
           + "invitee_id, role) "
           + "VALUES (project_invitation_seq.NEXTVAL, ?, ?, ?, ?)";
@@ -200,6 +200,31 @@ public class ProjectInvitationDAO {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+ // 초대 거절
+    public boolean rejectInvitation(int invitationId, String inviteeId) {
+
+        String sql =
+            "UPDATE WORKLOG.PROJECT_INVITATION "
+          + "SET invitation_status = 'REJECTED', "
+          + "responded_date = SYSDATE "
+          + "WHERE invitation_id = ? "
+          + "AND invitee_id = ? "
+          + "AND invitation_status = 'PENDING'";
+
+        try (
+            Connection conn = util.DBUtil.getInstance();
+            PreparedStatement pstmt = conn.prepareStatement(sql)
+        ) {
+            pstmt.setInt(1, invitationId);
+            pstmt.setString(2, inviteeId);
+
+            return pstmt.executeUpdate() == 1;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
