@@ -39,9 +39,16 @@
 <header class="site-header">
 	<div class="header-inline">
 		<h1 class="logo">
-		    <a href="${pageContext.request.contextPath}/">
-		        <img src="${pageContext.request.contextPath}/images/WORKLOG_logo.png" alt="WORKLOG 로고">
-		    </a>
+			<C:choose>
+				<C:when test="${empty sessionScope.loginMember}">
+					<li><a href="${pageContext.request.contextPath}/">
+						<img src="${pageContext.request.contextPath}/images/WORKLOG_logo.png" alt="WORKLOG 로고"></a></li>
+				</C:when>
+				<C:otherwise>
+					<li><a href="${pageContext.request.contextPath}/main.jsp">
+						<img src="${pageContext.request.contextPath}/images/WORKLOG_logo.png" alt="WORKLOG 로고"></a></li>
+				</C:otherwise>
+			</C:choose>
 		</h1>
 		<nav class="gnb">
 			<ul>
