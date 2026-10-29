@@ -40,7 +40,7 @@
 	<div class="header-inline">
 		<h1 class="logo">
 		    <a href="${pageContext.request.contextPath}/">
-		        <img src="${pageContext.request.contextPath}/images/WORKLOG_logo.PNG" alt="WORKLOG 로고">
+		        <img src="${pageContext.request.contextPath}/images/WORKLOG_logo.png" alt="WORKLOG 로고">
 		    </a>
 		</h1>
 		<nav class="gnb">
