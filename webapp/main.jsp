@@ -2,6 +2,8 @@
 <%@ page import="java.util.*" %>
 <%-- JSTL 태그라이브러리 선언 (Tomcat 10+ : jakarta.tags.core) --%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <%!
     // XSS / 문자열 깨짐 방지용 이스케이프 헬퍼
@@ -34,10 +36,10 @@
 <%
     // Controller / Servlet 에서 request.setAttribute로 넘겨주는 데이터 수신
     String userName = (String) request.getAttribute("userName");
-    if (userName == null) userName = "山田一郎";
+    if (userName == null) userName = "geust";
 
     Integer unreadPostCount = (Integer) request.getAttribute("unreadPostCount");
-    if (unreadPostCount == null) unreadPostCount = 2;
+    if (unreadPostCount == null) unreadPostCount = 4;
 
     java.time.LocalDate today = java.time.LocalDate.now(java.time.ZoneId.of("Asia/Tokyo"));
 
@@ -71,7 +73,7 @@
             <a href="<%= ctx %>/member/mypage.jsp" class="btn-sm-outline">未確認投稿一覧</a>
         </div>
     </section>
-
+    
     <div class="dashboard-grid">
 
         <!-- Left -->
@@ -132,43 +134,57 @@
                 </table>
             </div>
 
-            <!-- Widget: Recent Posts -->
-            <div class="widget-card">
-                <div class="widget-header">
-                    <span class="widget-title">📝 最近のプロジェクト投稿</span>
-                    <a href="<%= ctx %>/board/list.jsp" class="widget-action">投稿一覧へ ›</a>
-                </div>
-                <table class="recent-posts-table">
-                    <thead>
-                        <tr>
-                            <th class="col-status">状態</th>
-                            <th class="col-title">タイトル</th>
-                            <th class="col-writer">投稿者</th>
-                            <th class="col-date">日付</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><span class="badge badge-unread">未確認</span></td>
-                            <td><a href="<%= ctx %>/board/post_detail.jsp?id=102" class="post-link unread-link">[重要] 第3回仕様変更に関する共有</a></td>
-                            <td>管理者</td>
-                            <td>2026/10/22</td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge badge-unread">未確認</span></td>
-                            <td><a href="<%= ctx %>/board/post_detail.jsp?id=101" class="post-link">フロントエンドデザインコンポーネント追加</a></td>
-                            <td>佐藤</td>
-                            <td>2026/10/21</td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge badge-confirmed">確認済み</span></td>
-                            <td><a href="<%= ctx %>/board/post_detail.jsp?id=100" class="post-link">10月第3週のスプリント振り返り</a></td>
-                            <td><%= escHtml(userName) %></td>
-                            <td>2026/10/19</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+
+		<!-- Widget: Recent Posts -->
+		<div class="widget-card">
+		    <div class="widget-header">
+		        <span class="widget-title">📝 最近のプロジェクト投稿</span>
+		        <a href="<%= ctx %>/board/list.jsp" class="widget-action">投稿一覧へ ›</a>
+		    </div>
+		    <table class="recent-posts-table">
+		        <thead>
+		            <tr>
+		                <th class="col-status">状態</th>
+		                <th class="col-title">タイトル</th>
+		                <th class="col-writer">投稿者</th>
+		                <th class="col-date">日付</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <%-- recentPosts 데이터가 비어있지 않은 경우 반복 출력 --%>
+		            <c:choose>
+		                <c:when test="${not empty recentPosts}">
+		                    <c:forEach var="post" items="${recentPosts}">
+		                        <tr>
+		                            <%-- 상태 (예: 읽음/안읽음 등에 따라 동적으로 바뀔 수 있음) --%>
+		                            <td>
+		                                <span class="badge ${post.unread ? 'badge-unread' : ''}">
+		                                    ${post.checkRequired}
+		                                </span>
+		                            </td>
+		                            <%-- 제목 및 상세페이지 링크 (id 값 바인딩) --%>
+		                            <td>
+		                                <a href="<%= ctx %>/board/post_detail.jsp?id=${post.id}" class="post-link">
+		                                    ${post.title}
+		                                </a>
+		                            </td>
+		                            <%-- 작성자 --%>
+		                            <td>${post.writer}</td>
+		                            <%-- 날짜 (필요에 따라 날짜 포맷 적용) --%>
+		                            <td>${post.writeDate}</td>
+		                        </tr>
+		                    </c:forEach>
+		                </c:when>
+		                <c:otherwise>
+		                    <%-- 게시물이 없을 경우의 대체 메시지 --%>
+		                    <tr>
+		                        <td colspan="4" style="text-align: center; color: #888;">登録された投稿がありません。</td>
+		                    </tr>
+		                </c:otherwise>
+		            </c:choose>
+		        </tbody>
+		    </table>
+		</div>
 
         </div>
 
