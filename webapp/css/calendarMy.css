@@ -1,0 +1,818 @@
+@charset "UTF-8";
+
+/* ========================================
+   캘린더 전용 변수
+   공통 색상은 WORKLOG common.css와 통일
+======================================== */
+
+:root {
+    --header-h: 0px;
+
+    --ink: #374151;
+    --text: #4B5563;
+    --muted: #737B89;
+    --line: #E5E7EB;
+    --line-strong: #D1D5DB;
+    --bg: #f8fafc;
+    --card: #FFFFFF;
+    --hover: #F2F5FB;
+    --accent: #6482C4;
+    --sun: #e03131;
+    --sat: #1971c2;
+    --ok: #2b8a3e;
+    --danger: #e03131;
+
+    --ev-blue: #6482C4;
+    --ev-green: #2b8a3e;
+    --ev-purple: #7950f2;
+    --ev-red: #e03131;
+}
+
+/* ---------- 기본 설정 ---------- */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* ---------- 전체 레이아웃 ---------- */
+
+.app {
+    display: grid;
+    grid-template-columns: 232px minmax(0, 1fr) 300px;
+    height: calc(100vh - var(--header-h));
+}
+
+/* ========================================
+   왼쪽 사이드바
+   common.css의 색상과 통일
+======================================== */
+
+.sidebar {
+    background: var(--card);
+    border-right: 1px solid var(--line);
+    color: var(--text);
+    padding: 20px 14px;
+    overflow-y: auto;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 2px 8px 18px;
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 17px;
+    letter-spacing: .01em;
+}
+
+.brand-mark {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    background: var(--color-primary, #6482C4);
+    display: grid;
+    place-items: center;
+    font-size: 14px;
+    font-weight: 800;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.side-section {
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+}
+
+.side-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    padding: 0 10px 8px;
+    letter-spacing: .02em;
+}
+
+.side-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color .2s, color .2s;
+}
+
+.side-item:hover {
+    background: var(--color-primary-soft, #F2F5FB);
+    color: var(--color-primary-hover, #405B91);
+}
+
+.side-item.active {
+    background: var(--color-primary-soft, #F2F5FB);
+    color: var(--color-primary-hover, #405B91);
+    font-weight: 700;
+}
+
+.side-item .ico {
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.member {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+}
+
+.avatar {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    flex: none;
+}
+
+.avatar .dot {
+    position: absolute;
+    right: -1px;
+    bottom: -1px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--card);
+    background: #adb5bd;
+}
+
+.avatar .dot.online {
+    background: #40c057;
+}
+
+.avatar .dot.away {
+    background: #fab005;
+}
+
+.member .name {
+    flex: 1;
+    min-width: 0;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.member .live {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #40c057;
+    flex-shrink: 0;
+}
+
+/* ========================================
+   메인 영역
+   기존 CSS 그대로 유지
+======================================== */
+
+/* ---------- メイン ---------- */
+
+.main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 22px 28px 24px;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 0 18px;
+    flex-wrap: wrap;
+}
+
+.toolbar h1 {
+    margin: 0 auto 0 0;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: .01em;
+}
+
+.nav-group {
+    display: inline-flex;
+    align-items: center;
+    background: var(--card);
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.nav-group button {
+    border: 0;
+    background: transparent;
+    padding: 8px 13px;
+    font-size: 14px;
+    color: var(--ink);
+}
+
+.nav-group button:hover {
+    background: var(--hover);
+}
+
+.nav-group button + button {
+    border-left: 1px solid var(--line-strong);
+}
+
+.view-group {
+    display: inline-flex;
+    background: var(--hover);
+    border-radius: 8px;
+    padding: 3px;
+}
+
+.view-group button {
+    border: 0;
+    background: transparent;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.view-group button:hover {
+    color: var(--ink);
+}
+
+.view-group button.active {
+    background: var(--card);
+    color: var(--ink);
+    font-weight: 700;
+    box-shadow: 0 0 0 1px var(--line-strong);
+}
+
+.btn-primary {
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: #fff;
+    padding: 9px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.btn-primary:hover {
+    background: #2b2b2b;
+    border-color: #2b2b2b;
+}
+
+.btn-primary:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.btn-ghost {
+    border: 1px solid var(--accent);
+    background: var(--card);
+    color: var(--ink);
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.btn-ghost:hover {
+    background: var(--hover);
+}
+
+.cal-wrap {
+    flex: 1;
+    min-height: 520px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .03);
+}
+
+#calendar {
+    height: 100%;
+}
+
+/* ---------- FullCalendar ---------- */
+
+.fc {
+    height: 100%;
+    color: var(--text);
+}
+
+.fc .fc-scrollgrid {
+    border-color: var(--line);
+}
+
+.fc .fc-scrollgrid td,
+.fc .fc-scrollgrid th {
+    border-color: var(--line);
+}
+
+.fc .fc-col-header-cell {
+    background: #fafbfc;
+}
+
+.fc .fc-col-header-cell-cushion {
+    padding: 12px 4px;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.fc .fc-day-sun .fc-col-header-cell-cushion,
+.fc .fc-day-sun .fc-daygrid-day-number {
+    color: var(--sun);
+}
+
+.fc .fc-day-sat .fc-col-header-cell-cushion,
+.fc .fc-day-sat .fc-daygrid-day-number {
+    color: var(--sat);
+}
+
+.fc .fc-daygrid-day {
+    transition: background-color .15s;
+}
+
+.fc .fc-daygrid-day-top {
+    flex-direction: row;
+}
+
+.fc .fc-daygrid-day-number {
+    padding: 8px;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.fc .fc-day-other .fc-daygrid-day-number {
+    color: #adb5bd;
+}
+
+.fc .fc-day-today {
+    background: var(--hover) !important;
+}
+
+.fc .fc-event {
+    border: 0;
+    border-radius: 5px;
+    padding: 2px 4px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.fc .fc-event-main {
+    color: #fff;
+}
+
+.fc .ev-blue {
+    background: var(--ev-blue);
+    border-color: var(--ev-blue);
+}
+
+.fc .ev-green {
+    background: var(--ev-green);
+    border-color: var(--ev-green);
+}
+
+.fc .ev-purple {
+    background: var(--ev-purple);
+    border-color: var(--ev-purple);
+}
+
+.fc .ev-red {
+    background: var(--ev-red);
+    border-color: var(--ev-red);
+}
+
+.fc .ev-pending {
+    background: #fff;
+    border: 1px dashed var(--accent);
+    color: var(--accent);
+}
+
+.fc .ev-pending .fc-event-main {
+    color: var(--accent);
+}
+
+.fc .fc-event.selected {
+    outline: 2px solid var(--color-primary, #6482C4);
+    outline-offset: 1px;
+}
+
+.fc .deadline-day {
+    background: #fff5f5;
+}
+
+.fc .pending-day {
+    background: #f3f6fd;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.badge.dday {
+    background: #fff0f0;
+    color: var(--danger);
+}
+
+.badge.vote {
+    background: var(--hover);
+    color: var(--color-primary-hover, #405B91);
+}
+
+/* ========================================
+   오른쪽 상세 패널
+   common.css의 공통 색상과 통일
+======================================== */
+
+.detail {
+    background: var(--card);
+    border-left: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    color: var(--text);
+}
+
+.detail-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px 16px;
+    border-bottom: 1px solid var(--line);
+}
+
+.detail-head h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--ink);
+}
+
+.icon-btn {
+    border: 0;
+    background: transparent;
+    font-size: 16px;
+    color: var(--muted);
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background-color .2s, color .2s;
+}
+
+.icon-btn:hover {
+    background: var(--hover);
+    color: var(--color-primary-hover, #405B91);
+}
+
+.detail-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.ev-card {
+    margin: 16px;
+    padding: 14px;
+    background: #fafbfc;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+}
+
+.ev-card .t {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--ink);
+    overflow-wrap: anywhere;
+}
+
+.ev-card .d {
+    color: var(--muted);
+    font-size: 12.5px;
+    margin-top: 4px;
+}
+
+.ev-card .m {
+    color: var(--text);
+    font-size: 13px;
+    margin-top: 10px;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+}
+
+.block {
+    padding: 16px 20px;
+    border-top: 1px solid var(--line);
+}
+
+.block h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 12px;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--ink);
+}
+
+.block h3 .no {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-primary, #6482C4);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+.progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.progress .track {
+    flex: 1;
+    height: 8px;
+    border-radius: 99px;
+    background: var(--line);
+    overflow: hidden;
+}
+
+.progress .fill {
+    height: 100%;
+    background: var(--color-primary, #6482C4);
+    border-radius: 99px;
+    transition: width .3s;
+}
+
+.progress .num {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.attendee {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 0;
+    font-size: 14px;
+}
+
+.st {
+    width: 18px;
+    height: 18px;
+}
+
+.slot {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 7px 8px;
+    margin-bottom: 4px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: transparent;
+    font-size: 13.5px;
+    color: var(--text);
+    text-align: left;
+    transition: background-color .2s, border-color .2s;
+}
+
+.slot:hover {
+    background: var(--hover);
+}
+
+.slot.selected {
+    border-color: var(--color-primary, #6482C4);
+    background: var(--color-primary-soft, #F2F5FB);
+}
+
+.slot .time {
+    width: 42px;
+    font-weight: 500;
+    color: var(--ink);
+    flex-shrink: 0;
+}
+
+.slot .bar {
+    flex: 1;
+    height: 8px;
+    border-radius: 99px;
+    background: var(--line);
+    overflow: hidden;
+}
+
+.slot .bar i {
+    display: block;
+    height: 100%;
+    background: var(--color-primary, #6482C4);
+    border-radius: 99px;
+}
+
+.slot .cnt {
+    width: 30px;
+    text-align: right;
+    color: var(--muted);
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.detail-foot {
+    padding: 14px 16px 18px;
+    border-top: 1px solid var(--line);
+    display: grid;
+    gap: 10px;
+}
+
+/* 상세 패널 버튼만 공통 파란색 디자인 적용 */
+.detail-foot .btn-ghost,
+.detail-foot .btn-primary {
+    width: 100%;
+    min-height: 40px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 700;
+    transition: background-color .2s, border-color .2s, color .2s;
+}
+
+.detail-foot .btn-ghost {
+    border: 1px solid var(--color-primary, #6482C4);
+    background: var(--color-white, #fff);
+    color: var(--color-primary, #6482C4);
+}
+
+.detail-foot .btn-ghost:hover {
+    border-color: var(--color-primary-hover, #405B91);
+    background: var(--color-primary-soft, #F2F5FB);
+    color: var(--color-primary-hover, #405B91);
+}
+
+.detail-foot .btn-primary {
+    border: 1px solid var(--color-primary, #6482C4);
+    background: var(--color-primary, #6482C4);
+    color: #fff;
+}
+
+.detail-foot .btn-primary:hover {
+    border-color: var(--color-primary-hover, #405B91);
+    background: var(--color-primary-hover, #405B91);
+    color: #fff;
+}
+
+.empty {
+    padding: 40px 24px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.7;
+}
+
+/* ---------- 다이얼로그 ---------- */
+
+dialog {
+    border: 0;
+    border-radius: 14px;
+    padding: 0;
+    width: 360px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .18);
+    color: var(--text);
+}
+
+dialog::backdrop {
+    background: rgba(17, 17, 17, .4);
+}
+
+dialog form {
+    padding: 22px;
+    display: grid;
+    gap: 14px;
+}
+
+dialog h3 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--ink);
+}
+
+dialog label {
+    display: grid;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+dialog input {
+    font: inherit;
+    padding: 9px 10px;
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    color: var(--ink);
+    background: #fff;
+}
+
+dialog input:focus {
+    outline: 2px solid var(--color-primary, #6482C4);
+    outline-offset: -1px;
+    border-color: transparent;
+}
+
+dialog .row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+/* ---------- 토스트 ---------- */
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 28px;
+    transform: translate(-50%, 20px);
+    background: var(--color-primary-hover, #405B91);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: .25s;
+    font-size: 14px;
+    z-index: 50;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+/* ---------- 반응형 ---------- */
+
+@media (max-width: 1180px) {
+    .app {
+        grid-template-columns: 220px minmax(0, 1fr);
+    }
+
+    .detail {
+        display: none;
+    }
+}
+
+@media (max-width: 760px) {
+    .app {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .main {
+        padding: 14px;
+    }
+}
