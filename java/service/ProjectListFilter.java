@@ -39,10 +39,6 @@ public class ProjectListFilter implements Filter {
             chain.doFilter(request, response);
             return;
         }
-        if (uri.startsWith(req.getContextPath() + "/worklogCalendar/event")) {
-            chain.doFilter(request, response);
-            return;
-        }
 
         HttpSession session = req.getSession(false);
         MemberDTO loginMember = null;
