@@ -18,22 +18,6 @@
 
     String role = isOwner ? "OWNER" : "VIEWER";
     String msg = request.getParameter("msg");
-
-    // 날짜 형식 변환: yyyy-MM-dd 형식으로 맞춤
-    String startDateValue = project.getStartDate();
-    String endDateValue = project.getEndDate();
-
-    if (startDateValue != null && startDateValue.length() >= 10) {
-        startDateValue = startDateValue.substring(0, 10);
-    } else {
-        startDateValue = "";
-    }
-
-    if (endDateValue != null && endDateValue.length() >= 10) {
-        endDateValue = endDateValue.substring(0, 10);
-    } else {
-        endDateValue = "";
-    }
 %>
 
 <main class="project-wrap">
@@ -92,26 +76,6 @@
                             <%= isOwner ? "required" : "readonly" %>>
                     </div>
 
-                    <!-- チーム名 -->
-                    <div class="field">
-                        <label for="teamName">
-                            チーム名
-                            <% if (isOwner) { %>
-                                <span class="req" aria-hidden="true">*</span>
-                            <% } %>
-                        </label>
-
-                        <input type="text"
-                            id="teamName"
-                            name="teamName"
-                            maxlength="100"
-                            value="<%= project.getTeamName() != null
-                                ? project.getTeamName() : "" %>"
-                            <%= isOwner ? "required" : "readonly" %>>
-
-                        <p class="field-hint">チーム名を入力してください。</p>
-                    </div>
-
                     <div class="field">
                         <label for="description">詳細</label>
 
@@ -127,7 +91,7 @@
 
                             <input type="date" id="startDate"
                                 name="startDate"
-                                value="<%= startDateValue %>"
+                                value="<c:out value='<%= project.getStartDate() %>'/>"
                                 <%= isOwner ? "" : "readonly" %>>
                         </div>
 
@@ -136,7 +100,7 @@
 
                             <input type="date" id="endDate"
                                 name="endDate"
-                                value="<%= endDateValue %>"
+                                value="<c:out value='<%= project.getEndDate() %>'/>"
                                 <%= isOwner ? "" : "readonly" %>>
                         </div>
 

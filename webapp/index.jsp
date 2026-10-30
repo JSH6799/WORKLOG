@@ -29,8 +29,8 @@
         <a href="#how-it-works" class="nav-link">使い方</a>
       </nav>
       <div class="auth-buttons">
-        <a href="<%= request.getContextPath() %>/worklogMember/login" class="btn btn-login">ログイン</a>
-        <a href="<%= request.getContextPath() %>/worklogMember/join" class="btn btn-primary">無料で始める</a>
+        <a href="<%= request.getContextPath() %>/member/login.jsp" class="btn btn-login">ログイン</a>
+        <a href="<%= request.getContextPath() %>/member/join.jsp" class="btn btn-primary">無料で始める</a>
       </div>
     </div>
   </header>
@@ -50,7 +50,7 @@
         WORKLOGは直感的に使えるノート & プロジェクト管理ワークスペースです。
       </p>
       <div class="hero-actions">
-        <a href="<%= request.getContextPath() %>/worklogMember/join" class="btn btn-primary btn-large">無料でWORKLOGを始める ➔</a>
+        <a href="<%= request.getContextPath() %>/member/join.jsp" class="btn btn-primary btn-large">無料でWORKLOGを始める ➔</a>
         <a href="#demo" class="btn btn-secondary btn-large">デモを見る</a>
       </div>
     </div>
@@ -186,7 +186,7 @@
     <div class="container">
       <h2 class="cta-title">今すぐ、新しい働き方をはじめましょう</h2>
       <p class="cta-subtitle">クレジットカードの登録は不要です。無料で体験できます。</p>
-      <a href="<%= request.getContextPath() %>/worklogMember/join" class="btn btn-primary btn-large">無料で今すぐ始める ➔</a>
+      <a href="<%= request.getContextPath() %>/member/join.jsp" class="btn btn-primary btn-large">無料で今すぐ始める ➔</a>
     </div>
   </section>
 

@@ -2,50 +2,13 @@ $(function(){
 	
 	// 북마크 버튼
 	$("#bookmarkBtn").on("click",function(){
-		const btn = $(this);
-		
-		// 중복 클릭 방지
-		if(btn.prop("disabled")){
-			return;
+		$(this).toggleClass('bmk');
+		if($(this).hasClass('bmk')){
+			$(this).text('✅ブックマーク');
+		}else{
+			$(this).text('📑ブックマーク');
 		}
-		
-		const params = new URLSearchParams(window.location.search);
-		const bno = params.get("bno");
-		
-		if(!bno){
-			alert("投稿番号を取得できません。");
-			return;
-		}
-		
-		btn.prop("disabled", true);
-		
-		$.ajax({
-			// 현재 url의 마지막 경로를 bookmark로 변경
-			url: btn.data("bookmark-url"),
-			type: "post",
-			data: {bno:bno},
-			dataType: "json",
-			success: function(result){
-				if(result.success){
-					btn.attr("data-bookmarked", result.bookmarked);
-					
-					if(result.bookmarked){
-						btn.addClass("bmk");
-						btn.text("📑ブックマーク解除");
-					}else{
-						btn.removeClass("bmk");
-						btn.text("📑ブックマーク");
-					}
-				}else{
-					alert(result.message || "ブックマーク処理に失敗しました。");
-				}
-			},error:function(){
-				alert("ブックマーク処理に失敗しました。もう一度お試しください。");
-			},complete:function(){
-				btn.prop("disabled",false);
-			}
-		});
-	});
+	})
 	
 	// 확인 버튼
 	$("#confirmBtn").on("click", function(){
@@ -80,7 +43,6 @@ $(function(){
 			if(res.success) {
 				btn.addClass("cfm");
 				btn.text("✅ 確認完了");
-				btn.removeClass("btn-outline");
 			} else {
 				alert("確認処理に失敗しました。");
 			}

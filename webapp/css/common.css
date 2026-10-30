@@ -65,18 +65,9 @@ html {
 }
 
 /* 로고 */
-
 .logo {
     margin: 0;
-    line-height: 0;
-}
-
-.logo img {
-    display: block;
-    width: 140px;
-    height: auto;
-    max-height: 130px;
-    object-fit: contain;
+    font-size: 24px;
 }
 
 .logo a {
@@ -164,97 +155,28 @@ html {
     color: var(--color-text-muted);
 }
 
-
-/* =========================
-   Footer
-========================= */
-
+/* 푸터 */
 .site-footer {
     width: 100%;
     margin-top: 80px;
-    padding: 30px 0;
+    padding: 40px 0;
     border-top: 1px solid var(--color-border);
-    box-sizing: border-box;
+    text-align: center;
 }
-
-/* Footer 내부 영역 */
 
 .footer-inner {
-    position: relative;
-    display: flex;
-    align-items: center;
-
-    width: 1080px;
-    max-width: 100%;
-    min-height: 60px;
+    width: 1200px;
     margin: 0 auto;
-    padding: 0 16px;
-    box-sizing: border-box;
-}
-
-/* Footer 로고: 왼쪽 */
-
-.footer-logo {
-    flex-shrink: 0;
-    position: absolute;
-    left: 280px;
-}
-
-.footer-logo a {
-    display: inline-block;
-    line-height: 0;
-}
-
-.footer-logo img {
-    display: block;
-    width: 130px;
-    height: auto;
-    max-height: 80px;
-    object-fit: contain;
-}
-
-/* Footer 정보: 가운데 */
-
-.footer-content {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: max-content;
-    max-width: calc(100% - 180px);
-    text-align: center;
 }
 
 .footer-inner p {
     margin: 0 0 10px;
 }
 
-.footer-inner p:last-child {
-    margin-bottom: 0;
-}
-
 .footer-sub {
     font-size: 13px;
     color: #888;
 }
-
-/* 작은 화면 대응 */
-
-@media (max-width: 600px) {
-    .footer-inner {
-        flex-direction: column;
-        align-items: center;
-        gap: 18px;
-    }
-
-    .footer-content {
-        position: static;
-        transform: none;
-        width: 100%;
-        max-width: 100%;
-        text-align: center;
-    }
-}
-
 
 /* 공통 버튼 기본 */
 .btn {

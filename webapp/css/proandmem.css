@@ -66,89 +66,23 @@
 #project-content .page-desc { margin: 4px 0 0; color: var(--pc-muted); font-size: 14px; }
 
 /* ---------- 버튼: 흰 바탕 + 검정 테두리 (대시보드의 投稿する 버튼과 같은 모양) ---------- */
-
-/* ========================================
-   프로젝트 화면 버튼 공통 스타일
-======================================== */
-
-/* 기본 버튼: 흰색 배경 + 회색 테두리 */
 #project-content .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 9px 20px;
-    border: 1px solid var(--color-border);
-    border-radius: 6px;
-    background: var(--color-white);
-    color: var(--color-text);
-    font: inherit;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1.4;
-    cursor: pointer;
-    text-decoration: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 9px 20px; border: 1px solid var(--pc-ink); border-radius: 6px;
+    background: var(--pc-surface); color: var(--pc-ink);
+    font: inherit; font-size: 14px; font-weight: 700; line-height: 1.4;
+    cursor: pointer; text-decoration: none;
     transition: background-color 0.15s, color 0.15s, border-color 0.15s;
 }
-
-/* 기본 버튼 hover */
-#project-content .btn:hover {
-    border-color: var(--color-input-border);
-    background: var(--color-primary-soft);
-    color: var(--color-text-heading);
-    text-decoration: none;
-}
-
-/* 주요 버튼: 공용 파란색 */
-#project-content .btn-primary {
-    border-color: var(--color-primary);
-    background: var(--color-primary);
-    color: var(--color-white);
-}
-
-#project-content .btn-primary:hover {
-    border-color: var(--color-primary-hover);
-    background: var(--color-primary-hover);
-    color: var(--color-white);
-}
-
-/* 삭제 버튼: 기존 빨간색 유지 */
-#project-content .btn-danger {
-    border-color: var(--pc-danger);
-    background: var(--pc-danger);
-    color: var(--color-white);
-}
-
-#project-content .btn-danger:hover {
-    border-color: var(--pc-danger-hover);
-    background: var(--pc-danger-hover);
-    color: var(--color-white);
-}
-
-/* 삭제 취소 등 테두리형 위험 버튼 */
-#project-content .btn-danger-outline {
-    border-color: var(--pc-danger);
-    background: var(--color-white);
-    color: var(--pc-danger);
-}
-
-#project-content .btn-danger-outline:hover {
-    border-color: var(--pc-danger);
-    background: var(--pc-danger-bg);
-    color: var(--pc-danger);
-}
-
-/* 작은 버튼 */
-#project-content .btn-small {
-    padding: 4px 12px;
-    font-size: 13px;
-}
-
-/* 비활성 버튼 */
-#project-content .btn:disabled,
-#project-content .btn[disabled] {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
+#project-content .btn:hover { background: #f1f3f5; text-decoration: none; }
+#project-content .btn-primary { background: var(--pc-ink); color: #fff; }
+#project-content .btn-primary:hover { background: #000; }
+#project-content .btn-danger { background: var(--pc-danger); border-color: var(--pc-danger); color: #fff; }
+#project-content .btn-danger:hover { background: var(--pc-danger-hover); border-color: var(--pc-danger-hover); }
+#project-content .btn-danger-outline { border-color: var(--pc-danger); color: var(--pc-danger); }
+#project-content .btn-danger-outline:hover { background: var(--pc-danger-bg); }
+#project-content .btn-small { padding: 4px 12px; font-size: 13px; }
+#project-content .btn[disabled] { opacity: 0.4; cursor: not-allowed; }
 
 /* ---------- 알림 ---------- */
 #project-content .banner {

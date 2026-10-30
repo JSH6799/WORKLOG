@@ -63,5 +63,4 @@
 
 
 <%@ include file="/include/footer.jsp"%>
-<script>const contextPath = "${pageContext.request.contextPath}";</script>
 <script src="${pageContext.request.contextPath}/js/write.js"></script>

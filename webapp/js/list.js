@@ -28,32 +28,4 @@ $(function(){
 		}
 	})
 	
-	$("#buttonFilter").on("click", function() {
-	    const projectId = $(this).data("project-id");
-	    const contextPath = $(this).data("context-path");
-	    const params = new URLSearchParams(location.search);
-	    
-	    if (params.get("unreadOnly") === "Y") {
-	        // 미확인 목록을 보고 있다면 전체 목록으로 돌아가기
-	        location.href = contextPath
-	            + "/project_board/list?projectId="
-	            + encodeURIComponent(projectId);
-	    } else {
-	        // 전체 목록을 보고 있다면 미확인 목록으로 이동
-	        location.href = contextPath
-	            + "/project_board/list?projectId="
-	            + encodeURIComponent(projectId)
-	            + "&unreadOnly=Y";
-	    }
-	});
-	
-	const button = $("#buttonFilter");
-	const params = new URLSearchParams(location.search);
-
-	if (params.get("unreadOnly") === "Y") {
-	    button.text("全体一覧に戻る");
-	} else {
-	    button.text("未確認投稿一覧");
-	}
-	
 })

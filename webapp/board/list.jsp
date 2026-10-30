@@ -5,12 +5,11 @@
 	
 	<main class="list-wrap">
 <!-- 검색창 및 글쓰기 버튼 -->
-	<h2 class="list-title">${projectName} 掲示板</h2>
+	<h2 class="list-title">プロジェクト投稿</h2>
 	<div class="unread-notice">
 		<p class="unread-title">未確認投稿</p>
-		<p class="unread-count">${unreadCount}件</p>
-		<button type="button" id="buttonFilter"class="button-filter" 
-				data-project-id="${projectId}" data-context-path="${pageContext.request.contextPath}">未確認投稿一覧</button>
+		<p class="unread-count">2件</p>
+		<button type="button" id="buttonFilter"class="button-filter">未確認投稿一覧</button>
 	</div>
 		<div class="list-top">
 			<form id="searchForm" class="search-form" action="${pageContext.request.contextPath}/project_board/list" method="get">
@@ -28,28 +27,15 @@
 		</div>
 		
 		
-	<!-- 게시글 목록 -->
+<!-- 게시글 목록 -->
 		<ul class="board-grid">
 		<C:forEach var="b" items="${boardList}">
 			<li class="board-list">
 				<div class="board-info">
 					<p class="board-number">No.${b.bno}</p>
 					<p class="board-title"><a href="${pageContext.request.contextPath}/project_board/view?bno=${b.bno}">${b.title}</a></p>
-					<C:if test="${b.checkRequired eq 'Y'}">
-					    <C:choose>
-					        <C:when test="${b.writer eq sessionScope.loginMember.memberId}">
-					            <span class="check-progress">
-					                確認 ${b.checkCompleteCount} / ${b.checkTotalCount}
-					            </span>
-					        </C:when>
-					        <C:when test="${b.checkYn eq 'Y'}">
-					            <span class="check-complete">確認</span>
-					        </C:when>
-					        <C:otherwise>
-					            <span class="check-required">未確認</span>
-					        </C:otherwise>
-					    </C:choose>
-					</C:if>
+					<span class="check-required">未確認</span>
+					<!-- 확인 여부 메서드 만든 후 수정 -->
 					<p class="board-writer">${b.writerName}</p>
 					<p class="board-date">${b.writeDate}</p>
 				</div>
@@ -64,7 +50,6 @@
 					<C:param name="page" value="${startPage - 1}"/>
 					<C:param name="searchType" value="${searchType}"/>
 					<C:param name="keyword" value="${keyword}"/>
-					<C:param name="unreadOnly" value="${unreadOnly}"/>
 				</C:url>
 				<a href="${preUrl}" class="page-nav">前へ</a>
 			</C:when>
@@ -78,7 +63,6 @@
 				<C:param name="page" value="${p}"/>
 				<C:param name="searchType" value="${searchType}"/>
 				<C:param name="keyword" value="${keyword}"/>
-				<C:param name="unreadOnly" value="${unreadOnly}"/>
 			</C:url>
 			<a href="${pageUrl}" class="page-num ${p==currentPage?'active':''}">${p}</a>
 		</C:forEach>
@@ -89,7 +73,6 @@
 					<C:param name="page" value="${endPage + 1}"/>
 					<C:param name="searchType" value="${searchType}"/>
 					<C:param name="keyword" value="${keyword}"/>
-					<C:param name="unreadOnly" value="${unreadOnly}"/>
 				</C:url>
 				<a href="${nextUrl}" class="page-nav">次へ</a>
 			</C:when>

@@ -45,8 +45,7 @@
                                         <td class="nowrap">${p.startDate} ~ ${p.endDate}</td>
                                         <td>
                                             <a class="btn btn-small" href="${pageContext.request.contextPath}/project/manage?projectId=${p.projectId}">管理</a>
-                                            <a class="btn btn-small"
-   													href="${pageContext.request.contextPath}/projectmember/members?projectId=${p.projectId}">メンバー</a>
+                                            <a class="btn btn-small" href="${pageContext.request.contextPath}/project/members?projectId=${p.projectId}">メンバー</a>
                                         </td>
                                     </tr>
                                 </c:forEach>

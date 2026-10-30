@@ -1,8 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" isELIgnored="false"%>
-    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, model.ProjectMemberDTO" %>
-<%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%@ include file="/include/header.jsp"%>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/proandmem.css">
@@ -28,7 +25,7 @@
 
     <header class="page-head">
         <div>
-            <h1 class="page-title">メンバー権限の管理</h1>
+            <h1 class="page-title">メンバリスト</h1>
             <p class="page-desc">プロジェクトに参加中のメンバーおよび権限を確認します。</p>
         </div>
         <a class="btn" href="${pageContext.request.contextPath}/project/manage?projectId=<%= projectId %>">プロジェクト管理へ</a>
@@ -123,159 +120,7 @@
         </aside>
     </div>
 
-
-<div class="container">
-		
-
-<!-- 프로젝트 멤버 초대 폼 -->
-<div class="form-card">
-    <div class="form-title">メンバー招待</div>
-    <p class="form-description">
-        招待したいメンバーのIDと役割を入力してください。
-    </p>
-
-    <form action="${pageContext.request.contextPath}/projectmember/invitation/send"
-          method="post" class="member-form">
-
-        <input type="hidden" name="projectId"
-               value="${param.projectId}">
-
-        <div class="form-group">
-            <label for="inviteeId">招待するメンバーID</label>
-            <input type="text"
-                   id="inviteeId"
-                   name="inviteeId"
-                   placeholder="メンバーIDを入力"
-                   required>
-        </div>
-		<div class="form-group">
-            <label for="inviteeName">名前</label>
-            <input type="text" id="inviteeName"
-                   name="inviteeName"
-                   placeholder="名前を入力"
-                   required>
-        </div>
-      
-        <div class="form-group">
-            <label for="role">職種・役割</label>
-            <select id="role" name="role" required>
-                <option value="">役割を選択してください</option>
-                <option value="MEMBER">MEMBER</option>
-                <option value="MANAGER">MANAGER</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn-add">
-            ＋ 招待状を送る
-        </button>
-    </form>
 </div>
-	
-		
-<!-- 팀원 검색창 -->
-<form action="${pageContext.request.contextPath}/projectmember/search"
-      method="get" class="member-search-form">
+</main>
 
-    <input type="hidden" name="projectId"
-           value="${param.projectId}">
-
-    <input type="text" name="keyword"
-           value="${param.keyword}"
-           placeholder="メンバー名またはID検索"
-           class="member-search-input">
-
-    <button type="submit" class="member-search-button">検索</button>
-</form>
-	
-		
-<!-- 팀원 목록 -->
-
-<div class="member-grid">
-
-    <!-- 멤버가 있을 때만 반복 출력 -->
-  			<c:if test="${not empty memberList}">
-    	<c:forEach var="pm" items="${memberList}">
-        <div class="member-card">
-            <div class="member-info">
-                <div class="name">
-                    名前: <c:out value="${pm.memberName}"/>
-                </div>
-                <span class="role">
-                    職種：<c:out value="${pm.role}"/>
-                </span>
-                <div class="contact-M">
-                    📧 <c:out value="${pm.email}"/>
-                </div>
-            </div>
-			
-                <!-- 역할 수정 버튼 및 폼 -->
-                <details class="member-edit">
-                    <summary class="member-edit-button">
-                        ✏️ 情報を変更
-                    </summary>
-
-                    <form action="${pageContext.request.contextPath}/projectmember/update"
-                          method="post"
-                          class="member-edit-form">
-
-                        <input type="hidden" name="projectId"
-                               value="<c:out value='${pm.projectId}'/>">
-
-                        <input type="hidden" name="memberId"
-                               value="<c:out value='${pm.memberId}'/>">
-
-                        <div class="form-group">
-                            <label>職種・役割</label>
-
-                            <input type="text"
-                                   name="role"
-                                   value="<c:out value='${pm.role}'/>"
-                                   required>
-                        </div>
-
-                        <div class="member-edit-email">
-                            📧 <c:out value="${pm.email}"/>
-                        </div>
-
-                        <button type="submit" class="btn-add">
-                            役割を変更
-                        </button>
-                    </form>
-                </details>
-
-         <!-- 프로젝트에서 팀원 삭제 -->
-                <div class="card-actions">
-                    <form action="${pageContext.request.contextPath}/projectmember/delete"
-                          method="post"
-                          onsubmit="return confirm('このプロジェクトで該当のチームメンバーを削除しますか？');">
-
-                        <input type="hidden" name="projectId"
-                               value="<c:out value='${pm.projectId}'/>">
-
-                        <input type="hidden" name="memberId"
-                               value="<c:out value='${pm.memberId}'/>">
-
-                        <button type="submit" class="btn-delete">
-                            メンバー削除
-                        </button>
-                    </form>
-                </div>
-
-            </div>
-            <!-- member-card 끝 -->
-
-        </c:forEach>
-    </c:if>
-        </div>
-
-
-
-</div>
-<!-- member-grid 끝 -->
-	
-</div>
-</main>       
-	
-	
-	
-	
+<%@ include file="/include/footer.jsp"%>

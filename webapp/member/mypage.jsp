@@ -74,25 +74,17 @@
 	                <p class="invitation-description">受信したプロジェクト招待を確認できます。</p>
 	
 	                <div class="invitation-list">
-	                	<C:forEach var="inv" items="${invitationList}">
+	                	<!-- c:foreach 사용 -->
 	                        <div class="invitation-item">
-	                            <h6 class="invitation-project-name">${inv.projectId}</h6>
-	                            <p class="invitation-meta">招待者：${inv.inviterId}</p>
-	                            <p class="invitation-meta">招待日：${inv.invitedDate}</p>
-	                        <div class="invitation-actions">
-	                        <form method="post"action="${pageContext.request.contextPath}/projectmember/invitation/accept">
-				        		<input type="hidden" name="invitationId"value="${inv.invitationId}">
-				        		<input type="hidden" name="projectId" value="${inv.projectId}">
-						        <button type="submit"class="btn btn-primary invitation-accept-btn">承認 </button>
-				   			 </form>
-			   				 <!-- 거절 -->
-			    			<form method="post"action="${pageContext.request.contextPath}/projectmember/invitation/reject">
-						        <input type="hidden" name="invitationId"value="${inv.invitationId}">
-						        <button type="submit"class="btn btn-outline-secondary invitation-reject-btn">拒否</button>
-					   		</form>
+	                            <h6 class="invitation-project-name">추가</h6>
+	                            <p class="invitation-meta">招待者：추가</p>
+	                            <p class="invitation-meta">招待日：추가</p>
+	                            <div class="invitation-actions">
+	                                <button type="button" class="btn btn-primary invitation-accept-btn">承認</button>
+	                                <button type="button" class="btn btn-outline-secondary invitation-reject-btn">拒否</button>
+	                            </div>
 	                        </div>
-	                        </div>
-	                    </C:forEach>
+	                    <!-- c:foreach 닫는 곳 -->
 	                </div>
 	            </div>
 	            <div class="modal-footer">
