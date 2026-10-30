@@ -239,4 +239,59 @@ public class ProjectMemberDao {
 	    return list;
 	}
 	
+	// 입력한 회원 ID, 이름, 이메일이 실제 회원 정보와 일치하는지 확인
+	public boolean checkMemberInfo(String memberId, String memberName, String email) {
+
+	    String sql = "SELECT COUNT(*) FROM member "
+	               + "WHERE member_id = ? "
+	               + "AND member_name = ? "
+	               + "AND email = ?";
+
+	    try (Connection conn = DBUtil.getInstance();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	        pstmt.setString(1, memberId);
+	        pstmt.setString(2, memberName);
+	        pstmt.setString(3, email);
+
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	                return rs.getInt(1) == 1;
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return false;
+	}
+
+
+	// 해당 회원이 이미 이 프로젝트에 등록되어 있는지 확인
+	public boolean isAlreadyMember(String projectId, String memberId) {
+
+	    String sql = "SELECT COUNT(*) FROM project_member "
+	               + "WHERE project_id = ? AND member_id = ?";
+
+	    try (Connection conn = DBUtil.getInstance();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	        pstmt.setString(1, projectId);
+	        pstmt.setString(2, memberId);
+
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	                return rs.getInt(1) > 0;
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return false;
+	}
+	
+	
 }
