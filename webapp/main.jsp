@@ -39,7 +39,7 @@
     if (userName == null) userName = "geust";
 
     Integer unreadPostCount = (Integer) request.getAttribute("unreadPostCount");
-    if (unreadPostCount == null) unreadPostCount = 4;
+    if (unreadPostCount == null) unreadPostCount = 0;
 
     java.time.LocalDate today = java.time.LocalDate.now(java.time.ZoneId.of("Asia/Tokyo"));
 
