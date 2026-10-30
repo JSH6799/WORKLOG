@@ -49,6 +49,15 @@ public class ProjectMemberCommand implements Command {
             
             System.out.println("전달받은 projectId = " + projectId);
             System.out.println("조회된 팀원 수 = " + list.size());
+            
+         // 조회된 DTO 값 확인
+            for (ProjectMemberDTO pm : list) {
+            	 System.out.println("--------------------");
+            	    System.out.println("memberId = " + pm.getMemberId());
+            	    System.out.println("memberName = " + pm.getMemberName());
+            	    System.out.println("role = " + pm.getRole());
+            	    System.out.println("email = " + pm.getEmail());
+            	}
 
             // 4. 조회 결과를 JSP로 전달하기
             request.setAttribute("memberList", list);

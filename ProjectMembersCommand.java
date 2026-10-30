@@ -23,6 +23,8 @@ public class ProjectMembersCommand implements Command {
             
             List<ProjectMemberDTO> list = dao.getProjectMembers(projectId);
             request.setAttribute("projectId", projectId);
+            request.setAttribute("memberList", list);
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
