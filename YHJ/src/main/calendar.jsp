@@ -1,39 +1,42 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="true" %>
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>カレンダー | WORKLOG</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%-- JSTL 태그라이브러리 선언 (Tomcat 10+ : jakarta.tags.core) --%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%
+    // 비로그인 차단 (헤더 include보다 먼저 실행해야 함)
+    if (session.getAttribute("loginMember") == null) {
+        response.sendRedirect(request.getContextPath() + "/worklogMember/login");
+        return;
+    }
+%>
+<%-- 공통 헤더: <html>, <head>, CSS(calendarMy.css 포함), <header GNB> 출력.
+     proList 는 ProjectListFilter 가 request 에 세팅 --%>
+<%@ include file="/include/header.jsp" %>
 
 <!-- FullCalendar v6 (CDN) + 日本語ロケール -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/locales/ja.global.min.js"></script>
 
-<link rel="stylesheet" href="../css/calendarMy.css">
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/calendarMy.css">
-
-</head>
-<body>
 <div class="app">
   <!-- ===== 左サイドバー ===== -->
   <aside class="sidebar">
-    <div class="brand"><span class="brand-mark">W</span> WORKLOG</div>
-
-    <div class="side-section">
-      <div class="side-title">マイワークスペース</div>
-      <a class="side-item" href="<%= request.getContextPath() %>/main.jsp"><span class="ico">🏠</span>ダッシュボード</a>
-      <a class="side-item active" href="#"><span class="ico">📅</span>カレンダー</a>
-    </div>
 
     <div class="side-section">
       <div class="side-title">参加中のプロジェクト</div>
-      <a class="side-item" href="#"><span class="ico">🚀</span>A プロジェクト</a>
-      <a class="side-item" href="#"><span class="ico">🎨</span>B プロジェクト</a>
+      <c:choose>
+        <c:when test="${not empty proList}">
+          <c:forEach var="p" items="${proList}">
+            <a class="side-item"
+               href="${pageContext.request.contextPath}/project/manage?projectId=${p.projectId}">
+              <span class="ico">🚀</span><c:out value="${p.projectName}" />
+            </a>
+          </c:forEach>
+        </c:when>
+        <c:otherwise>
+          <div class="side-item" style="color:#adb5bd; cursor:default;">
+            参加中のプロジェクトはありません
+          </div>
+        </c:otherwise>
+      </c:choose>
     </div>
 
     <div class="side-section">
@@ -99,6 +102,7 @@
 
   /* =========================================================
    * ダミーデータ（実運用ではAPI / JSTLで置き換えてください）
+   * ※ isELIgnored を外したため、このscript内ではEL式（ドル記号＋波括弧）を書かないこと
    * ========================================================= */
   // デモ用に「今日」を2026-10-15に固定。本番では null にすると実際の日付になります。
   var DEMO_TODAY = '2026-10-15';
@@ -410,7 +414,7 @@
   mountCalendar();
   renderDetail('e5');    // 画面イメージ同様、調整中の会議を選択状態で表示
 })();
-
 </script>
-</body>
-</html>
+
+<%-- 공통 푸터: </body></html> 을 닫아준다면 이 파일에서는 닫지 않음 --%>
+<%@ include file="/include/footer.jsp" %>
