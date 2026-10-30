@@ -34,6 +34,15 @@ public class ProjectListFilter implements Filter {
             chain.doFilter(request, response);
             return;
         }
+        
+        if (uri.matches("(?i).*\\.(css|js|png|jpg|jpeg|gif|svg|ico|woff2?)$")) {
+            chain.doFilter(request, response);
+            return;
+        }
+        if (uri.startsWith(req.getContextPath() + "/worklogCalendar/event")) {
+            chain.doFilter(request, response);
+            return;
+        }
 
         HttpSession session = req.getSession(false);
         MemberDTO loginMember = null;
