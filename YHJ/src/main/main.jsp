@@ -68,7 +68,7 @@
                 <span class="summary-label">未確認投稿</span>
                 <span class="summary-count"><%= unreadPostCount %>件</span>
             </div>
-            <a href="<%= ctx %>/member/mypage.jsp" class="btn-sm-outline">未確認投稿一覧</a>
+            <a href="<%= ctx %>/worklogMember/mypage" class="btn-sm-outline">未確認投稿一覧</a>
         </div>
     </section>
 
