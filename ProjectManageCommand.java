@@ -1,4 +1,3 @@
-
 package service;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,9 +7,11 @@ import jakarta.servlet.http.HttpSession;
 import model.MemberDTO;
 import model.ProjectDAO;
 import model.ProjectDTO;
+import model.ProjectMemberDTO;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public class ProjectManageCommand implements Command {
 
@@ -50,18 +51,43 @@ public class ProjectManageCommand implements Command {
                 return false;
             }
 
+            String loginId = loginMember.getMemberId();
+
             boolean isOwner =
                 project.getCreatorId() != null
-                && project.getCreatorId().equals(loginMember.getMemberId());
+                && project.getCreatorId().equals(loginId);
+
+            // 自分の権限と作成者名を、プロジェクトメンバー一覧から取得
+            // OWNER=リーダー, ADMIN=メンバー, MEMBER=閲覧者
+            String myRole = isOwner ? "OWNER" : "MEMBER";
+            String creatorName = null;
+
+            List<ProjectMemberDTO> members = dao.getProjectMembers(projectId);
+
+            if (members != null) {
+                for (ProjectMemberDTO m : members) {
+                    if (!isOwner && loginId.equals(m.getMemberId())) {
+                        myRole = m.getRole();
+                    }
+                    if (project.getCreatorId() != null
+                            && project.getCreatorId().equals(m.getMemberId())) {
+                        creatorName = m.getMemberName();
+                    }
+                }
+            }
+
+            // 修正できるのは リーダー(OWNER) と メンバー(ADMIN)
+            boolean canEdit =
+                "OWNER".equals(myRole) || "ADMIN".equals(myRole);
 
             // POST：プロジェクト情報の更新
             if ("POST".equalsIgnoreCase(request.getMethod())) {
 
-                if (!isOwner) {
+                if (!canEdit) {
                     response.setContentType("text/html; charset=UTF-8");
                     response.getWriter().println(
                         "<script>" +
-                        "alert('自分が作成したプロジェクトのみ編集できます。');" +
+                        "alert('このプロジェクトを編集する権限がありません。');" +
                         "location.href='" + contextPath + "/project/list';" +
                         "</script>"
                     );
@@ -110,7 +136,9 @@ public class ProjectManageCommand implements Command {
             // GET：画面表示用データ
             request.setAttribute("project", project);
             request.setAttribute("isOwner", isOwner);
-            request.setAttribute("role", isOwner ? "OWNER" : "VIEWER");
+            request.setAttribute("myRole", myRole);
+            request.setAttribute("role", myRole);
+            request.setAttribute("creatorName", creatorName);
 
             return true;
 
