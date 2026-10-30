@@ -5,14 +5,8 @@ public class ProjectMemberDTO {
 	private String projectId;
     private String memberId;
     private String role;
-    private String participating;
-    public String getParticipating() {
-		return participating;
-	}
-	public void setParticipating(String participating) {
-		this.participating = participating;
-	}
-	private String memberName;
+    
+    private String memberName;
     private String email;
     
     

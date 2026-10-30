@@ -7,11 +7,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.BoardCheckDAO;
-import model.BoardCheckDTO;
 import model.BoardDAO;
 import model.BoardDTO;
-import model.BookmarkDAO;
 import model.MemberDTO;
 
 public class BoardViewCommand implements Command {
@@ -38,36 +35,6 @@ public class BoardViewCommand implements Command {
 		BoardDTO dto = dao.selectView(bno);
 		
 		request.setAttribute("view", dto);
-		
-		
-		BookmarkDAO bdao = new BookmarkDAO();
-		boolean bookmarked = bdao.isBookmarked(bno, loginMember.getMemberId());
-		
-		request.setAttribute("bookmarked", bookmarked);
-		
-		
-		BoardCheckDAO checkDAO = new BoardCheckDAO();
-		
-		boolean checked = checkDAO.isChecked(bno, loginMember.getMemberId());
-		request.setAttribute("checked", checked);
-		
-		
-		
-		if(loginMember.getMemberId().equals(dto.getWriter()) && "Y".equals(dto.getCheckRequired())) {
-			List<BoardCheckDTO> checkList = checkDAO.selectCheckList(bno);
-			request.setAttribute("checkList", checkList);
-			int totalCount = checkList.size();
-			int checkCount = 0;
-			
-			for (BoardCheckDTO cl : checkList) {
-			    if ("確認完了".equals(cl.getCheckStatus())) {
-			        checkCount++;
-			    }
-			}
-			
-			request.setAttribute("totalCount", totalCount);
-			request.setAttribute("checkCount", checkCount);
-		}
 		
 		return true;
 	}

@@ -11,8 +11,6 @@ import service.MemberIdCheckCommand;
 import service.MemberJoinCommand;
 import service.MemberLoginCommand;
 import service.MemberLogoutCommand;
-import service.MemberPasswordCheckCommand;
-import service.MemberUpdateCommand;
 import service.MypageCommand;
 
 import java.io.IOException;
@@ -61,14 +59,6 @@ public class MemberController extends HttpServlet {
 		case "/mypage":
 			command = new MypageCommand();
 			page = "/member/mypage.jsp";
-			break;
-		case "/passwordCheck":
-			command = new MemberPasswordCheckCommand();
-			page = null;
-			break;
-		case "/memberUpdate":
-			command = new MemberUpdateCommand();
-			page = null;
 			break;
 		}
 		

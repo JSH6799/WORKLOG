@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public interface Command {
 
-	boolean doCommand(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	boolean doCommand(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException;
 	
 }

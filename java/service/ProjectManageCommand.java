@@ -9,9 +9,6 @@ import model.MemberDTO;
 import model.ProjectDAO;
 import model.ProjectDTO;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-
 public class ProjectManageCommand implements Command {
 
     @Override
@@ -23,11 +20,13 @@ public class ProjectManageCommand implements Command {
         try {
             String projectId = request.getParameter("projectId");
 
+            // プロジェクトIDの確認
             if (projectId == null || projectId.trim().isEmpty()) {
                 response.sendRedirect(contextPath + "/project/list");
                 return false;
             }
 
+            // ログイン状態の確認
             HttpSession session = request.getSession(false);
             MemberDTO loginMember = null;
 
@@ -36,13 +35,14 @@ public class ProjectManageCommand implements Command {
                     (MemberDTO) session.getAttribute("loginMember");
             }
 
-            if (loginMember == null
-                    || loginMember.getMemberId() == null) {
-                response.sendRedirect(contextPath + "/member/login.jsp");
+            if (loginMember == null) {
+                response.sendRedirect(contextPath + "/member/login");
                 return false;
             }
 
             ProjectDAO dao = ProjectDAO.getInstance();
+
+            // プロジェクト情報の取得
             ProjectDTO project = dao.getProjectById(projectId);
 
             if (project == null) {
@@ -50,13 +50,15 @@ public class ProjectManageCommand implements Command {
                 return false;
             }
 
+            // 作成者とログインユーザーを比較
             boolean isOwner =
                 project.getCreatorId() != null
                 && project.getCreatorId().equals(loginMember.getMemberId());
 
-            // POST：プロジェクト情報の更新
+            // POST：更新処理
             if ("POST".equalsIgnoreCase(request.getMethod())) {
 
+                // 作成者以外の更新を禁止
                 if (!isOwner) {
                     response.setContentType("text/html; charset=UTF-8");
                     response.getWriter().println(
@@ -69,45 +71,29 @@ public class ProjectManageCommand implements Command {
                 }
 
                 String projectName = request.getParameter("projectName");
-                String teamName = request.getParameter("teamName");
                 String description = request.getParameter("description");
                 String startDate = request.getParameter("startDate");
                 String endDate = request.getParameter("endDate");
 
-                if (projectName == null || projectName.trim().isEmpty()
-                        || teamName == null || teamName.trim().isEmpty()) {
-
-                    response.setContentType("text/html; charset=UTF-8");
-                    response.getWriter().println(
-                        "<script>" +
-                        "alert('プロジェクト名とチーム名を入力してください。');" +
-                        "history.back();" +
-                        "</script>"
-                    );
-                    return false;
-                }
-
-                project.setProjectName(projectName.trim());
-                project.setTeamName(teamName.trim());
+                project.setProjectName(projectName);
                 project.setDescription(description);
-                project.setStartDate(
-                    startDate == null || startDate.isEmpty() ? null : startDate
-                );
-                project.setEndDate(
-                    endDate == null || endDate.isEmpty() ? null : endDate
-                );
+                project.setStartDate(startDate);
+                project.setEndDate(endDate);
 
                 dao.updateProject(project);
 
                 response.sendRedirect(
                     contextPath + "/project/manage?projectId="
-                    + URLEncoder.encode(projectId, StandardCharsets.UTF_8)
+                    + java.net.URLEncoder.encode(
+                        projectId, java.nio.charset.StandardCharsets.UTF_8
+                    )
                     + "&msg=saved"
                 );
+
                 return false;
             }
 
-            // GET：画面表示用データ
+            // GET：画面表示用データを設定
             request.setAttribute("project", project);
             request.setAttribute("isOwner", isOwner);
             request.setAttribute("role", isOwner ? "OWNER" : "VIEWER");

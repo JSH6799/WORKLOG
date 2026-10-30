@@ -103,9 +103,6 @@ public class BookmarkListCommand implements Command {
 		request.setAttribute("bmkList", bmkList);
 		request.setAttribute("bmkProList", projectList);
 		
-		request.setAttribute("keyword", keyword);
-		request.setAttribute("searchType", searchType);
-		
 		return true;
 	}
 

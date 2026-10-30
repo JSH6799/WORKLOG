@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import model.BoardCheckDAO;
 import model.BoardDAO;
 import model.BoardDTO;
 import model.MemberDTO;
@@ -66,13 +65,9 @@ public class BoardWriteCommand implements Command {
 		}
 		
 		BoardDAO dao = new BoardDAO();
-		BoardCheckDAO checkDao = new BoardCheckDAO();
-		int bno = dao.insert(dto);
+		dao.insert(dto);
 		
 		String projectId = request.getParameter("project_id");
-		if(bno != 0 && dto.getCheckRequired().equals("Y")) {
-			checkDao.insertUnreadChecks(bno);
-		}
 
 		response.sendRedirect(
 		    request.getContextPath() + "/project_board/list?projectId=" + projectId

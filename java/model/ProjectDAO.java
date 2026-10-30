@@ -5,17 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
 import util.DBUtil;
 
 public class ProjectDAO {
+    private static ProjectDAO instance = new ProjectDAO();
+    public static ProjectDAO getInstance() { return instance; }
+    private ProjectDAO() {}
 
-	private static ProjectDAO instance = new ProjectDAO();
-	public static ProjectDAO getInstance() { return instance; }
-	private ProjectDAO() {}
-
-	
-	// 프로젝트 목록 조회
+    // 프로젝트 목록 조회
     public List<ProjectDTO> getProjectList() {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -86,97 +83,70 @@ public class ProjectDAO {
     }
 
     // 프로젝트 생성 (트랜잭션 적용)
-
-public void insertProject(ProjectDTO dto, String creatorId) throws Exception {
-    String sql1 =
-        "INSERT INTO project " +
-        "(project_id, team_name, project_name, start_date, end_date, description, creator_id) " +
-        "VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-    String sql2 =
-        "INSERT INTO project_member (project_id, member_id, role) " +
-        "VALUES (?, ?, 'OWNER')";
-
-    try (Connection conn = DBUtil.getInstance()) {
-        conn.setAutoCommit(false);
-
+    public void insertProject(ProjectDTO dto, String creatorId) {
+        Connection conn = null;
+        PreparedStatement pstmt1 = null;
+        PreparedStatement pstmt2 = null;
+        
+        String sql1 = "INSERT INTO project (project_id, team_name, project_name, start_date, end_date, description, creator_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql2 = "INSERT INTO project_member (project_id, member_id, role) VALUES (?, ?, 'OWNER')";
+        
         try {
-            try (PreparedStatement pstmt1 = conn.prepareStatement(sql1)) {
-                pstmt1.setString(1, dto.getProjectId());
-                pstmt1.setString(2, dto.getTeamName());
-                pstmt1.setString(3, dto.getProjectName());
-                pstmt1.setString(4, dto.getStartDate());
-                pstmt1.setString(5, dto.getEndDate());
-                pstmt1.setString(6, dto.getDescription());
-                pstmt1.setString(7, creatorId);
-
-                pstmt1.executeUpdate();
-            }
-
-            try (PreparedStatement pstmt2 = conn.prepareStatement(sql2)) {
-                pstmt2.setString(1, dto.getProjectId());
-                pstmt2.setString(2, creatorId);
-
-                pstmt2.executeUpdate();
-            }
-
+            conn = DBUtil.getInstance();
+            conn.setAutoCommit(false);
+            
+            pstmt1 = conn.prepareStatement(sql1);
+            pstmt1.setString(1, dto.getProjectId());
+            pstmt1.setString(2, dto.getTeamName() != null ? dto.getTeamName() : "Default Team");
+            pstmt1.setString(3, dto.getProjectName());
+            pstmt1.setString(4, dto.getStartDate());
+            pstmt1.setString(5, dto.getEndDate());
+            pstmt1.setString(6, dto.getDescription());
+            pstmt1.setString(7, creatorId);
+            pstmt1.executeUpdate();
+            
+            pstmt2 = conn.prepareStatement(sql2);
+            pstmt2.setString(1, dto.getProjectId());
+            pstmt2.setString(2, creatorId);
+            pstmt2.executeUpdate();
+            
             conn.commit();
-
         } catch (Exception e) {
-            try {
-                conn.rollback();
-            } catch (Exception rollbackException) {
-                e.addSuppressed(rollbackException);
-            }
-
-            throw e;
-
+            e.printStackTrace();
+            try { if(conn != null) conn.rollback(); } catch(Exception ex) { ex.printStackTrace(); }
         } finally {
             try {
-                conn.setAutoCommit(true);
-            } catch (Exception resetException) {
-                resetException.printStackTrace();
-            }
+                if(pstmt1 != null) pstmt1.close();
+                if(pstmt2 != null) pstmt2.close();
+                if(conn != null) { conn.setAutoCommit(true); conn.close(); }
+            } catch (Exception e) { e.printStackTrace(); }
         }
     }
-}
 
     // 프로젝트 수정
-
-    // プロジェクト更新
     public void updateProject(ProjectDTO dto) {
         Connection conn = null;
         PreparedStatement pstmt = null;
-
-        String sql = "UPDATE project SET team_name = ?, project_name = ?, " +
-                     "description = ?, start_date = ?, end_date = ? " +
-                     "WHERE project_id = ?";
-
+        String sql = "UPDATE project SET project_name = ?, description = ?, start_date = ?, end_date = ? WHERE project_id = ?";
+        
         try {
             conn = DBUtil.getInstance();
             pstmt = conn.prepareStatement(sql);
-
-            pstmt.setString(1, dto.getTeamName());
-            pstmt.setString(2, dto.getProjectName());
-            pstmt.setString(3, dto.getDescription());
-            pstmt.setString(4, dto.getStartDate());
-            pstmt.setString(5, dto.getEndDate());
-            pstmt.setString(6, dto.getProjectId());
-
+            pstmt.setString(1, dto.getProjectName());
+            pstmt.setString(2, dto.getDescription());
+            pstmt.setString(3, dto.getStartDate());
+            pstmt.setString(4, dto.getEndDate());
+            pstmt.setString(5, dto.getProjectId());
             pstmt.executeUpdate();
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
-                if (conn != null) conn.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                if(pstmt != null) pstmt.close();
+                if(conn != null) conn.close();
+            } catch (Exception e) { e.printStackTrace(); }
         }
     }
-
 
     // 프로젝트 삭제
     public void deleteProject(String projectId) {
@@ -269,54 +239,4 @@ public void insertProject(ProjectDTO dto, String creatorId) throws Exception {
             } catch (Exception e) { e.printStackTrace(); }
         }
     }
-	
-    //프로젝트 회원별 조회
-
-public List<ProjectDTO> getProjectListByMember(String memberId) {
-
-    List<ProjectDTO> list = new ArrayList<>();
-
-    String sql =
-        "SELECT DISTINCT p.project_id, p.team_name, " +
-        "p.project_name, p.start_date, p.end_date, " +
-        "p.description, p.creator_id " +
-        "FROM project p " +
-        "WHERE p.creator_id = ? " +
-        "OR EXISTS ( " +
-        "    SELECT 1 FROM project_member pm " +
-        "    WHERE pm.project_id = p.project_id " +
-        "    AND pm.member_id = ? " +
-        ") " +
-        "ORDER BY p.start_date DESC";
-
-    try (Connection conn = DBUtil.getInstance();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-        pstmt.setString(1, memberId);
-        pstmt.setString(2, memberId);
-
-        try (ResultSet rs = pstmt.executeQuery()) {
-            while (rs.next()) {
-                ProjectDTO dto = new ProjectDTO();
-
-                dto.setProjectId(rs.getString("project_id"));
-                dto.setTeamName(rs.getString("team_name"));
-                dto.setProjectName(rs.getString("project_name"));
-                dto.setStartDate(rs.getString("start_date"));
-                dto.setEndDate(rs.getString("end_date"));
-                dto.setDescription(rs.getString("description"));
-                dto.setCreatorId(rs.getString("creator_id"));
-
-                list.add(dto);
-            }
-        }
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-
-    return list;
-}
-
-    
 }
