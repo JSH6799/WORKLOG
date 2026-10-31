@@ -529,71 +529,127 @@ public class BoardDAO {
 	
 		
 
-		// 마이페이지용 내가 쓴 게시글 전체 목록
-		public List<BoardDTO> selectMyBoardList(String memberId) {
-			return selectMyBoardList(memberId, null);
+	// 마이페이지용 내가 쓴 게시글 전체 목록
+	public List<BoardDTO> selectMyBoardList(String memberId) {
+		return selectMyBoardList(memberId, null);
+	}
+
+	// 마이페이지용 내가 쓴 게시글 프로젝트별 목록
+	public List<BoardDTO> selectMyBoardList(String memberId, String projectId) {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String sql = "select b.bno, b.title, b.writer, b.project_id, p.project_name, "
+				+ "to_char(b.write_date, 'YYYY-MM-DD') as write_date "
+				+ "from board b "
+				+ "join project p on b.project_id = p.project_id "
+				+ "where b.writer = ? ";
+
+		if(projectId != null && !projectId.isEmpty()) {
+			sql += "and b.project_id = ? ";
 		}
 
-		// 마이페이지용 내가 쓴 게시글 프로젝트별 목록
-		public List<BoardDTO> selectMyBoardList(String memberId, String projectId) {
+		sql += "order by b.write_date desc, b.bno desc";
 
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
 
-			String sql = "select b.bno, b.title, b.writer, b.project_id, p.project_name, "
-					+ "to_char(b.write_date, 'YYYY-MM-DD') as write_date "
-					+ "from board b "
-					+ "join project p on b.project_id = p.project_id "
-					+ "where b.writer = ? ";
+		try {
+			conn = DBUtil.getInstance();
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, memberId);
 
 			if(projectId != null && !projectId.isEmpty()) {
-				sql += "and b.project_id = ? ";
+				pstmt.setString(2, projectId);
 			}
 
-			sql += "order by b.write_date desc, b.bno desc";
+			rs = pstmt.executeQuery();
 
-			List<BoardDTO> list = new ArrayList<BoardDTO>();
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
 
+				dto.setBno(rs.getInt("bno"));
+				dto.setTitle(rs.getString("title"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setProjectId(rs.getString("project_id"));
+				dto.setWriteDate(rs.getString("write_date"));
+
+				list.add(dto);
+			}
+
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
 			try {
-				conn = DBUtil.getInstance();
-				pstmt = conn.prepareStatement(sql);
-
-				pstmt.setString(1, memberId);
-
-				if(projectId != null && !projectId.isEmpty()) {
-					pstmt.setString(2, projectId);
-				}
-
-				rs = pstmt.executeQuery();
-
-				while(rs.next()) {
-					BoardDTO dto = new BoardDTO();
-
-					dto.setBno(rs.getInt("bno"));
-					dto.setTitle(rs.getString("title"));
-					dto.setWriter(rs.getString("writer"));
-					dto.setProjectId(rs.getString("project_id"));
-					dto.setWriteDate(rs.getString("write_date"));
-
-					list.add(dto);
-				}
-
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
 			}catch (Exception e) {
 				e.printStackTrace();
-			}finally {
-				try {
-					if(rs != null) rs.close();
-					if(pstmt != null) pstmt.close();
-					if(conn != null) conn.close();
-				}catch (Exception e) {
-					e.printStackTrace();
-				}
 			}
-
-			return list;
 		}
 
+		return list;
+	}
+
+	
+	// main.jsp용 참여 프로젝트 최신 게시글 목록
+	public List<BoardDTO> selectRecentBoardList(String memberId){
 		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		
+		String sql = "select * from (\r\n"
+				+ "    select b.bno, b.title, b.writer, b.project_id, p.project_name,\r\n"
+				+ "           m.member_name as writer_name, to_char(b.write_date, 'YYYY-MM-DD') as write_date\r\n"
+				+ "    from board b\r\n"
+				+ "    join project_member pm\r\n"
+				+ "    on b.project_id = pm.project_id\r\n"
+				+ "    join project p\r\n"
+				+ "    on b.project_id = p.project_id\r\n"
+				+ "    join member m\r\n"
+				+ "    on b.writer = m.member_id\r\n"
+				+ "    where pm.member_id = ?\r\n"
+				+ "    order by b.write_date desc, b.bno desc\r\n"
+				+ ") where rownum <= 3";
+		
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		try {
+			conn = DBUtil.getInstance();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memberId);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				
+				dto.setBno(rs.getInt("bno"));
+				dto.setTitle(rs.getString("title"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setProjectId(rs.getString("project_id"));
+				dto.setProjectName(rs.getString("project_name"));
+				dto.setWriterName(rs.getString("writer_name"));
+				dto.setWriteDate(rs.getString("write_date"));
+				
+				list.add(dto);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+
 }
