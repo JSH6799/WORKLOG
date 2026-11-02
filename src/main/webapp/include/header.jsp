@@ -41,12 +41,12 @@
 		<h1 class="logo">
 			<C:choose>
 				<C:when test="${empty sessionScope.loginMember}">
-					<li><a href="${pageContext.request.contextPath}/">
-						<img src="${pageContext.request.contextPath}/images/WORKLOG_logo.png" alt="WORKLOG 로고"></a></li>
+					<a href="${pageContext.request.contextPath}/">
+					<img src="${pageContext.request.contextPath}/images/WORKLOG_logo.png" alt="WORKLOG 로고"></a>
 				</C:when>
 				<C:otherwise>
-					<li><a href="${pageContext.request.contextPath}/main">
-						<img src="${pageContext.request.contextPath}/images/WORKLOG_logo.png" alt="WORKLOG 로고"></a></li>
+					<a href="${pageContext.request.contextPath}/main">
+					<img src="${pageContext.request.contextPath}/images/WORKLOG_logo.png" alt="WORKLOG 로고"></a>
 				</C:otherwise>
 			</C:choose>
 		</h1>
