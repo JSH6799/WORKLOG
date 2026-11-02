@@ -221,13 +221,9 @@
 
             <div class="widget-card">
                 <div class="widget-header">
-                    <span class="widget-title">⚡ クイックアクション</span>
+                    <span class="widget-title">プロジェクト参加・招待</span>
                 </div>
                 <div class="quick-actions-grid">
-                    <button type="button" class="quick-btn" onclick="location.href='<%= ctx %>/board/write.jsp'">
-                        <span class="icon">✏️</span>
-                        <span>投稿作成</span>
-                    </button>
                     <button type="button" class="quick-btn" onclick="openModal('joinModal')">
                         <span class="icon">🚪</span>
                         <span>プロジェクト参加</span>
@@ -252,9 +248,9 @@
                 </div>
             </div>
 
-            <div class="widget-card">
+            <%-- <div class="widget-card">
                 <div class="widget-header">
-                    <%-- 접속 중 3명 / 전체 4명. 실제로는 DB 값으로 계산 권장 --%>
+                    접속 중 3명 / 전체 4명. 실제로는 DB 값으로 계산 권장
                     <span class="widget-title">👥 チームメンバー (3/4)</span>
                 </div>
                 <ul class="member-list">
@@ -287,7 +283,7 @@
                         <span class="role-text offline">オフライン</span>
                     </li>
                 </ul>
-            </div>
+            </div> --%>
 
         </div>
 
