@@ -164,6 +164,16 @@ html {
     color: var(--color-text-muted);
 }
 
+/* 로그인 사용자 이름 */
+.user-name {
+    display: inline-block;
+    padding: 6px 13px;
+    background-color: #EAF0FA;
+    color: #405B91;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
 
 /* =========================
    Footer
