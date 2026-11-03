@@ -126,7 +126,7 @@
 					<a href="${pageContext.request.contextPath}/worklogMember/join">会員登録</a>
 				</C:when>
 				<C:otherwise>
-					<span>${sessionScope.loginMember.memberName} 様</span>
+					<span class="user-name">${sessionScope.loginMember.memberName} 様</span>
 					<a href="${pageContext.request.contextPath}/worklogMember/logout">ログアウト</a>
 					<a href="${pageContext.request.contextPath}/worklogMember/mypage">マイページ</a>
 				</C:otherwise>
