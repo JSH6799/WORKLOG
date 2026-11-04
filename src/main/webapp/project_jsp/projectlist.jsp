@@ -19,12 +19,18 @@
         <div class="panel">
             <div class="table-wrap">
                 <table class="data-table">
+	                <colgroup>
+				        <col style="width: 40%;">
+				        <col style="width: 21%;">
+				        <col style="width: 25%;">
+				        <col style="width: 14%;">
+				    </colgroup>
                     <thead>
                         <tr>
                             <th scope="col">プロジェクト名</th>
-                            <th scope="col">チーム名</th>
-                            <th scope="col">期間</th>
-                            <th scope="col">管理</th>
+                            <th scope="col" style="text-align: center;">チーム名</th>
+                            <th scope="col" style="text-align: center;">期間</th>
+                            <th scope="col" style="text-align: center;">管理</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,8 +48,14 @@
                                             <p class="field-hint" style="margin: 4px 0 0 0;">${p.description}</p>
                                         </td>
                                         <td>${p.teamName}</td>
-                                        <td class="nowrap">${p.startDate} ~ ${p.endDate}</td>
-                                        <td>
+                                        <td class="nowrap">
+                                        	<div class="project-period">
+											<span>${p.startDate}</span>
+											<span>~</span>
+											<span>${p.endDate}</span>
+                                        	</div>
+										</td>
+                                        <td class="project-action">
                                             <a class="btn btn-small" href="${pageContext.request.contextPath}/project/manage?projectId=${p.projectId}">管理</a>
                                             <a class="btn btn-small"
    													href="${pageContext.request.contextPath}/project/members?projectId=${p.projectId}">メンバー</a>
