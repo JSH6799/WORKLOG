@@ -64,7 +64,7 @@ $(function(){
 			}else{
 				// 취소하면 편집 모드 유지
 				$(this).addClass("bmk-edit");
-				$(this).text("삭제");
+				$(this).text("削除");
 				$(".bmk-check").show();
 				$("#bmkCancelBtn").show();
 			}
@@ -90,7 +90,7 @@ $(function(){
 	// 편집 취소
 	$("#bmkCancelBtn").on("click",function(){
 			$("#bmkEditBtn").removeClass("bmk-edit");
-			$("#bmkEditBtn").text('편집');
+			$("#bmkEditBtn").text('編集');
 			$(".bmk-check").hide();
 			$(".bmk-check").prop("checked",false);
 			$("#bmkCancelBtn").hide();
