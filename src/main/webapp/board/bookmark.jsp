@@ -39,7 +39,7 @@
 			<li class="board-list">
 				<div class="bookmark-list">
 				    <article class="bookmark-card" data-project="${b.projectId}">
-				    <input type="checkbox" class="bmk-check" value="${b.bno}" style="display:none;">
+				    <input type="checkbox" class="bmk-check" value="${b.bno}">
 				        <span class="bookmark-project-name">${b.projectName}</span>
 				        <h3>${b.title}</h3>
 				        <span class="bookmark-date">${b.bookmarkDate}</span>
