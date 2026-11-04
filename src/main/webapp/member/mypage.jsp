@@ -132,7 +132,7 @@
 	                    <li class="my-board-item" data-project="${b.projectId}">
 	                        <a href="${pageContext.request.contextPath}/project_board/view?bno=${b.bno}" class="my-board-post">
 	                            <div class="post-title">${b.title}</div>
-	                            <div class="post-info">${b.projectId} · ${b.writeDate}</div>
+	                            <div class="post-info">${b.projectName} · ${b.writeDate}</div>
 	                        </a>
 	                    </li>
 	                </C:forEach>
