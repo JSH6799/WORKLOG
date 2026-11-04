@@ -121,9 +121,9 @@
                                         } catch (Exception ignore) { }
                                     %>
                                     <tr class="project-row stage-<%= rowStage %>"
-									    onclick="location.href='${pageContext.request.contextPath}/project/project.jsp?projectId=${p.projectId}'">
+									    onclick="location.href='${pageContext.request.contextPath}/project/detail?projectId=${p.projectId}'">
 									    <td style="font-weight: 600; color: #212529;">
-									        <a class="row-link" href="${pageContext.request.contextPath}/project/project.jsp?projectId=${p.projectId}"
+									        <a class="row-link" href="${pageContext.request.contextPath}/project/detail?projectId=${p.projectId}"
 									           onclick="event.stopPropagation();"><c:out value="${p.projectName}" /></a>
 									    </td>
 									    <td><span class="dday-chip"><%= rowDday %></span></td>
