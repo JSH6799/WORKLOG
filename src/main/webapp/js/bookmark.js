@@ -110,12 +110,10 @@ $(function(){
 	    $("<span>").addClass("bookmark-date")
 	        .text(b.bookmarkDate).appendTo($card);
 
-	    if ($("#bmkEditBtn").hasClass("bmk-edit")) {
-	        $("<input>").attr({
-	            type: "checkbox",
-	            value: b.bno
-	        }).addClass("bmk-check").show().prependTo($card);
-	    }
+		$("<input>").attr({
+			type: "checkbox",
+			value: b.bno
+		}).addClass("bmk-check").hide().prependTo($card);
 
 	    return $("<li>").addClass("board-list")
 	        .append($("<div>").addClass("bookmark-list").append($card));
