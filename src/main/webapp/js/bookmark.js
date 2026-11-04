@@ -21,7 +21,7 @@ $(function(){
 				alert("リストから削除する投稿を選択してください");
 				//다시 편집 모드로 유지
 				$(this).addClass("bmk-edit");
-				$(this).text('삭제');
+				$(this).text('削除');
 				$(".bmk-check").show();
 				$("#bmkCancelBtn").show();
 				return;
