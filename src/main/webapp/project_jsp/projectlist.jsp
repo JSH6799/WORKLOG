@@ -1,0 +1,79 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ include file="/include/header.jsp"%>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/proandmem.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/project.css">
+
+<main class="project-wrap">
+    <div id="project-content">
+
+        <header class="page-head">
+            <div>
+                <h1 class="page-title">プロジェクトリスト</h1>
+                <p class="page-desc">参加中のプロジェクトを確認、管理し、新たなプロジェクトを作ります。</p>
+            </div>
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/project/add">新しいプロジェクトを作る</a>
+        </header>
+
+        <div class="panel">
+            <div class="table-wrap">
+                <table class="data-table">
+	                <colgroup>
+					    <col style="width: 50%;">
+					    <col style="width: 26%;">
+					    <col style="width: 10%;">
+					    <col style="width: 14%;">
+					</colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">プロジェクト名</th>
+                            <th scope="col" style="text-align: center;">チーム名</th>
+                            <th scope="col" style="text-align: center;">期間</th>
+                            <th scope="col" style="text-align: center;">管理</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:choose>
+                            <c:when test="${empty projectList}">
+                                <tr>
+                                    <td colspan="4" style="text-align: center; padding: 20px;">登録されたプロジェクトが存在しません。</td>
+                                </tr>
+                            </c:when>
+                            <c:otherwise>
+                                <c:forEach var="p" items="${projectList}">
+                                    <tr>
+                                        <td>
+                                            <strong><a href="${pageContext.request.contextPath}/project/detail?projectId=${p.projectId}">${p.projectName}</a></strong>
+                                            <p class="field-hint" style="margin: 4px 0 0 0;">${p.description}</p>
+                                        </td>
+                                        <td>${p.teamName}</td>
+                                        <td class="nowrap">
+                                        	<div class="project-period">
+											<span>${p.startDate}</span>
+											<span>~</span>
+											<span>${p.endDate}</span>
+                                        	</div>
+										</td>
+                                        <td>
+										    <div class="project-action">
+										        <a class="btn btn-small"
+										           href="${pageContext.request.contextPath}/project/manage?projectId=${p.projectId}">管理</a>
+										
+										        <a class="btn btn-small"
+										           href="${pageContext.request.contextPath}/project/members?projectId=${p.projectId}">メンバー</a>
+										    </div>
+										</td>
+                                    </tr>
+                                </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<%@ include file="/include/footer.jsp"%>

@@ -1,0 +1,235 @@
+
+@charset "UTF-8";
+
+/* =========================
+   팀원 검색 결과 페이지 전용
+   ========================= */
+
+/* 전체 콘텐츠 영역 */
+.pm-search-container {
+    display: block;
+    width: calc(100% - 80px) !important;
+    max-width: 1000px !important;
+    min-width: 0;
+    margin: 40px auto !important;
+    padding: 30px;
+
+    box-sizing: border-box;
+    background: #FFFFFF;
+    border-radius: 12px;
+}
+
+/* 페이지 제목 */
+.pm-search-container > h2 {
+    margin: 0 0 15px;
+    color: #374151;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* 검색어 안내 */
+.pm-search-container > p {
+    margin: 12px 0;
+    color: #737B89;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* 검색창 */
+.pm-search-container > form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: 100%;
+    margin: 20px 0 25px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.pm-search-container > form input[type="text"] {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 40px;
+    padding: 0 14px;
+
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.pm-search-container > form input[type="text"]:focus {
+    outline: none;
+    border-color: #6482C4;
+}
+
+.pm-search-container > form button {
+    flex: 0 0 auto;
+    width: auto;
+    height: 40px;
+    padding: 0 20px;
+
+    border: none;
+    border-radius: 6px;
+    background: #6482C4;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.pm-search-container > form button:hover {
+    background: #405B91;
+}
+
+/* 검색 결과 카드 영역 */
+.pm-search-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+
+    width: 100%;
+    margin-top: 25px;
+    box-sizing: border-box;
+}
+
+/* 회원 카드 */
+.pm-search-card {
+    display: block;
+    min-width: 0;
+    padding: 18px;
+
+    box-sizing: border-box;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    background: #FFFFFF;
+
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.pm-search-card:hover {
+    border-color: #C5D2EA;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* 회원 정보 */
+.pm-search-card > p {
+    margin: 0 0 10px;
+    color: #4B5563;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.pm-search-card > p:last-of-type {
+    margin-bottom: 14px;
+}
+
+/* 추가 / 삭제 버튼 영역 */
+.pm-search-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: 100%;
+    margin-top: 12px;
+    box-sizing: border-box;
+}
+
+/* 버튼을 감싸는 form */
+.pm-search-actions form {
+    flex: 1 1 0;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* 추가 / 삭제 버튼 공통 */
+.pm-search-actions form button,
+.pm-search-actions > button {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: 38px;
+    padding: 0 10px;
+
+    box-sizing: border-box;
+    border: none;
+    border-radius: 6px;
+
+    background: #6482C4;
+    color: #FFFFFF;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* 추가 버튼 */
+.pm-search-actions .pm-search-add-btn {
+    background: #6482C4;
+}
+
+.pm-search-actions .pm-search-add-btn:hover {
+    background: #405B91;
+}
+
+/* 삭제 버튼 */
+.pm-search-actions form:last-child button {
+    background: #737B89;
+}
+
+.pm-search-actions form:last-child button:hover {
+    background: #555D6A;
+}
+
+/* 이미 초대된 회원 */
+.pm-search-actions > button:disabled {
+    background: #888888;
+    color: #FFFFFF;
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+/* 이전 페이지 버튼 */
+.pm-search-container > .pm-search-back-btn {
+    display: block;
+    width: auto !important;
+    max-width: 280px;
+    margin: 25px auto 0 !important;
+    padding: 10px 20px;
+
+    box-sizing: border-box;
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+    background: #FFFFFF;
+    color: #4B5563;
+
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.pm-search-container > .pm-search-back-btn:hover {
+    background: #F2F5FB;
+    border-color: #6482C4;
+    color: #405B91;
+}
+
+/* 태블릿 */
+@media (max-width: 950px) {
+    .pm-search-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* 모바일 */
+@media (max-width: 700px) {
+    .pm-search-container {
+        width: calc(100% - 30px) !important;
+        max-width: none !important;
+        margin: 20px auto !important;
+        padding: 20px 15px;
+    }
+
+    .pm-search-grid {
+        grid-template-columns: 1fr;
+    }
+}
