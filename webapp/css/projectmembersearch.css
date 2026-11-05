@@ -1,0 +1,331 @@
+@charset "UTF-8";
+
+/* =========================
+   팀원 검색 결과 페이지
+   ========================= */
+
+body {
+    margin: 0;
+    background: #f4f6fa;
+    color: #303846;
+    font-family: "Noto Sans KR", Arial, sans-serif;
+}
+
+/* 페이지 전체 */
+.container {
+    width: 85%;
+    max-width: 1100px;
+    margin: 45px auto;
+    padding: 35px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(35, 50, 75, 0.07);
+}
+
+/* 제목 */
+.container h2 {
+    margin: 0 0 25px;
+    padding-bottom: 18px;
+    border-bottom: 2px solid #e9edf4;
+    color: #263957;
+    font-size: 27px;
+}
+
+/* 검색어 */
+.container > p {
+    margin: 20px 0;
+    color: #667085;
+    font-size: 15px;
+}
+
+.container > p strong {
+    color: #315fc1;
+}
+
+/* 검색 폼 */
+.container > form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.container input[type="text"] {
+    flex: 1;
+    min-width: 0;
+    padding: 13px 15px;
+    border: 1px solid #d9dfeb;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.container input[type="text"]:focus {
+    border-color: #4779d8;
+}
+
+/* 공통 버튼 */
+.container button {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 7px;
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.container button:hover {
+    transform: translateY(-1px);
+}
+
+/* 검색 버튼 */
+.container > form button {
+    background: #4779d8;
+}
+
+.container > form button:hover {
+    background: #315fb8;
+}
+
+/* 팀원 카드 배치 */
+.member-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+}
+
+/* 팀원 카드 */
+.member-card {
+    padding: 24px;
+    border: 1px solid #e5eaf2;
+    border-radius: 12px;
+    background: #ffffff;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.member-card:hover {
+    border-color: #cbd8f0;
+    box-shadow: 0 5px 16px rgba(35, 50, 75, 0.08);
+}
+
+.member-card p {
+    margin: 0 0 15px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f2f6;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.member-card p:last-of-type {
+    margin-bottom: 20px;
+}
+
+/* 카드 안 버튼 폼 */
+.member-card form {
+    display: inline-block;
+    margin: 4px 5px 0 0;
+}
+
+/* 추가 버튼 */
+.member-card form button {
+    background: #27865c;
+}
+
+.member-card form button:hover {
+    background: #1e6c49;
+}
+
+/* 삭제 버튼 */
+.member-card form[onsubmit] button {
+    background: #d94b4b;
+}
+
+.member-card form[onsubmit] button:hover {
+    background: #b83232;
+}
+
+/* 검색 결과 없음 */
+.container > p:last-child {
+    line-height: 1.8;
+}
+
+/* 목록으로 돌아가기 */
+.container > button {
+    margin-top: 25px;
+    background: #68758a;
+}
+
+.container > button:hover {
+    background: #505d72;
+}
+
+/* 모바일 화면 */
+@media (max-width: 700px) {
+    .container {
+        width: 94%;
+        margin: 25px auto;
+        padding: 20px;
+    }
+
+    .container h2 {
+        font-size: 22px;
+    }
+
+    .container > form {
+        flex-direction: column;
+    }
+
+    .container > form button {
+        width: 100%;
+    }
+
+    .member-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* 팀원 검색창 */
+.member-search-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 25px 0;
+    padding: 16px;
+    background: #ffffff;
+    border: 1px solid #e5eaf2;
+    border-radius: 12px;
+}
+
+/* 검색어 입력창 */
+.member-search-input {
+    flex: 1;
+    min-width: 0;
+    padding: 13px 16px;
+    border: 1px solid #dce2ec;
+    border-radius: 8px;
+    background: #f9fafc;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.member-search-input:focus {
+    border-color: #5278d5;
+    background: #ffffff;
+}
+
+/* 검색 버튼 */
+.member-search-button {
+    min-width: 85px;
+    padding: 13px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #5278d5;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.member-search-button:hover {
+    background: #3d60b8;
+}
+
+/* 모바일 화면 */
+@media (max-width: 600px) {
+    .member-search-form {
+        padding: 12px;
+    }
+
+    .member-search-button {
+        min-width: 65px;
+        padding: 13px 14px;
+    }
+    
+/* 팀원 추가 카드 */
+.form-card {
+    padding: 24px;
+    margin-bottom: 28px;
+    background: #ffffff;
+    border: 1px solid #e5e9f5;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(87, 103, 160, 0.06);
+}
+
+.form-title {
+    color: #374b85;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.form-description {
+    margin: 8px 0 22px;
+    color: #858da3;
+    font-size: 13px;
+}
+
+/* 입력 폼 */
+.member-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.member-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.member-form label {
+    color: #59627c;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.member-form input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #e0e5f0;
+    border-radius: 9px;
+    background: #f9faff;
+    color: #4b556b;
+    font-size: 14px;
+    outline: none;
+}
+
+.member-form input:focus {
+    border-color: #a5b4fc;
+    background: #ffffff;
+}
+
+/* 추가 버튼 */
+.member-form .btn-add {
+    align-self: flex-start;
+    padding: 11px 18px;
+    border: none;
+    border-radius: 10px;
+    background: #8198ed;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.member-form .btn-add:hover {
+    background: #6d83d8;
+}
+
+@media (max-width: 600px) {
+    .form-card {
+        padding: 18px;
+    }
+
+    .member-form .btn-add {
+        align-self: stretch;
+    }
+}
+    
+}
