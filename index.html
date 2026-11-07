@@ -4,10 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WorkLog プロジェクト発表</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-		
 		<style>
 			:root{
 			  --blue:#5c82e6; --blue-d:#4a6fdc; --blue-soft:#eef2fd; --blue-line:#d5def7;
@@ -102,18 +100,17 @@
 			#pm{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);z-index:9;display:flex;gap:10px;align-items:center;background:rgba(17,24,39,.85);color:#e5e7eb;padding:6px 14px;border-radius:999px;font:13px var(--font);opacity:0;transition:opacity .3s}
 			body:hover #pm{opacity:1}
 			#pm button{background:var(--blue);color:#fff;border:0;border-radius:6px;padding:4px 10px;cursor:pointer}
-		</style>
-		
-		</head>
-		
+			</style>
+	</head>
+	
 		<body>
 		
-			<div id="app"></div>
-			<div id="pm">
-				<button id="pv">◀</button><span id="nm"></span>
-				<button id="nx">▶</button><button id="fs">全画面(F)</button>
-			</div>
-			
+		<div id="app"></div>
+		<div id="pm">
+			<button id="pv">◀</button><span id="nm"></span>
+			<button id="nx">▶</button><button id="fs">全画面(F)</button>
+		</div>
+		
 			<script>
 				var LOGO_SRC = "images/WORKLOG_logo.png";
 				var LOGO='<img class="lg" src="'+LOGO_SRC+'" alt="WORKLOG ロゴ">';
@@ -129,7 +126,7 @@
 				}
 				function video(t,id,lead,pts){
 				  var n=out.length+1;
-				  slide(head('Demonstration',t+' デモ',n)+'<div class="dm"><div class="dl"><div class="n">DEMO '+('0'+(n-8)).slice(-2)+'</div><h2>'+lead+'</h2><ul>'+pts.map(function(p){return '<li>'+p+'</li>'}).join('')+'</ul></div><div><div class="fr"><iframe src="https://www.youtube.com/embed/'+id+'" title="'+t+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="cap"><i class="fa-solid fa-video"></i>機能デモ動画 · '+t+'</div></div></div>');
+				  slide(head('Demonstration',t+' デモ',n)+'<div class="dm"><div class="dl"><h2>'+lead+'</h2><ul>'+pts.map(function(p){return '<li>'+p+'</li>'}).join('')+'</ul></div><div><div class="fr"><iframe src="https://www.youtube.com/embed/'+id+'" title="'+t+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="cap"><i class="fa-solid fa-video"></i>機能デモ動画 · '+t+'</div></div></div>');
 				}
 				
 				/* 1 */
@@ -196,6 +193,6 @@
 				  show((parseInt(location.hash.slice(1))||1)-1);
 				})();
 			</script>
-		
+			
 		</body>
 </html>
