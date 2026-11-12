@@ -63,7 +63,9 @@ html,body{height:100%;margin:0;overflow:hidden;background:#111827;font-family:va
 .ovl{background:linear-gradient(160deg,var(--blue),var(--blue-d));border-radius:12px;padding:36px 38px;color:#fff;display:flex;flex-direction:column;justify-content:space-between}
 .ovl small{font-size:14px;font-weight:700;letter-spacing:.16em;opacity:.85}
 .ovl h2{margin:8px 0 14px;font-size:38px;font-weight:900}
-.ovl p{margin:0 0 12px;font-size:19px;line-height:1.8}
+.ovl p{margin:0;font-size:18px;line-height:1.75}
+.ovl h4{margin:16px 0 4px;font-size:14px;font-weight:700;letter-spacing:.14em;opacity:.85}
+.ovl p + h4{margin-top:40px}
 .mods{display:flex;gap:8px;flex-wrap:wrap}
 .mods span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:6px 14px;font-size:15px;font-weight:700}
 .ovr{display:grid;grid-template-rows:repeat(5,1fr);gap:8px}
@@ -74,11 +76,11 @@ html,body{height:100%;margin:0;overflow:hidden;background:#111827;font-family:va
 .tb{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
 .tb th{background:var(--blue-soft);color:var(--blue-d);font-size:16px;text-align:left;padding:14px 26px;height:1px}
 .tb td{padding:10px 26px;border-top:1px solid var(--line);font-size:17px;line-height:1.55;vertical-align:middle}
-.tb td:first-child{font-weight:700;color:var(--head);width:210px}.tb td:nth-child(2){width:310px}
+.tb td:first-child{font-weight:700;color:var(--head);width:220px;white-space:nowrap;padding-right:12px}.tb td:nth-child(2){width:310px}
 .tb td b{display:inline-block;background:var(--blue-soft);color:var(--blue-d);border-radius:6px;padding:2px 9px;margin:2px 6px 2px 0;font-size:14px}
 /* demo */
 .dm{flex:1;display:flex;gap:20px;padding:0 72px 40px;min-height:0}
-.dl{width:440px;flex-shrink:0;display:flex;flex-direction:column}
+.dl{width:480px;flex-shrink:0;display:flex;flex-direction:column}
 .dl h2{margin:0 0 12px;font-size:25px;font-weight:900;color:var(--head);line-height:1.45}
 .dl ul{list-style:none;margin:0;padding:0;flex:1;display:flex;flex-direction:column}
 .dl li{flex:1;display:flex;gap:14px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
@@ -88,8 +90,8 @@ html,body{height:100%;margin:0;overflow:hidden;background:#111827;font-family:va
 .dr{flex:1;display:flex;flex-direction:column;gap:10px;min-width:0}
 .fr{width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000;border:1px solid var(--line);box-shadow:0 10px 28px rgba(31,41,55,.16);flex-shrink:0}
 .fr iframe{width:100%;height:100%;border:0}
-.tc{flex:1;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 22px;display:flex;flex-direction:column;justify-content:center;gap:8px}
-.tc p{margin:0;font-size:15px;line-height:1.6}
+.tc{flex:1;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 22px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.tc p{margin:0;font-size:14px;line-height:1.6}
 #pm{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);z-index:9;display:flex;gap:10px;align-items:center;background:rgba(17,24,39,.85);color:#e5e7eb;padding:6px 14px;border-radius:999px;font:13px var(--font);opacity:0;transition:opacity .3s}
 body:hover #pm{opacity:1}
 #pm button{background:var(--blue);color:#fff;border:0;border-radius:6px;padding:4px 10px;cursor:pointer}
@@ -119,12 +121,12 @@ slide(head('Agenda','目次',2)+'<div class="body"><div style="display:grid;grid
  AG.map(function(a,i){return '<div class="ag"><b>'+('0'+(i+1)).slice(-2)+'</b><div><h3>'+a[0]+'</h3><span>'+a[1]+'</span></div><em>'+a[2]+'</em></div>'}).join('')+'</div></div>');
 
 /* 3 概要＋開発の目的 */
-var GOALS=[['compass-drafting','設計を先に確定','要件分析・システム分析・DB設計を文書化してから、画面開発に入ります。'],
+var GOALS=[['compass-drafting','設計を先に確定','要件分析・システム分析・DB設計を文書化してから、画面開発に入りました。'],
  ['folder-tree','プロジェクト単位の協業','投稿・未確認の投稿・ブックマークを、プロジェクトごとに管理します。'],
  ['puzzle-piece','4つの主要機能','会員・マイページ・掲示板・ブックマークで構成しています。'],
- ['layer-group','MVC・Commandパターン','View・Controller・Modelに役割を分け、保守と拡張がしやすい構造にします。'],
- ['shield-halved','権限とデータの整合性','本人のみ編集・削除、重複の防止など、ルールをDBとロジックの両方で守ります。']];
-slide(head('Overview & Purpose','プロジェクト概要・開発の目的',3)+'<div class="body"><div class="ov"><div class="ovl"><div><small>ABOUT</small><h2>WorkLogとは？</h2><p>チームプロジェクトの進行をサポートするウェブサイトです。メンバー全員が同じ情報を見て動けることを目指しました。</p><p>機能を作る前に設計書で構造を固め、その設計どおりに開発する流れを実践することも目的です。</p></div><div class="mods"><span>会員</span><span>マイページ</span><span>掲示板</span><span>ブックマーク</span></div></div><div class="ovr">'+
+ ['layer-group','MVC・Commandパターン','View・Controller・Modelに役割を分け、保守と拡張がしやすい構造にしました。'],
+ ['shield-halved','権限とデータの整合性','本人のみ編集・削除、重複の防止など、ルールをDBとロジックの両方で守りました。']];
+slide(head('Overview & Purpose','プロジェクト概要・開発の目的',3)+'<div class="body"><div class="ov"><div class="ovl"><div><small>ABOUT</small><h2>WorkLogとは？</h2><h4>開発の背景</h4><p>複数人での開発や課題進行の際、資料・連絡事項・スケジュールが別々の場所に散在し、「最新情報の確認」や「タスクの優先順位付け」に余計な時間がかかる経験をしました。</p><h4>開発の目的</h4><p>メンバー全員がログイン直後に「自分が未確認の情報」と「直近の締切（D-day）」を即座に把握できる環境を構築し、認識のズレを防いで円滑なチーム運営を実現しました。</p></div></div><div class="ovr">'+
  GOALS.map(function(c){return '<div class="row">'+ic(c[0])+'<div><h3>'+c[1]+'</h3><p>'+c[2]+'</p></div></div>'}).join('')+'</div></div></div>');
 
 /* 4 設計書（ボタン → 新しいタブでPDF） */
@@ -143,24 +145,24 @@ slide(head('Features','機能構成',5)+'<div class="body"><div class="grid" sty
  FEAT.map(function(c){return '<div class="card col"><h3>'+c[0]+'<small>'+c[1]+'</small></h3><ul>'+c[2].map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><div class="tt">使用技術</div><div class="tg">'+tags(c[3])+'</div></div>'}).join('')+'</div></div>');
 
 /* 6 機能別の開発手法 */
-var TECH=[['全体構造',['Commandパターン','FrontController'],'*.do のリクエストを1つのServletが受け、機能ごとのCommandに処理を委ね、結果をJSPへforwardします。'],
- ['ログイン・ログアウト',['HttpSession','JSTL c:if'],'ログイン時にセッションを生成し、ログアウト時にinvalidate()します。JSPでログイン状態により表示を切り替えます。'],
- ['非同期処理',['jQuery Ajax','POST'],'画面を再読み込みせず、必要な部分だけを更新します。'],
- ['データアクセス',['DAO / DTO','Oracleシーケンス'],'DAOがSQLを担当し、DTOでデータを受け渡します。番号はシーケンスで自動採番します。'],
- ['重複の防止',['複合主キー','中間テーブル'],'複合キーを持つ対応テーブルで、1人1回までを保証します。'],
- ['一覧表示',['ページング','検索'],'一覧をページ単位で取得し、検索条件で絞り込みます。']];
+var TECH=[['全体構造',['Commandパターン','FrontController'],'*.do のリクエストを1つのServletが受け、機能ごとのCommandに処理を委ね、結果をJSPへforwardする。'],
+ ['ログイン・ログアウト',['HttpSession','JSTL c:if'],'ログイン時にセッションを生成し、ログアウト時にinvalidate()する。JSPでログイン状態により表示を切り替える。'],
+ ['非同期処理',['jQuery Ajax','POST'],'画面を再読み込みせず、必要な部分だけを更新する。'],
+ ['データアクセス',['DAO / DTO','Oracleシーケンス'],'DAOがSQLを担当し、DTOでデータを受け渡す。番号はシーケンスで自動採番する。'],
+ ['重複の防止',['複合主キー','中間テーブル'],'複合キーを持つ対応テーブルで、1人1回までを保証する。'],
+ ['一覧表示',['ページング','検索'],'一覧をページ単位で取得し、検索条件で絞り込む。']];
 slide(head('Techniques','機能別の開発手法',6)+'<div class="body"><table class="tb"><tr><th>機能</th><th>使用した技術・手法</th><th>実装のポイント</th></tr>'+
  TECH.map(function(t){return '<tr><td>'+t[0]+'</td><td>'+tags(t[1])+'</td><td>'+t[2]+'</td></tr>'}).join('')+'</table></div>');
 
-/* 7-14 機能デモ */
-[['インデックス','lJqglDUfThY','WorkLogの入口となるトップページです。',[['サービス概要','WorkLogで何ができるかを、最初の画面で簡潔に紹介します。'],['ログイン・会員登録','未ログインの利用者を、会員登録とログインへ案内します。'],['主要機能へのアクセス','ダッシュボードや掲示板へ、ここから移動できます。']],['JSP','JSTL','CSS'],'ログイン状態に応じてメニュー表示を切り替えています。'],
-['会員・マイページ','SGaf66l6S98','アカウント作成から、自分の投稿管理までの流れです。',[['会員登録','ユーザーが入力した会員情報を受け取り、入力内容の妥当性および重複の有無を確認する。パスワードをBCryptでハッシュ化した後、データベースに保存する。'],['ログイン・ログアウト','入力されたIDをもとに会員情報を取得し、BCryptを使用してパスワードを検証する。認証に成功すると、セッションにログイン情報を保存し、メイン画面へ遷移する。セッションを破棄し、安全に利用を終了します。'],['マイページ','自分の投稿と未確認投稿を、プロジェクト別に確認できます。']],['HttpSession','jQuery Ajax','DAO / DTO'],'ログイン情報はセッションで管理し、本人のデータだけを取得して表示します。'],
-['ダッシュボード','oOcvzk2z0EM','参加中のプロジェクトの状況をひと目で把握できます。',[['状況の一覧','参加中プロジェクトの状態を、1画面にまとめて表示します。'],['最新の更新','新しい投稿や更新を、すぐ確認できます。'],['ショートカット','各機能へ最短で移動できるリンクを備えています。']],['JSP','JSTL','DAO'],'複数のデータを取得して1画面に集約し、必要な情報へすぐ辿り着けるようにしました。'],
-['プロジェクト','UrXuaQqJrWE','チームの作業単位となるプロジェクトを管理します。',[['作成と確認','プロジェクトを作成し、内容を確認できます。'],['単位ごとの管理','投稿とブックマークを、プロジェクトに紐づけて管理します。'],['情報の共有','メンバー全員が同じ情報を見られます。']],['Commandパターン','DAO / DTO','Oracleシーケンス'],'プロジェクト番号をキーに、投稿やブックマークを関連付けています。'],
-['プロジェクト招待','Q3xpNVIqClM','メンバーを招待して、チームでの協業を始めます。',[['メンバーの招待','プロジェクトへ参加してほしいメンバーを招待します。'],['招待の承諾','招待を受けた利用者が、プロジェクトに参加します。'],['すぐに共有','参加後は、すぐに投稿を共有できます。']],['Commandパターン','中間テーブル','権限チェック'],'利用者とプロジェクトを中間テーブルで関連付け、参加メンバーだけが閲覧できるようにしています。'],
-['掲示板','8AwkCSqHuCw','プロジェクトごとに投稿を共有・確認します。',[['投稿と画像添付','投稿を作成し、画像を添付できます。'],['編集・削除','作成者本人だけが、投稿を編集・削除できます。'],['確認状態の管理','確認済みかを記録し、未確認の投稿だけを一覧表示します。']],['Servlet','ファイルアップロード','ページング'],'投稿ごとの確認状態をDBに保存し、未確認一覧はその状態で絞り込んでいます。'],
-['ブックマーク','PMYWYYjFfQk','大切な投稿をブックマークして、すぐに見返せます。',[['追加・解除','ボタン1つで追加と解除を切り替えます。'],['プロジェクト別の一覧','ブックマークをプロジェクトごとにまとめて確認します。'],['一覧の編集','不要なブックマークを整理できます。']],['jQuery Ajax','複合主キー','DAO'],'利用者と投稿の組み合わせを複合キーで管理し、同じ投稿を二重に登録しないようにしています。'],
-['カレンダー','HWjMalTMW6Q','プロジェクトの予定をカレンダーで確認できます。',[['月単位の表示','予定を月ごとの一覧で確認できます。'],['予定の登録','日付を選んで、予定を登録・確認できます。'],['スケジュール共有','チーム全員が同じ予定を見られます。']],['JavaScript','jQuery','Ajax'],'月の切り替え時に予定を非同期で取得し、画面全体を再読み込みせずに更新します。']
+/* 7-14 機能デモ  ※ [名前, 動画ID, 見出し, [左リスト], [技術タグ], 開発手法の文] */
+[['インデックス','lJqglDUfThY','初期画面（ランディングページ）機能設計',[['サービス概要の紹介','HTML5でページ構造を作り、外部CSSでデザインを管理することで、WORKLOGの主な機能と特徴を最初の画面でひと目で伝えます。'],['ログイン・会員登録への導線','JSPのコンテキストパスでログイン・会員登録画面へのリンクを設定することで、配置場所が変わってもリンクが切れず、すぐに利用を始められます。'],['主要機能へのアクセス','アンカーリンクでナビゲーションメニューからページ内の各セクションへ移動できるようにし、機能紹介や利用方法へすぐ辿り着けます。']],['JSP','HTML5','CSS','アンカーリンク','Responsive Design'],'JSPのコンテキストパスで画面遷移を組むことで、配置場所が変わってもリンクが切れない構成にしました。外部CSSにデザインを切り出して全ページで共通化し、viewportの設定で画面幅に合わせて表示するようにしました。アンカーリンクでページ内のセクションへ移動できるようにしました。'],
+['会員・マイページ','SGaf66l6S98','会員・マイページ機能設計',[['会員登録','入力された会員情報の妥当性と重複を確認したうえで、BCryptでパスワードをハッシュ化してDBに保存することで、平文のパスワードを保存しない登録処理にしました。'],['ログイン・ログアウト','IDから会員情報を取得してBCryptでパスワードを検証し、認証に成功するとHttpSessionにログイン情報を保存してメイン画面へ遷移します。ログアウト時はセッションを破棄し、安全に利用を終了します。'],['マイページ','セッションのログイン情報で本人を識別し、DAOで本人のデータだけを取得することで、自分の投稿と未確認投稿をプロジェクト別に確認できます。']],['BCrypt','HttpSession','jQuery Ajax','DAO / DTO'],'BCryptでパスワードをハッシュ化して保存することで、DBに平文が残らず、流出しても元のパスワードを復元されにくくしました。ログイン時は入力値をBCryptで照合し、認証に成功するとHttpSessionへログイン情報を保存、ログアウトでセッションを破棄して安全に終了するようにしました。'],
+['ダッシュボード','oOcvzk2z0EM','ダッシュボード（メイン画面）機能設計',[['プロジェクトの状況を一覧で確認','JSP/JSTLで取得したプロジェクト情報を繰り返し表示し、Javaで終了日からD-Dayを計算することで、参加中の各プロジェクトの状況と残り日数を一覧で確認できます。'],['最新の投稿・更新をチェック','最近の投稿、確認状態、未確認投稿数をJSTLで画面に表示することで、最新の情報をひと目で把握できます。'],['各機能へのショートカット','プロジェクト一覧や投稿一覧へのリンクを設け、JavaScriptのモーダルとFetch API/JSONによる招待コードの非同期生成で、プロジェクト参加・メンバー招待をページ遷移なしで行えます。']],['JSP / JSTL','Java','JavaScript','Fetch API / JSON','localStorage'],'JSTLで取得データを繰り返し表示し、Javaで終了日からD-Dayを計算することで、各プロジェクトの残り日数を一覧で確認できるようにしました。招待コードはFetch APIとJSONで非同期に生成するため、ページを移動せずに発行できるようにしました。クイックメモはlocalStorageに保存しました。'],
+['プロジェクト','UrXuaQqJrWE','プロジェクト管理システム設計',[['プロジェクトの作成・確認・編集・削除','DAOパターンでSQLを分離し、登録・表示・編集・削除をJavaで実装しました。UUIDでIDを自動生成することで重複なく作成でき、参加中のプロジェクトを一覧で管理できます。'],['投稿・ブックマークをプロジェクト単位で管理','プロジェクトIDをキーに投稿とブックマークを関連づけることで、プロジェクトごとに分類して、関連情報をまとめて管理できます。'],['メンバーと情報を共有し、権限を管理','Sessionでログインユーザーを識別し、リーダー・メンバー・閲覧者の権限を確認することで、権限のない操作を制限しながらメンバーと情報を共有できます。']],['DAOパターン','Java','Session管理','UUID','JSP / JSTL'],'UUIDでプロジェクトIDを自動生成することで、IDの重複を避けました。DAOパターンでSQLを分離して作成・編集・削除の処理を一元化し、Sessionのログイン情報で権限を確認して、権限のない利用者の操作を制限しました。'],
+['プロジェクト招待','Q3xpNVIqClM','プロジェクト招待システム設計',[['プロジェクトメンバーの検索・招待','Commandパターンでメンバー検索と招待を独立した処理に分け、Servletがリクエストを受けることで、メンバーを検索してプロジェクトへ招待できます。'],['招待の承認・拒否とプロジェクトへの参加','承認・拒否のリクエストをServletで受け付け、承認時にDAOが参加情報をデータベースに登録することで、承認した利用者がプロジェクトに参加できます。'],['参加メンバーとの情報共有','JSP/JSTLで一覧を表示し、Sessionでログインユーザーを識別することで、参加したメンバーと投稿などの情報を共有し、チームで確認できます。']],['Servlet','Commandパターン','DAOパターン','JSP / JSTL','Session管理'],'Commandパターンで検索・招待・参加を別々の処理に分けることで、機能を追加しても他の処理に影響しにくい構造にしました。Servletが承認・拒否のリクエストを受け、DAOが参加情報をDBに反映することで、承認された利用者がプロジェクトに参加するようにしました。'],
+['掲示板','8AwkCSqHuCw','掲示板システム設計',[['投稿の作成と画像の添付','Multipartで画像ファイルをアップロードし、保存したファイル名をDBで管理することで、投稿と画像を紐づけて作成・表示できます。'],['編集・削除、投稿の確認','投稿の編集・削除に加え、メンバーごとの確認状態をDBに保存し、確認ボタンの結果をJSONで返すことで、ページを再読み込みせず確認状態を更新できます。'],['未確認投稿のみをまとめて表示','保存した確認状態で絞り込むことで、未確認の投稿だけを抽出し、一覧でまとめて確認できます。']],['MVC','Command','DAO / DTO','Multipart','JSON'],'Multipartで画像をアップロードしてファイル名をDBに保存することで、投稿と画像を紐づけて表示できるようにしました。確認ボタンの結果をJSONで返すため、ページを再読み込みせず確認状態を更新でき、その状態をもとに未確認の投稿だけを抽出して一覧表示しました。'],
+['ブックマーク','PMYWYYjFfQk','ブックマークシステム設計',[['ブックマークの追加・解除','Gson/JSONによる非同期通信で登録と解除を切り替えることで、ページを再読み込みせずに操作できます。'],['プロジェクト別のブックマーク一覧','DAOとJDBCのSQLでブックマークした投稿を取得し、プロジェクトごとに分類して表示することで、プロジェクト別に見返せます。'],['一覧の編集','一覧で選択した投稿をDAOのSQLでまとめて削除することで、不要なブックマークを一度に整理できます。']],['MVC','Command','DAO','JDBC','Gson / JSON'],'GsonでJSONを生成して非同期に通信することで、ページを再読み込みせずに追加・解除を切り替えられるようにしました。DAOとJDBCのSQLで登録・削除を行い、一覧で選択した投稿をまとめて削除できるようにしました。'],
+['カレンダー','HWjMalTMW6Q','カレンダーシステム設計',[['日程を月単位で一覧表示','JavaScriptライブラリのFullCalendar.jsで月・週・日・タイムライン形式のカレンダーを表示し、表示期間を切り替えられるようにしました。予定はFetch APIとJSONで非同期に取得します。'],['予定の登録と確認','予定の作成・編集・削除をJavaScriptとFetch API/JSONで非同期に行うことで、画面全体を再読み込みせず反映できます。予定の詳細や参加状況も確認できます。'],['チームでスケジュールを共有','参加可否の登録と候補時間への投票をJava Servletで処理することで、チーム全員が同じ予定を見ながら日程を調整・共有できます。']],['FullCalendar.js','JavaScript','Fetch API / JSON','Java Servlet','JSP / JSTL'],'JavaScriptライブラリのFullCalendar.jsで月・週・日・タイムラインの表示を切り替えられるようにし、Fetch APIとJSONで予定を非同期に取得・登録・更新することで、画面全体を再読み込みせず反映するようにしました。参加可否や候補時間への投票で、チームの日程を調整できるようにしました。']
 ].forEach(function(v){
  slide(head('Demonstration',v[0]+' デモ',out.length+1)+'<div class="dm"><div class="dl"><h2>'+v[2]+'</h2><ul>'+v[3].map(function(p){return '<li><div><b>'+p[0]+'</b><span>'+p[1]+'</span></div></li>'}).join('')+'</ul></div><div class="dr"><div class="fr"><iframe src="https://www.youtube.com/embed/'+v[1]+'" title="'+v[0]+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="tc"><div class="tg">'+tags(v[4])+'</div><p>'+v[5]+'</p></div></div></div>');
 });
