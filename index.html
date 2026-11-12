@@ -32,7 +32,8 @@ html,body{height:100%;margin:0;overflow:hidden;background:#111827;font-family:va
 .card li{flex:1;font-size:16px;padding:6px 0;display:flex;gap:10px;align-items:center;line-height:1.5;border-top:1px solid var(--line)}
 .card li:first-child{border-top:2px solid var(--blue-line)}
 .card li::before{content:"\f00c";font-family:"Font Awesome 6 Free";font-weight:900;color:var(--blue);font-size:12px}
-.col h3{display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--blue-line);padding-bottom:12px;margin-bottom:12px}
+/* 修正: 見出しの下線とパディングを削除（li:first-child の線1本だけで区切る / 4ページと同じ構造） */
+.col h3{display:flex;align-items:baseline;gap:8px;margin:0 0 14px}
 .col h3 small{font-size:13px;font-weight:500;color:var(--muted)}
 .tt{font-size:13px;font-weight:700;color:var(--muted);margin:0 0 8px;letter-spacing:.06em}
 .tg{display:flex;flex-wrap:wrap;gap:6px}
@@ -52,7 +53,8 @@ html,body{height:100%;margin:0;overflow:hidden;background:#111827;font-family:va
 .cl h1{margin:0;font-size:96px;font-weight:900;color:var(--head);letter-spacing:-.03em;line-height:1}
 .cl h2{margin:20px 0 0;font-size:30px;font-weight:300}
 .cl .ln{width:72px;height:6px;border-radius:3px;background:var(--blue);margin:34px 0 26px}
-.clogo{height:110px;align-self:flex-start;margin:0 0 18px -12px}
+/* 修正: margin-left:-12px を削除（左の整列線に合わせる） */
+.clogo{height:110px;align-self:flex-start;margin:0 0 18px}
 .cr{width:440px;background:linear-gradient(160deg,var(--blue),var(--blue-d));display:flex;flex-direction:column;justify-content:center;gap:16px;padding:0 56px}
 .chip{display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:14px;padding:18px 22px;font-size:22px;font-weight:700}
 .chip i{width:26px;text-align:center}
