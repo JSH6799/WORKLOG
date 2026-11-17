@@ -7,6 +7,9 @@ public class BoardCheckDTO {
     private String checkYN;
     private String checkDate;
     
+    private String memberName;
+    private String checkStatus;
+    
     
 	public int getBno() {
 		return bno;
@@ -31,6 +34,18 @@ public class BoardCheckDTO {
 	}
 	public void setCheckDate(String checkDate) {
 		this.checkDate = checkDate;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+	public String getCheckStatus() {
+		return checkStatus;
+	}
+	public void setCheckStatus(String checkStatus) {
+		this.checkStatus = checkStatus;
 	}
     
 	

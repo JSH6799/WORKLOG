@@ -18,10 +18,15 @@
 		  </div>
 	
 		  <div class="form-row">
-		  	<label for="project-id">プロジェクト</label>
-		  	<select id="project-id" name="project_id" class="project-select">
-		  		<option value="pno_4"${selectedProjectId == 'pno_1' ? 'selected' : ''}>仮プロジェクト名</option>
-		  	</select>
+		    <label for="project-id">プロジェクト</label>
+		    <select id="project-id" name="project_id" class="project-select">
+		        <C:forEach var="p" items="${proList}">
+		            <option value="${p.projectId}"
+		                ${p.projectId == selectedProjectId ? 'selected' : ''}>
+		                ${p.projectName}
+		            </option>
+		        </C:forEach>
+		    </select>
 		  </div>
 	
 	
@@ -63,4 +68,5 @@
 
 
 <%@ include file="/include/footer.jsp"%>
+<script>const contextPath = "${pageContext.request.contextPath}";</script>
 <script src="${pageContext.request.contextPath}/js/write.js"></script>

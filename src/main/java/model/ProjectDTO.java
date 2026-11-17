@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 public class ProjectDTO {
 
 	private String projectId;
@@ -10,6 +12,11 @@ public class ProjectDTO {
     private String description;
     private String creatorId;
     
+    private int unreadCount;
+    private List<BoardDTO> unreadBoardList;
+    
+    private String createDate;
+    private String creatorName;
     
 	public String getProjectId() {
 		return projectId;
@@ -52,6 +59,30 @@ public class ProjectDTO {
 	}
 	public void setCreatorId(String creatorId) {
 		this.creatorId = creatorId;
+	}
+	public int getUnreadCount() {
+		return unreadCount;
+	}
+	public void setUnreadCount(int unreadCount) {
+		this.unreadCount = unreadCount;
+	}
+	public List<BoardDTO> getUnreadBoardList() {
+		return unreadBoardList;
+	}
+	public void setUnreadBoardList(List<BoardDTO> unreadBoardList) {
+		this.unreadBoardList = unreadBoardList;
+	}
+	public String getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+	public String getCreatorName() {
+		return creatorName;
+	}
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName;
 	}
     
     

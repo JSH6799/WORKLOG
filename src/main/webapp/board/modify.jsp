@@ -27,8 +27,7 @@
 		  
 		  <div class=form-row>
 		  	<label>確認要否<span class="form-option">(選択)</span></label>
-		  	<input type="checkbox" id="confirm" name="checkRequired" value="${board.checkRequired}"
-		  		   value="Y" ${board.checkRequired == 'Y' ? 'checked' : ''}>
+		  	<input type="checkbox" id="confirm" name="checkRequired" value="Y" ${board.checkRequired == 'Y' ? 'checked' : ''}>
 		  </div>
 		  
 		  <div class="form-row">

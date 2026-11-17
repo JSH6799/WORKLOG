@@ -13,6 +13,14 @@ public class BoardDTO {
     
     private String writerName;
     
+    private String projectName;
+    private String bookmarkDate;
+    
+    private String checkYn;
+    private int checkCompleteCount;
+    private int checkTotalCount;
+    
+    private int displayNo;
     
 	public int getBno() {
 		return bno;
@@ -68,8 +76,42 @@ public class BoardDTO {
 	public void setWriterName(String writerName) {
 		this.writerName = writerName;
 	}
-    
-    
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+	public String getBookmarkDate() {
+		return bookmarkDate;
+	}
+	public void setBookmarkDate(String bookmarkDate) {
+		this.bookmarkDate = bookmarkDate;
+	}
+	public String getCheckYn() {
+		return checkYn;
+	}
+	public void setCheckYn(String checkYn) {
+		this.checkYn = checkYn;
+	}
+	public int getCheckCompleteCount() {
+		return checkCompleteCount;
+	}
+	public void setCheckCompleteCount(int checkCompleteCount) {
+		this.checkCompleteCount = checkCompleteCount;
+	}
+	public int getCheckTotalCount() {
+		return checkTotalCount;
+	}
+	public void setCheckTotalCount(int checkTotalCount) {
+		this.checkTotalCount = checkTotalCount;
+	}
+	public int getDisplayNo() {
+		return displayNo;
+	}
+	public void setDisplayNo(int displayNo) {
+		this.displayNo = displayNo;
+	}
 	
 	
 }

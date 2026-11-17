@@ -5,12 +5,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import service.BoardWriteCommand;
 import service.Command;
 import service.MemberIdCheckCommand;
 import service.MemberJoinCommand;
 import service.MemberLoginCommand;
 import service.MemberLogoutCommand;
+import service.MemberPasswordCheckCommand;
+import service.MemberUpdateCommand;
+import service.MypageCommand;
 
 import java.io.IOException;
 
@@ -53,6 +55,18 @@ public class MemberController extends HttpServlet {
 			break;
 		case "/logout":
 			command = new MemberLogoutCommand();
+			page = null;
+			break;
+		case "/mypage":
+			command = new MypageCommand();
+			page = "/member/mypage.jsp";
+			break;
+		case "/passwordCheck":
+			command = new MemberPasswordCheckCommand();
+			page = null;
+			break;
+		case "/memberUpdate":
+			command = new MemberUpdateCommand();
 			page = null;
 			break;
 		}

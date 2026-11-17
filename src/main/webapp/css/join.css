@@ -1,14 +1,11 @@
-/* =========================
-   회원가입 페이지
-========================= */
-
+/* 회원가입 페이지 */
 .join-wrap {
     width: 100%;
     max-width: 600px;
     margin: 40px auto;
     padding: 32px 36px;
     background-color: #fff;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--color-border);
     border-radius: 10px;
     box-sizing: border-box;
 }
@@ -16,7 +13,7 @@
 /* 페이지 제목 */
 .join-page-title {
     margin: 0 0 28px;
-    color: #222;
+    color: var(--color-text-heading);
     font-size: 25px;
     font-weight: 700;
     text-align: center;
@@ -29,7 +26,7 @@
     gap: 16px;
 }
 
-/* 입력 항목: 라벨 왼쪽, 입력창 오른쪽 */
+/* 항목 배치 */
 .join-form .form-row {
     display: grid;
     grid-template-columns: 120px minmax(0, 1fr);
@@ -40,7 +37,7 @@
 
 /* 항목 라벨 */
 .join-form .form-row > label {
-    color: #333;
+    color: var(--color-text);
     font-size: 14px;
     font-weight: 600;
 }
@@ -50,29 +47,27 @@
     width: 100%;
     height: 40px;
     padding: 0 12px;
-    border: 1px solid #d5d9df;
+    border: 1px solid var(--color-input-border);
     border-radius: 6px;
     background-color: #fff;
-    color: #333;
+    color: var(--color-text);
     font-size: 14px;
     box-sizing: border-box;
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* 입력창 포커스 */
 .join-form .form-input:focus {
-    border-color: #6b8afd;
-    box-shadow: 0 0 0 3px rgba(107, 138, 253, 0.12);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(100, 130, 196, 0.16);
 }
 
-/* 플레이스홀더 */
 .join-form .form-input::placeholder {
-    color: #a0a5ad;
+    color: var(--color-text-muted);
     font-size: 13px;
 }
 
-/* 아이디 입력 + 중복 체크 */
+/* 아이디 입력 + 중복 확인 */
 .id-check-group {
     display: flex;
     align-items: center;
@@ -85,13 +80,25 @@
     min-width: 0;
 }
 
-/* 중복 체크 버튼 */
+/* 아이디 중복 확인 버튼 */
 .id-check-btn {
     flex-shrink: 0;
     height: 40px;
     padding: 0 10px;
     white-space: nowrap;
     font-size: 12px;
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.id-check-btn:hover {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
 }
 
 /* 유효성 검사 메시지 */
@@ -106,7 +113,7 @@
     display: none;
 }
 
-/* 하단 버튼 */
+/* 하단 버튼 영역 */
 .join-btns {
     display: flex;
     justify-content: flex-end;
@@ -122,6 +129,24 @@
     justify-content: center;
     box-sizing: border-box;
     text-decoration: none;
+}
+
+/* 하단 제출 버튼: 실제 버튼 종류에 대응 */
+.join-btns button[type="submit"],
+.join-btns input[type="submit"],
+.join-btns .btn-primary {
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    color: #fff;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.join-btns button[type="submit"]:hover,
+.join-btns input[type="submit"]:hover,
+.join-btns .btn-primary:hover {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
 }
 
 /* 작은 화면 */

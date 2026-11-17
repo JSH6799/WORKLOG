@@ -1,216 +1,212 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.*" %>
 
-<%
-    // Controller / Servlet 에서 request.setAttribute로 넘겨주는 데이터 수신
-    String userName = (String) request.getAttribute("userName");
-    if (userName == null) userName = "山田一郎";
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WORKLOG - プロジェクトの『複雑』を、もっと『シンプル』に。</title>
+  
+  <!-- Noto Sans JP 폰트 연결 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- 외부 CSS 파일 연결 -->
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/css/index.css">
+</head>
+<body>
 
-    String projectName = (String) request.getAttribute("projectName");
-    if (projectName == null) projectName = "WORKLOG Web App Development";
-
-    Integer unreadPostCount = (Integer) request.getAttribute("unreadPostCount");
-    if (unreadPostCount == null) unreadPostCount = 2;
-
-    Integer projectProgress = (Integer) request.getAttribute("projectProgress");
-    if (projectProgress == null) projectProgress = 78;
-
-    Integer dDay = (Integer) request.getAttribute("dDay");
-    if (dDay == null) dDay = 12;
-%>
-
-<!-- 공통 헤더 (header.jsp 안에서 <html>, <head>, <link css>, <header GNB>가 이미 출력됨) -->
-<%@ include file="/include/header.jsp"%>
-
-<!-- 대시보드 전용 CSS 파일 연결 -->
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/index.css">
-
-<!-- Main Container -->
-<main class="main-container">
-    
-    <!-- Page Title & Primary Action (상단 버튼 제거 및 타이틀 영역 정돈) -->
-    <div class="page-title-section" style="align-items: center !important;">
-        <div>
-            <h1 class="page-title">ダッシュボード</h1>
-            <div class="project-selector">
-                現在選択中のプロジェクト: <strong><%= projectName %></strong>
-            </div>
-        </div>
+  <!-- 네비게이션 바 -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <span class="logo-icon">📂</span>
+        <span class="logo-text">WORKLOG</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#features" class="nav-link">機能</a>
+        <a href="#how-it-works" class="nav-link">使い方</a>
+      </nav>
+      <div class="auth-buttons">
+        <a href="<%= request.getContextPath() %>/worklogMember/login" class="btn btn-login">ログイン</a>
+        <a href="<%= request.getContextPath() %>/worklogMember/join" class="btn btn-primary">無料で始める</a>
+      </div>
     </div>
+  </header>
 
-    <!-- Summary Banners (Unread Only - Full Width) -->
-    <section class="summary-banner-single">
-        <div class="summary-card" style="width: 100%;">
-            <div class="summary-info">
-                <span class="badge badge-unread">未確認</span>
-                <span class="summary-label">未確認投稿</span>
-                <span class="summary-count"><%= unreadPostCount %>件</span>
-            </div>
-            <a href="<%= request.getContextPath() %>/member/mypage.jsp" class="btn-sm-outline">未確認投稿一覧</a>
-        </div>
-    </section>
-
-    <!-- Dashboard Grid Layout -->
-    <div class="dashboard-grid">
-        
-        <!-- Main Content Area (Left) -->
-        <div class="left-content">
-            
-            <!-- Widget: Project Progress -->
-            <div class="widget-card">
-                <div class="widget-header">
-                    <span class="widget-title">📊 プロジェクト進行状況</span>
-                    <span class="widget-action">D-<%= dDay %> 日</span>
-                </div>
-                <div class="progress-box">
-                    <div class="progress-header-info">
-                        <span>WORKLOG v1.0 Launch</span>
-                        <span><%= projectProgress %>%</span>
-                    </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" style="width: <%= projectProgress %>%;"></div>
-                    </div>
-                    <div class="progress-details">
-                        <span>フェーズ: バックエンド統合 & UI修正</span>
-                        <span>目標日: 2026/11/15</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Widget: Recent Posts -->
-            <div class="widget-card">
-                <div class="widget-header">
-                    <span class="widget-title">📝 最近のプロジェクト投稿</span>
-                    <a href="<%= request.getContextPath() %>/board/list.jsp" class="widget-action">投稿一覧へ ›</a>
-                </div>
-                <table class="recent-posts-table">
-                    <thead>
-                        <tr>
-                            <th class="col-status">状態</th>
-                            <th class="col-title">タイトル</th>
-                            <th class="col-writer">投稿者</th>
-                            <th class="col-date">日付</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><span class="badge badge-unread">未確認</span></td>
-                            <td><a href="post_detail.jsp?id=102" class="post-link unread-link">[重要] 第3回仕様変更に関する共有</a></td>
-                            <td>管理者</td>
-                            <td>2026/10/22</td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge badge-unread">未確認</span></td>
-                            <td><a href="post_detail.jsp?id=101" class="post-link">フロントエンドデザインコンポーネント追加</a></td>
-                            <td>佐藤</td>
-                            <td>2026/10/21</td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge badge-confirmed">確認済み</span></td>
-                            <td><a href="post_detail.jsp?id=100" class="post-link">10月第3週のスプリント振り返り</a></td>
-                            <td><%= userName %></td>
-                            <td>2026/10/19</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-
-        <!-- Sidebar Content Area (Right) -->
-        <div class="right-content">
-            
-            <!-- Widget: Quick Actions -->
-            <div class="widget-card">
-                <div class="widget-header">
-                    <span class="widget-title">⚡ クイックアクション</span>
-                </div>
-                <div class="quick-actions-grid" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
-				    <button class="quick-btn" onclick="location.href='<%= request.getContextPath() %>/board/write.jsp'">
-				        <span class="icon">✏️</span>
-				        <span>投稿作成</span>
-				    </button>
-				    <button class="quick-btn" onclick="location.href='file_upload.jsp'">
-				        <span class="icon">📁</span>
-				        <span>資料アップ</span>
-				    </button>
-				    <button class="quick-btn" onclick="location.href='member_invite.jsp'">
-				        <span class="icon">👥</span>
-				        <span>メンバー招待</span>
-				    </button>
-				</div>
-            </div>
-
-            <!-- Widget: Quick Memo -->
-            <div class="widget-card">
-                <div class="widget-header">
-                    <span class="widget-title">📌 クイックメモ</span>
-                    <button type="button" class="btn-sm-outline" onclick="saveMemo()" style="padding: 2px 8px; font-size: 11px;">保存</button>
-                </div>
-                <div class="memo-box">
-                    <textarea id="dashboardMemo" class="memo-textarea" placeholder="メモ" rows="4" style="width: 100%; border: 1px solid #e9ecef; border-radius: 4px; padding: 10px; box-sizing: border-box; resize: vertical; font-size: 13px; font-family: inherit;"></textarea>
-                </div>
-            </div>
-
-            <!-- Widget: Active Members -->
-            <div class="widget-card">
-                <div class="widget-header">
-                    <span class="widget-title">👥 チームメンバー (4/5)</span>
-                </div>
-                <ul class="member-list">
-                    <li class="member-item">
-                        <div class="member-info">
-                            <span class="status-dot online"></span>
-                            <span><%= userName %> (自分)</span>
-                        </div>
-                        <span class="role-text">開発</span>
-                    </li>
-                    <li class="member-item">
-                        <div class="member-info">
-                            <span class="status-dot online"></span>
-                            <span>山田二郎</span>
-                        </div>
-                        <span class="role-text">デザイン</span>
-                    </li>
-                    <li class="member-item">
-                        <div class="member-info">
-                            <span class="status-dot online"></span>
-                            <span>山田三郎</span>
-                        </div>
-                        <span class="role-text">PL</span>
-                    </li>
-                    <li class="member-item">
-                        <div class="member-info">
-                            <span class="status-dot"></span>
-                            <span>山田四郎</span>
-                        </div>
-                        <span class="role-text offline">オフライン</span>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-
+  <!-- 히어로 섹션 -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-badge">
+        <span>✨ チームの仕事を、もっとシンプルに。</span>
+      </div>
+      <h1 class="hero-title">
+        思考をすっきり整理。<br>
+        チームの作業を、もっとシンプルに。
+      </h1>
+      <p class="hero-subtitle">
+        ドキュメント、日程共有、ロードマップをひとつの場所に。<br>
+        WORKLOGは直感的に使えるノート & プロジェクト管理ワークスペースです。
+      </p>
+      <div class="hero-actions">
+        <a href="<%= request.getContextPath() %>/worklogMember/join" class="btn btn-primary btn-large">無料でWORKLOGを始める ➔</a>
+        <a href="#demo" class="btn btn-secondary btn-large">デモを見る</a>
+      </div>
     </div>
+  </section>
 
-</main>
+  <!-- 제품 인터페이스 / 뷰 전환 예시 섹션 -->
+  <section id="demo" class="demo-section">
+    <div class="container">
+      <div class="workspace-card">
+        <div class="workspace-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="workspace-title">📄 無題のデータベース / プロジェクト一覧</div>
+        </div>
 
-<script>
-    // 페이지 로드 시 로컬 스토리지에서 메모 불러오기
-    document.addEventListener("DOMContentLoaded", function() {
-        const savedMemo = localStorage.getItem("dashboard_memo_<%= userName %>");
-        if (savedMemo) {
-            document.getElementById("dashboardMemo").value = savedMemo;
-        }
-    });
+        <div class="workspace-tabs">
+          <button class="tab-btn active">📋 ボードビュー</button>
+          <button class="tab-btn">📅 カレンダー</button>
+          <button class="tab-btn">📑 リスト</button>
+        </div>
 
-    // 메모 저장 함수
-    function saveMemo() {
-        const memoContent = document.getElementById("dashboardMemo").value;
-        localStorage.setItem("dashboard_memo_<%= userName %>", memoContent);
-        alert("메모가 저장되었습니다.");
-    }
-</script>
+        <div class="workspace-content">
+          <div class="kanban-board">
+            <!-- 未着手 (To Do) -->
+            <div class="kanban-column">
+              <div class="column-header">
+                <span class="status-badge todo">未着手</span>
+                <span class="count">2</span>
+              </div>
+              <div class="kanban-card">
+                <div class="card-tag tag-blue">デザイン</div>
+                <div class="card-title">✨ LPのワイヤーフレーム作成</div>
+                <div class="card-meta">担当: 山田 / 10月28日</div>
+              </div>
+              <div class="kanban-card">
+                <div class="card-tag tag-green">企画</div>
+                <div class="card-title">📝 新機能の仕様書作成</div>
+                <div class="card-meta">担当: 鈴木 / 11月02日</div>
+              </div>
+            </div>
 
-<!-- 공통 푸터 (footer.jsp 안에서 </body> 및 </html>을 닫음) -->
-<%@ include file="/include/footer.jsp"%>
+            <!-- 進行中 (In Progress) -->
+            <div class="kanban-column">
+              <div class="column-header">
+                <span class="status-badge progress">進行中</span>
+                <span class="count">1</span>
+              </div>
+              <div class="kanban-card">
+                <div class="card-tag tag-purple">開発</div>
+                <div class="card-title">⚡ 認証APIの実装</div>
+                <div class="card-meta">担当: 佐々木 / 明日</div>
+              </div>
+            </div>
+
+            <!-- 完了 (Done) -->
+            <div class="kanban-column">
+              <div class="column-header">
+                <span class="status-badge done">完了</span>
+                <span class="count">1</span>
+              </div>
+              <div class="kanban-card opacity-muted">
+                <div class="card-tag tag-gray">開発</div>
+                <div class="card-title">✅ DBスキーマ設計</div>
+                <div class="card-meta">担当: 佐藤 / 完了</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 핵심 가치 / 기능 소개 섹션 -->
+  <section id="features" class="features-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">WORKLOGが選ばれる理由</h2>
+        <p class="section-subtitle">直感的な操作で、誰でもすぐに使いこなせます</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📑</div>
+          <h3 class="feature-title">プロジェクトの情報を、全部ここに</h3>
+          <p class="feature-desc">企画書や議事録、メモをひとつの場所にすっきり整理。チームみんなの「あれ、どこだっけ？」をなくします。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3 class="feature-title">チームの動きが、ひと目でわかる</h3>
+          <p class="feature-desc">「いま誰が何をやっているんだっけ？」を解消。進捗がリアルタイムで共有されるから、チームワークもスムーズに。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📅</div>
+          <h3 class="feature-title">面倒な日程調整を、もっとスマートに</h3>
+          <p class="feature-desc">空き時間の投票やカレンダー合わせはおまかせ。みんなのスケジュール調整にかける時間をグッと減らします。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 간단한 사용 방법 (3 Step) -->
+  <section id="how-it-works" class="steps-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">たったの3ステップでスタート</h2>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <h3 class="step-title">ワークスペースを作成</h3>
+          <p class="step-desc">メールアドレスだけで数秒で登録完了。すぐにチームを招待できます。</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <h3 class="step-title">タスクとノートを整理</h3>
+          <p class="step-desc">直感的なドラッグ＆ドロップで、アイデアやタスクをすっきりまとめます。</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <h3 class="step-title">スムーズな進行</h3>
+          <p class="step-desc">進捗を一目で把握し、プロジェクトを確実に成功へ導きます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 하단 CTA 섹션 -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="cta-title">今すぐ、新しい働き方をはじめましょう</h2>
+      <p class="cta-subtitle">クレジットカードの登録は不要です。無料で体験できます。</p>
+      <a href="<%= request.getContextPath() %>/worklogMember/join" class="btn btn-primary btn-large">無料で今すぐ始める ➔</a>
+    </div>
+  </section>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <div class="logo">
+          <span class="logo-icon">📂</span>
+          <span class="logo-text">WORKLOG</span>
+        </div>
+        <p class="copyright">© 2026 WORKLOG Inc. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">利用規約</a>
+        <a href="#">プライバシーポリシー</a>
+        <a href="#">お問い合わせ</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

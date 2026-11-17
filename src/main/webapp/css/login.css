@@ -1,15 +1,11 @@
-
-/* =========================
-   로그인 페이지 전체
-========================= */
-
+/* 로그인 페이지 */
 .login-wrap {
     width: 100%;
     max-width: 520px;
     margin: 50px auto;
     padding: 32px 36px;
     background-color: #fff;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--color-border);
     border-radius: 10px;
     box-sizing: border-box;
 }
@@ -17,7 +13,7 @@
 /* 페이지 제목 */
 .login-page-title {
     margin: 0 0 20px;
-    color: #222;
+    color: var(--color-text-heading);
     font-size: 26px;
     font-weight: 700;
     text-align: center;
@@ -30,7 +26,7 @@
     gap: 18px;
 }
 
-/* 라벨과 입력칸 나란히 배치 */
+/* 라벨과 입력창 배치 */
 .login-form .form-row {
     display: grid;
     grid-template-columns: 110px minmax(0, 1fr);
@@ -40,40 +36,37 @@
 
 /* 라벨 */
 .login-form .form-row > label {
-    color: #333;
+    color: var(--color-text);
     font-size: 14px;
     font-weight: 600;
 }
 
-/* 입력칸 */
+/* 입력창 */
 .login-form .form-input {
     width: 100%;
     height: 42px;
     padding: 0 12px;
-    border: 1px solid #d5d9df;
+    border: 1px solid var(--color-input-border);
     border-radius: 6px;
     background-color: #fff;
-    color: #333;
+    color: var(--color-text);
     font-size: 14px;
     box-sizing: border-box;
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* 입력칸 선택 시 */
 .login-form .form-input:focus {
-    border-color: #6b8afd;
-    box-shadow: 0 0 0 3px rgba(107, 138, 253, 0.12);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(100, 130, 196, 0.16);
 }
 
-/* 입력 안내 문구 */
 .login-form .form-input::placeholder {
-    color: #a0a5ad;
+    color: var(--color-text-muted);
     font-size: 13px;
 }
 
-
-/* 메시지 내용이 없으면 숨김 */
+/* 로그인 오류 메시지 */
 .login-error-msg:empty {
     visibility: hidden;
 }
@@ -86,17 +79,29 @@
 }
 
 /* 로그인 버튼 */
-.login-submit-btn {
+.login-wrap .login-submit-btn {
     width: 100%;
     min-height: 44px;
     margin-top: 4px;
     font-size: 15px;
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.login-wrap .login-submit-btn:hover {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
 }
 
 /* 회원가입 안내 */
 .login-footer-link {
     margin: 4px 0 0;
-    color: #777;
+    color: var(--color-text-muted);
     font-size: 13px;
     text-align: center;
     line-height: 1.6;
@@ -104,12 +109,13 @@
 
 .login-footer-link a {
     margin-left: 4px;
-    color: #5274df;
+    color: var(--color-primary);
     font-weight: 600;
     text-decoration: none;
 }
 
 .login-footer-link a:hover {
+    color: var(--color-primary-hover);
     text-decoration: underline;
 }
 

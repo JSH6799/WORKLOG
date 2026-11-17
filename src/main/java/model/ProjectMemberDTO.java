@@ -5,6 +5,23 @@ public class ProjectMemberDTO {
 	private String projectId;
     private String memberId;
     private String role;
+    private String participating;
+    private String invitationStatus;
+    public String getInvitationStatus() {
+		return invitationStatus;
+	}
+	public void setInvitationStatus(String invitationStatus) {
+		this.invitationStatus = invitationStatus;
+	}
+	public String getParticipating() {
+		return participating;
+		
+	}
+	public void setParticipating(String participating) {
+		this.participating = participating;
+	}
+	private String memberName;
+    private String email;
     
     
 	public String getProjectId() {
@@ -24,6 +41,18 @@ public class ProjectMemberDTO {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
     
     

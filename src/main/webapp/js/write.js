@@ -1,22 +1,40 @@
-$(function(){
-	
-	// 이미지 선택 시 미리보기
-	const defaultImg = contextPath + "/images/default_img.jpg";
-	$("#imgFile").on("change",function(){
-		const file = this.files[0];
-		if(!file) return;
-		const previewUrl = URL.createObjectURL(file);
-		$("#imgPreview").attr("src",previewUrl);
-	})
-	
-	
-	// 이미지 제거
-	$("#imgRemoveBtn").on("click", function(){
-	    $("#imgFile").val('');
-	    $("#imgPreview").attr("src", defaultImg);
-	    $("#removeImg").val("true");
-	});
-	
+
+$(function() {
+
+    // 기본 이미지 경로
+    const defaultImg = contextPath + "/images/default_img.jpg";
+
+    // 이미지 선택 시 미리보기
+    $("#imgFile").on("change", function() {
+
+        const file = this.files[0];
+
+        if (!file) return;
+
+        // 이미지 파일인지 확인
+        if (!file.type.startsWith("image/")) {
+            alert("画像ファイルを選択してください。");
+            $(this).val("");
+            $("#imgPreview").attr("src", defaultImg);
+            return;
+        }
+
+        // 선택한 이미지 미리보기
+        const previewUrl = URL.createObjectURL(file);
+        $("#imgPreview").attr("src", previewUrl);
+
+        // 기존 이미지 삭제 여부 초기화
+        $("#removeImg").val("false");
+    });
+
+    // 이미지 제거
+    $("#imgRemoveBtn").on("click", function() {
+
+        $("#imgFile").val("");
+        $("#imgPreview").attr("src", defaultImg);
+        $("#removeImg").val("true");
+    });
+
 	// 이미지 선택 시 미리보기
 	$("#imgFile").on("change", function(){
 	    const file = this.files[0];
@@ -46,13 +64,13 @@ $(function(){
 		const title = $("#title").val().trim();
 		const content = $("#content").val().trim();
 		if(title === ''){
-			alert("제목을 입력해 주세요");
+			alert("タイトルを入力してください");
 			e.preventDefault();
 			$("#title").focus();
 			return;
 		}
 		if(content == ''){
-			alert("내용을 입력해 주세요");
+			alert("内容を入力してください");
 			e.preventDefault();
 			$("#content").focus();
 			return;

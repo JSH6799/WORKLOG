@@ -224,3 +224,12 @@ h1 {
         grid-template-columns: 1fr;
     }
 }
+
+/* 공통 CSS 색상에 맞춘 팀원 추가 버튼 */
+.btn-add {
+    background-color: var(--color-primary);
+}
+
+.btn-add:hover {
+    background-color: var(--color-primary-hover);
+}

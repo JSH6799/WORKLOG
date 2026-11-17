@@ -20,8 +20,6 @@ public class BoardDeleteCommand implements Command {
 	public boolean doCommand(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		System.out.println("=== BoardDeleteCommand 실행됨 ===");
-
 		request.setCharacterEncoding("utf-8");
 		
 		HttpSession session = request.getSession();
@@ -46,7 +44,7 @@ public class BoardDeleteCommand implements Command {
 			}
 		}
 		
-		response.sendRedirect(request.getContextPath()+"/project_board/list");
+		response.sendRedirect(request.getContextPath()+"/project_board/list?projectId="+projectId);
 		return false;
 	}
 

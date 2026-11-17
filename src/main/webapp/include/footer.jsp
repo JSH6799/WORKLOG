@@ -3,8 +3,17 @@
 
 <footer class="site-footer">
 	<div class="footer-inner">
-		<p>&copy; 2026 GroupProject. All rights reserved.</p>
-		<p class="footer-sub">Servlet, JSP, Oracle 活用チームプロジェクト</p>
+	
+		<div class="footer-logo">
+			<a href="${pageContext.request.contextPath}">
+				<img src="${pageContext.request.contextPath}/images/WORKLOG_logo.png" alt="WORKLOG 로고">
+			</a>
+		</div>
+		
+		<div class="footer-content">
+			<p>&copy; 2026 WORKLOG. All rights reserved.</p>
+			<p class="footer-sub">Servlet, JSP, Oracle 活用チームプロジェクト</p>
+		</div>
 	</div>
 </footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
