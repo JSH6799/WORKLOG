@@ -96,6 +96,7 @@
 
 
                 </div>
+                </div>
 
             </c:forEach>
 
@@ -108,12 +109,12 @@
         <p>検索結果がありません。</p>
     </c:if>
 
-</div>
-
     <!-- 이전 페이지로 돌아가기 -->
     <button type="button" class="pm-search-back-btn"
             onclick="location.href='${pageContext.request.contextPath}/project/members?projectId=${projectId}'">
         メンバーリストに戻る
     </button>
+</div>
+
 
 <%@ include file="/include/footer.jsp"%>
