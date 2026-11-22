@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+#project-content .form-panel .field:first-child input[type="text"] { font-size: 15px; font-weight: 600; }
+
+#project-content .side-panel .role-legend dt { display: flex; align-items: center; gap: 8px; }
+#project-content .side-panel .role-legend dt::before {
+    content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--pc-faint);
+}
+#project-content .side-panel .role-legend > div:nth-child(1) dt::before { background: #f0b429; }
+#project-content .side-panel .role-legend > div:nth-child(2) dt::before { background: #7c5ce0; }
+#project-content .side-panel .role-legend > div:nth-child(3) dt::before { background: #9ca3af; }
+#project-content .side-panel .role-legend dd { padding-left: 16px; }
